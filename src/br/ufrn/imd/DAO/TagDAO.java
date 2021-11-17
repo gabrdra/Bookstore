@@ -4,21 +4,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import br.ufrn.imd.controller.Conection;
-import br.ufrn.imd.model.Client;
+import br.ufrn.imd.model.Tag;
 
-public class ClientDAO {
+public class TagDAO {
 	private Connection c;
 	
-	public ClientDAO() {
+	public TagDAO() {
 		this.c= new Conection().getCon();
 	}
 	
-	public void adiciona(Client cl) {
-		String sql="INSERT INTO public.client (cpf, name) VALUES (?, ?);";
+	public void adiciona(Tag ta) {
+		String sql="INSERT INTO public.tag (id, name) VALUES (?, ?);";
 		try {
 			PreparedStatement stmt=c.prepareStatement(sql);
-			stmt.setInt(1, cl.getCpf());
-			stmt.setString(2, cl.getName());
+			stmt.setInt(1, ta.getId());
+			stmt.setString(2, ta.getName());
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {

@@ -7,14 +7,14 @@ public class Book {
 	private int id;
 	private String name;
 	private String description;
-	private HashSet<Tag> tags;
+	private HashSet<Integer> tags;
 	private double price;
 	private String author;
 	
 
 	public Book() {
         super();
-        this.tags = new HashSet<Tag>();
+        this.tags = new HashSet<Integer>();
 	}
 	
 	public int getId() {
@@ -35,10 +35,10 @@ public class Book {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public HashSet<Tag> getTags() {
+	public HashSet<Integer> getTags() {
 		return tags;
 	}
-	public void setTags(HashSet<Tag> tags) {
+	public void setTags(HashSet<Integer> tags) {
 		this.tags = tags;
 	}
 	public double getPrice() {
@@ -53,8 +53,7 @@ public class Book {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	
-	
+
 	
 	
 }

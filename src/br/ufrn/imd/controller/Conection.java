@@ -3,6 +3,7 @@ package br.ufrn.imd.controller;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 
 public class Conection {
 	private String url;
@@ -39,4 +40,22 @@ public class Conection {
 		return 0;
 		
 	}
+	
+	public ResultSet execSearch(String sql) {
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			con.close();
+			return rs;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public Connection getCon() {
+		return con;
+	}
+	
+	
 }
