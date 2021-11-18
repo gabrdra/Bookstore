@@ -36,14 +36,26 @@ public class Queries {
 	public Client buscaClientNome(String nome) {
 		for (Client client : listClients) {
 			if (client.getName().equals(nome)) {
+				System.out.println("========Cliente Encontrado==========");
+				System.out.println("Nome:"+client.getName());
+				System.out.println("CPF:"+client.getCpf());
+				System.out.println("==================================");
 				return client;
 			}
 		}
 		return null;
 	}
 	
-	public Client buscaClientCpf(String cpf) {
-		
+	public Client buscaClientCpf(long cpf) {
+		for (Client client : listClients) {
+			if (client.getCpf() == cpf) {
+				System.out.println("========Cliente Encontrado==========");
+				System.out.println("Nome:"+client.getName());
+				System.out.println("CPF:"+client.getCpf());
+				System.out.println("==================================");
+				return client;
+			}
+		}
 		
 		return null;
 		
@@ -51,7 +63,6 @@ public class Queries {
 	
 	public Book buscaBookNome(String nome) {
 		for (Book book : listBooks) {
-			System.out.println(book.getName());
 			if (book.getName().equals(nome)) {
 				System.out.println("========Livro Encontrado==========");
 				System.out.println("Nome:"+book.getName());
@@ -67,22 +78,63 @@ public class Queries {
 		return null;
 	}
 	
-	public Book buscaBookAutor(String autor) {
+	public Book buscaBookAutor(String author) {
 		
+		for (Book book : listBooks) {
+			if (book.getAuthor().equals(author)) {
+				System.out.println("========Livro Encontrado==========");
+				System.out.println("Nome:"+book.getName());
+				System.out.println("Autor:"+book.getAuthor());
+				System.out.println("Descrição:"+book.getDescription());
+				System.out.println("ID:"+book.getId());
+				System.out.println("Preço:"+book.getPrice());
+				System.out.println("Tags::"+book.getTags());
+				System.out.println("==================================");
+				return book;
+			}
+		}
 		
 		return null;
 		
 	}
 	
-	public Book buscaBookId(String id) {
+	public Book buscaBookId(int id) {
 		
+		for (Book book : listBooks) {
+			if (book.getId() == id) {
+				System.out.println("========Livro Encontrado==========");
+				System.out.println("Nome:"+book.getName());
+				System.out.println("Autor:"+book.getAuthor());
+				System.out.println("Descrição:"+book.getDescription());
+				System.out.println("ID:"+book.getId());
+				System.out.println("Preço:"+book.getPrice());
+				System.out.println("Tags::"+book.getTags());
+				System.out.println("==================================");
+				return book;
+			}
+		}
 		
 		return null;
 		
 	}
 	
-	public Book buscaBookDescricao(String descricao) {
+	public Book buscaBookDescricao(String description) {
 		
+		for (Book book : listBooks) {
+			if(book.getDescription() != null) {
+				if (book.getDescription().equals(description)) {
+					System.out.println("========Livro Encontrado==========");
+					System.out.println("Nome:"+book.getName());
+					System.out.println("Autor:"+book.getAuthor());
+					System.out.println("Descrição:"+book.getDescription());
+					System.out.println("ID:"+book.getId());
+					System.out.println("Preço:"+book.getPrice());
+					System.out.println("Tags::"+book.getTags());
+					System.out.println("==================================");
+					return book;
+				}
+			}
+		}
 		
 		return null;
 		

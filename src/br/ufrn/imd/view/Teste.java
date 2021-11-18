@@ -53,6 +53,17 @@ public class Teste {
 //		
 		new Queries().buscaBookNome("Foundation");
 		
+		new Queries().buscaBookDescricao("Um livro qualquer");
+		
+		new Queries().buscaBookId(3);
+		
+		new Queries().buscaClientCpf(316341654);
+		
+		new Queries().buscaClientNome("Eduardo");
+		
+		
+		
+		
 	}
 
 }
