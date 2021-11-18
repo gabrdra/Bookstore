@@ -53,8 +53,6 @@ public class Teste {
 //		
 		new Queries().buscaBookNome("Foundation");
 		
-		
-		
 	}
 
 }
