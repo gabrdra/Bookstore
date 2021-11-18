@@ -2,6 +2,9 @@ package br.ufrn.imd.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.ufrn.imd.controller.Conection;
 import br.ufrn.imd.model.Book;
@@ -29,4 +32,39 @@ public class BookDAO {
 			e.printStackTrace();
 		}
 	}
+	
+public List<Book> listBooks() {
+		
+		List<Book> listBooks = new ArrayList<Book>();
+		
+		try {
+			String sql = "SELECT * FROM public.book";
+			
+			PreparedStatement stmt = c.prepareStatement(sql);
+			
+			ResultSet resultSet = stmt.executeQuery();
+			
+			while(resultSet.next()) {
+				Book book = new Book();
+				
+				book.setId(resultSet.getInt("id"));
+				book.setName(resultSet.getString("name"));
+				book.setAuthor(resultSet.getString("author"));
+				book.setDescription(resultSet.getString("description"));
+				book.setPrice(resultSet.getDouble("price"));
+				//book.setTags(resultSet.getInt("tags"));
+				
+				listBooks.add(book);
+			}
+			stmt.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listBooks;
+	}
+	
+	
 }

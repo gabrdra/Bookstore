@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 public class Client {
 
-	private int cpf;
+	private long cpf;
 	private String name;
 	private HashSet<Transaction> transactions;
 
@@ -17,11 +17,11 @@ public class Client {
 	}
 	
 	
-	public int getCpf() {
+	public long getCpf() {
 		return cpf;
 	}
-	public void setCpf(int cpf) {
-		this.cpf = cpf;
+	public void setCpf(long l) {
+		this.cpf = l;
 	}
 	public String getName() {
 		return name;

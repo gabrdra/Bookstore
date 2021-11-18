@@ -1,11 +1,12 @@
 package br.ufrn.imd.view;
 
 import java.util.HashSet;
-
+import java.util.List;
 
 import br.ufrn.imd.DAO.BookDAO;
 import br.ufrn.imd.DAO.ClientDAO;
 import br.ufrn.imd.DAO.TagDAO;
+import br.ufrn.imd.controller.Queries;
 import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Client;
 import br.ufrn.imd.model.Tag;
@@ -50,7 +51,10 @@ public class Teste {
 //		client.setCpf(316341654);
 //		client.setName("TesteVideo");
 //		
-//		new ClientDAO().adiciona(client);
+		new Queries().buscaBookNome("Foundation");
+		
+		
+		
 	}
 
 }
