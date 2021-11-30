@@ -10,6 +10,7 @@ import br.ufrn.imd.controller.Queries;
 import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Client;
 import br.ufrn.imd.model.Tag;
+import br.ufrn.imd.recommendation.Recommendation;
 
 public class Teste {
 
@@ -61,8 +62,10 @@ public class Teste {
 		
 		//new Queries().buscaClientNome("Eduardo");
 		
-		new Queries().getTransactionsByClient(1);
-		
+		System.out.println(new Queries().getTransactionsByClient(1));
+		Recommendation recommendation = new Recommendation();
+		//recommendation.getRecommendationsForClient(1, 4);
+		System.out.println(recommendation.getRecommendationsForClient(1, 7));
 		
 	}
 

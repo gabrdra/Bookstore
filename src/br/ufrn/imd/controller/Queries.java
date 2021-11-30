@@ -146,7 +146,7 @@ public class Queries {
 	public ArrayList<Transaction> getTransactionsByClient(int Client){
 		TransactionDAO transactionDAO = new TransactionDAO();
 		ArrayList<Transaction> transactions = transactionDAO.getTransactionsByClient(Client);
-		for(Transaction t: transactions) {
+		/*for(Transaction t: transactions) {
 			System.out.println("========Transação Encontrada==========");
 			System.out.println("Id:"+t.getId());
 			System.out.println("Cliente: "+t.getClient());
@@ -154,7 +154,7 @@ public class Queries {
 				System.out.println("Livro: " + b);
 			}
 			System.out.println("==================================");
-		}
+		}*/
 		return transactions;
 	}
 }

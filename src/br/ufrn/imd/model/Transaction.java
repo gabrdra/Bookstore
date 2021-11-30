@@ -40,6 +40,10 @@ public class Transaction {
 	public void setBooks(ArrayList<Book> books) {
 		this.books = books;
 	}
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "id: "+id+ " client: " + client + " books: "+ books;
+	}
 	
 }
