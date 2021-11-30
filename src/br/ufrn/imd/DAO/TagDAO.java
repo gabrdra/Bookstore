@@ -27,7 +27,7 @@ public class TagDAO {
 		}
 	}
 	
-	public Tag returnTagById(int id) {
+	public Tag getTagById(int id) {
 		try {
 			String tagSql = "SELECT * FROM public.tag WHERE id="+id;
 			PreparedStatement prepstmt = c.prepareStatement(tagSql);

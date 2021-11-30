@@ -64,7 +64,7 @@ public List<Book> listBooks() {
 				//book.setTags((ArrayList<Integer>) Arrays.stream(tempArray).collect(Collectors.toList()));
 				ArrayList<Tag> localTags = new ArrayList<Tag>();
 				for(Integer i:tempArray) {
-					Tag tag = tagDAO.returnTagById(i);
+					Tag tag = tagDAO.getTagById(i);
 					if(tag != null) {
 						localTags.add(tag);
 					}
