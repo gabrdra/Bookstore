@@ -7,14 +7,14 @@ public class Book {
 	private int id;
 	private String name;
 	private String description;
-	private ArrayList<Integer> tags;
+	private ArrayList<Tag> tags;
 	private double price;
 	private String author;
 	
 
 	public Book() {
         super();
-        this.tags = new ArrayList<Integer>();
+        this.tags = new ArrayList<Tag>();
 	}
 	
 	public int getId() {
@@ -35,10 +35,10 @@ public class Book {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public ArrayList<Integer> getTags() {
+	public ArrayList<Tag> getTags() {
 		return tags;
 	}
-	public void setTags(ArrayList<Integer> tags) {
+	public void setTags(ArrayList<Tag> tags) {
 		this.tags = tags;
 	}
 	public double getPrice() {

@@ -1,16 +1,16 @@
 package br.ufrn.imd.model;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Transaction {
 	private int id;
 	private double value;
-	private HashSet<Book> books;
+	private ArrayList<Book> books;
 	
 	
 	public Transaction() {
 		super();
-		this.books = new HashSet<Book>();
+		this.books = new ArrayList<Book>();
 	}
 	
 	
@@ -26,10 +26,10 @@ public class Transaction {
 	public void setValue(double value) {
 		this.value = value;
 	}
-	public HashSet<Book> getBooks() {
+	public ArrayList<Book> getBooks() {
 		return books;
 	}
-	public void setBooks(HashSet<Book> books) {
+	public void setBooks(ArrayList<Book> books) {
 		this.books = books;
 	}
 	

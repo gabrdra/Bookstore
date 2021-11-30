@@ -14,6 +14,7 @@ import org.postgresql.jdbc.PgArray;
 
 import br.ufrn.imd.controller.Conection;
 import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.Tag;
 
 public class BookDAO {
 	private Connection c;
@@ -44,6 +45,7 @@ public List<Book> listBooks() {
 		List<Book> listBooks = new ArrayList<Book>();
 		
 		try {
+			TagDAO tagDAO = new TagDAO();
 			String sql = "SELECT * FROM public.book";
 			
 			PreparedStatement stmt = c.prepareStatement(sql);
@@ -59,13 +61,15 @@ public List<Book> listBooks() {
 				book.setDescription(resultSet.getString("description"));
 				book.setPrice(resultSet.getDouble("price"));
 				Integer[] tempArray = (Integer[])resultSet.getArray("tags").getArray();
-				book.setTags((ArrayList<Integer>) Arrays.stream(tempArray).collect(Collectors.toList()));
-				/*Integer[] tempArrayAsInts = (Integer[])tempArray.getArray();
-				ArrayList<Integer> tempArrayList = new ArrayList<Integer>();
-				for(Integer i:tempArrayAsInts) {
-					tempArrayList.add(i);
+				//book.setTags((ArrayList<Integer>) Arrays.stream(tempArray).collect(Collectors.toList()));
+				ArrayList<Tag> localTags = new ArrayList<Tag>();
+				for(Integer i:tempArray) {
+					Tag tag = tagDAO.returnTagById(i);
+					if(tag != null) {
+						localTags.add(tag);
+					}
 				}
-				book.setTags(tempArrayList);*/
+				book.setTags(localTags);
 				listBooks.add(book);
 			}
 			stmt.close();

@@ -2,6 +2,7 @@ package br.ufrn.imd.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import br.ufrn.imd.controller.Conection;
 import br.ufrn.imd.model.Tag;
@@ -24,5 +25,25 @@ public class TagDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Tag returnTagById(int id) {
+		try {
+			String tagSql = "SELECT * FROM public.tag WHERE id="+id;
+			PreparedStatement prepstmt = c.prepareStatement(tagSql);
+			ResultSet result = prepstmt.executeQuery();
+			Tag tag = new Tag();
+			while(result.next()) {
+				tag.setId(result.getInt("id"));
+				tag.setName(result.getString("name"));
+			}
+			return tag;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		
 	}
 }
