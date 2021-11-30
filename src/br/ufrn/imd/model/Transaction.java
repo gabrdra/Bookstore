@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Transaction {
 	private int id;
 	private double value;
+	private int client;
 	private ArrayList<Book> books;
 	
 	
@@ -25,6 +26,13 @@ public class Transaction {
 	}
 	public void setValue(double value) {
 		this.value = value;
+	}
+	
+	public void setClient(int client) {
+		this.client = client;
+	}
+	public int getClient() {
+		return this.client;
 	}
 	public ArrayList<Book> getBooks() {
 		return books;
