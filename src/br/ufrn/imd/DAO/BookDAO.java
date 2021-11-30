@@ -1,10 +1,16 @@
 package br.ufrn.imd.DAO;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.postgresql.jdbc.PgArray;
 
 import br.ufrn.imd.controller.Conection;
 import br.ufrn.imd.model.Book;
@@ -52,8 +58,14 @@ public List<Book> listBooks() {
 				book.setAuthor(resultSet.getString("author"));
 				book.setDescription(resultSet.getString("description"));
 				book.setPrice(resultSet.getDouble("price"));
-				//book.setTags(resultSet.getInt("tags"));
-				
+				Integer[] tempArray = (Integer[])resultSet.getArray("tags").getArray();
+				book.setTags((ArrayList<Integer>) Arrays.stream(tempArray).collect(Collectors.toList()));
+				/*Integer[] tempArrayAsInts = (Integer[])tempArray.getArray();
+				ArrayList<Integer> tempArrayList = new ArrayList<Integer>();
+				for(Integer i:tempArrayAsInts) {
+					tempArrayList.add(i);
+				}
+				book.setTags(tempArrayList);*/
 				listBooks.add(book);
 			}
 			stmt.close();

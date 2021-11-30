@@ -12,9 +12,9 @@ public class Conection {
 	private Connection con;
 	
 	public Conection(){
-		url="jdbc:postgresql://localhost:5432/postgres";
-		user = "eduardo";
-		password= "123";
+		url="jdbc:postgresql://localhost:5432/Bookstore";
+		user = "postgres";
+		password= "root";
 		
 		try {
 			

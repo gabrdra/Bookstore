@@ -1,20 +1,20 @@
 package br.ufrn.imd.model;
 
-import java.util.HashSet;
-
+//import java.util.HashSet;
+import java.util.ArrayList;
 public class Book {
 
 	private int id;
 	private String name;
 	private String description;
-	private HashSet<Integer> tags;
+	private ArrayList<Integer> tags;
 	private double price;
 	private String author;
 	
 
 	public Book() {
         super();
-        this.tags = new HashSet<Integer>();
+        this.tags = new ArrayList<Integer>();
 	}
 	
 	public int getId() {
@@ -35,10 +35,10 @@ public class Book {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public HashSet<Integer> getTags() {
+	public ArrayList<Integer> getTags() {
 		return tags;
 	}
-	public void setTags(HashSet<Integer> tags) {
+	public void setTags(ArrayList<Integer> tags) {
 		this.tags = tags;
 	}
 	public double getPrice() {
