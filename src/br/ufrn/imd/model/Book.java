@@ -53,10 +53,17 @@ public class Book {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Book) {
+			return this.id == ((Book)obj).id;
+		}
+		return super.equals(obj);
+	}
 	@Override
 	public String toString() {
-		return "id: "+id+" name: "+name+" description: "+description+" tags: "+tags+" price: "+price+" author: "+author;
+		return "id: "+id+" name: "+name;//+" description: "+description+" tags: "+tags+" price: "+price+" author: "+author;
 	}
 	
 }
