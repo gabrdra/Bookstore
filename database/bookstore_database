@@ -2,10 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.9 (Ubuntu 12.9-0ubuntu0.20.04.1)
--- Dumped by pg_dump version 12.9 (Ubuntu 12.9-0ubuntu0.20.04.1)
+-- Dumped from database version 12.9
+-- Dumped by pg_dump version 12.9
 
--- Started on 2021-11-17 00:19:08 CET
+-- Started on 2021-11-30 10:01:46
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,7 +23,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 203 (class 1259 OID 16746)
+-- TOC entry 202 (class 1259 OID 16394)
 -- Name: book; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -40,7 +40,7 @@ CREATE TABLE public.book (
 ALTER TABLE public.book OWNER TO postgres;
 
 --
--- TOC entry 202 (class 1259 OID 16742)
+-- TOC entry 203 (class 1259 OID 16400)
 -- Name: book_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -56,8 +56,8 @@ CREATE SEQUENCE public.book_id_seq
 ALTER TABLE public.book_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3002 (class 0 OID 0)
--- Dependencies: 202
+-- TOC entry 2860 (class 0 OID 0)
+-- Dependencies: 203
 -- Name: book_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -65,20 +65,36 @@ ALTER SEQUENCE public.book_id_seq OWNED BY public.book.id;
 
 
 --
--- TOC entry 204 (class 1259 OID 16758)
+-- TOC entry 204 (class 1259 OID 16402)
 -- Name: client; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.client (
-    cpf bigint NOT NULL,
-    name text NOT NULL
+    id integer NOT NULL,
+    name text NOT NULL,
+    cpf text
 );
 
 
 ALTER TABLE public.client OWNER TO postgres;
 
 --
--- TOC entry 208 (class 1259 OID 16774)
+-- TOC entry 209 (class 1259 OID 16481)
+-- Name: client_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.client ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.client_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 205 (class 1259 OID 16408)
 -- Name: tag; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -91,7 +107,7 @@ CREATE TABLE public.tag (
 ALTER TABLE public.tag OWNER TO postgres;
 
 --
--- TOC entry 207 (class 1259 OID 16772)
+-- TOC entry 206 (class 1259 OID 16414)
 -- Name: tag_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -107,8 +123,8 @@ CREATE SEQUENCE public.tag_id_seq
 ALTER TABLE public.tag_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3003 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 2861 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: tag_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -116,13 +132,12 @@ ALTER SEQUENCE public.tag_id_seq OWNED BY public.tag.id;
 
 
 --
--- TOC entry 206 (class 1259 OID 16766)
+-- TOC entry 207 (class 1259 OID 16416)
 -- Name: transaction; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.transaction (
     id integer NOT NULL,
-    totalprice real NOT NULL,
     client integer NOT NULL,
     books integer[] NOT NULL
 );
@@ -131,7 +146,7 @@ CREATE TABLE public.transaction (
 ALTER TABLE public.transaction OWNER TO postgres;
 
 --
--- TOC entry 205 (class 1259 OID 16764)
+-- TOC entry 208 (class 1259 OID 16422)
 -- Name: transaction_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -147,8 +162,8 @@ CREATE SEQUENCE public.transaction_id_seq
 ALTER TABLE public.transaction_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3004 (class 0 OID 0)
--- Dependencies: 205
+-- TOC entry 2862 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: transaction_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -156,7 +171,7 @@ ALTER SEQUENCE public.transaction_id_seq OWNED BY public.transaction.id;
 
 
 --
--- TOC entry 2852 (class 2604 OID 16749)
+-- TOC entry 2709 (class 2604 OID 16424)
 -- Name: book id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -164,7 +179,7 @@ ALTER TABLE ONLY public.book ALTER COLUMN id SET DEFAULT nextval('public.book_id
 
 
 --
--- TOC entry 2854 (class 2604 OID 16777)
+-- TOC entry 2710 (class 2604 OID 16425)
 -- Name: tag id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -172,7 +187,7 @@ ALTER TABLE ONLY public.tag ALTER COLUMN id SET DEFAULT nextval('public.tag_id_s
 
 
 --
--- TOC entry 2853 (class 2604 OID 16769)
+-- TOC entry 2711 (class 2604 OID 16426)
 -- Name: transaction id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -180,32 +195,37 @@ ALTER TABLE ONLY public.transaction ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 2991 (class 0 OID 16746)
--- Dependencies: 203
+-- TOC entry 2847 (class 0 OID 16394)
+-- Dependencies: 202
 -- Data for Name: book; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO public.book (id, description, price, author, name, tags) VALUES (1, NULL, 30.5, 'Isaac Asimov', 'Foundation', '{1,10,7,3,11}');
 INSERT INTO public.book (id, description, price, author, name, tags) VALUES (2, NULL, 21.6, 'Becky Chambers', 'The Long Way to a Small, Angry Planet', '{1,10,7,3,11}');
 INSERT INTO public.book (id, description, price, author, name, tags) VALUES (3, NULL, 40.5, 'Isaac Asimov', 'I, Robot', '{1,5,7,10,11}');
-INSERT INTO public.book (id, description, price, author, name, tags) VALUES (4, NULL, 25.78, 'Machado de Assis', 'Memórias Póstumas de Brás Cubas', '{6,8,11}');
 INSERT INTO public.book (id, description, price, author, name, tags) VALUES (5, NULL, 30, 'João Andrade', 'Por sobre as Cabeças', '{12,8}');
+INSERT INTO public.book (id, description, price, author, name, tags) VALUES (4, NULL, 25.78, 'Machado de Assis', 'Memórias Póstumas de Brás Cubas', '{6,8,11,3}');
+INSERT INTO public.book (id, description, price, author, name, tags) VALUES (6, NULL, 50, 'Alan Moore', 'Watchmen', '{13,7,11,3}');
+INSERT INTO public.book (id, description, price, author, name, tags) VALUES (7, NULL, 24, 'Andy Weir
+', 'Project Hail Mary', '{1,10,11,7,3}');
+INSERT INTO public.book (id, description, price, author, name, tags) VALUES (8, NULL, 38.5, 'Neil Gaiman', 'Norse Mythology', '{2,5,7,11,3}');
+INSERT INTO public.book (id, description, price, author, name, tags) VALUES (9, NULL, 37, 'Becky Chambers', 'To Be Taught, If Fortunate', '{1,4,7,10}');
 
 
 --
--- TOC entry 2992 (class 0 OID 16758)
+-- TOC entry 2849 (class 0 OID 16402)
 -- Dependencies: 204
 -- Data for Name: client; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.client (cpf, name) VALUES (12345678910, 'Gabriel');
-INSERT INTO public.client (cpf, name) VALUES (23456789012, 'Eduardo');
-INSERT INTO public.client (cpf, name) VALUES (34567890123, 'Letícia');
+INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (1, 'Gabriel', '123');
+INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (2, 'Eduardo', '456');
+INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (3, 'Letícia', '789');
 
 
 --
--- TOC entry 2996 (class 0 OID 16774)
--- Dependencies: 208
+-- TOC entry 2850 (class 0 OID 16408)
+-- Dependencies: 205
 -- Data for Name: tag; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -221,45 +241,57 @@ INSERT INTO public.tag (id, name) VALUES (9, 'viagem');
 INSERT INTO public.tag (id, name) VALUES (10, 'espaço');
 INSERT INTO public.tag (id, name) VALUES (11, 'Ficção');
 INSERT INTO public.tag (id, name) VALUES (12, 'Poesia');
+INSERT INTO public.tag (id, name) VALUES (13, 'Quadrinho');
 
 
 --
--- TOC entry 2994 (class 0 OID 16766)
--- Dependencies: 206
+-- TOC entry 2852 (class 0 OID 16416)
+-- Dependencies: 207
 -- Data for Name: transaction; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.transaction (id, client, books) VALUES (5, 1, '{1,2}');
+INSERT INTO public.transaction (id, client, books) VALUES (6, 1, '{4}');
 
 
 --
--- TOC entry 3005 (class 0 OID 0)
--- Dependencies: 202
+-- TOC entry 2863 (class 0 OID 0)
+-- Dependencies: 203
 -- Name: book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.book_id_seq', 5, true);
+SELECT pg_catalog.setval('public.book_id_seq', 9, true);
 
 
 --
--- TOC entry 3006 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 2864 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: client_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.client_id_seq', 3, true);
+
+
+--
+-- TOC entry 2865 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: tag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tag_id_seq', 12, true);
+SELECT pg_catalog.setval('public.tag_id_seq', 13, true);
 
 
 --
--- TOC entry 3007 (class 0 OID 0)
--- Dependencies: 205
+-- TOC entry 2866 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.transaction_id_seq', 1, false);
+SELECT pg_catalog.setval('public.transaction_id_seq', 6, true);
 
 
 --
--- TOC entry 2856 (class 2606 OID 16755)
+-- TOC entry 2713 (class 2606 OID 16428)
 -- Name: book book_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -268,16 +300,16 @@ ALTER TABLE ONLY public.book
 
 
 --
--- TOC entry 2858 (class 2606 OID 16763)
+-- TOC entry 2715 (class 2606 OID 16467)
 -- Name: client client_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.client
-    ADD CONSTRAINT client_pk PRIMARY KEY (cpf);
+    ADD CONSTRAINT client_pk PRIMARY KEY (id);
 
 
 --
--- TOC entry 2862 (class 2606 OID 16782)
+-- TOC entry 2717 (class 2606 OID 16432)
 -- Name: tag tag_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -286,7 +318,7 @@ ALTER TABLE ONLY public.tag
 
 
 --
--- TOC entry 2860 (class 2606 OID 16771)
+-- TOC entry 2719 (class 2606 OID 16434)
 -- Name: transaction transaction_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -295,15 +327,15 @@ ALTER TABLE ONLY public.transaction
 
 
 --
--- TOC entry 2863 (class 2606 OID 16783)
+-- TOC entry 2720 (class 2606 OID 16468)
 -- Name: transaction transaction_fk0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.transaction
-    ADD CONSTRAINT transaction_fk0 FOREIGN KEY (client) REFERENCES public.client(cpf);
+    ADD CONSTRAINT transaction_fk0 FOREIGN KEY (client) REFERENCES public.client(id);
 
 
--- Completed on 2021-11-17 00:19:09 CET
+-- Completed on 2021-11-30 10:01:46
 
 --
 -- PostgreSQL database dump complete
