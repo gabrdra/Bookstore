@@ -37,6 +37,7 @@ public class TagDAO {
 				tag.setId(result.getInt("id"));
 				tag.setName(result.getString("name"));
 			}
+			prepstmt.close();
 			return tag;
 		}
 		catch (Exception e) {

@@ -51,17 +51,17 @@ public class Teste {
 //		client.setCpf(316341654);
 //		client.setName("TesteVideo");
 //		
-		new Queries().buscaBookNome("Foundation");
+		//new Queries().buscaBookNome("Foundation");
 		
-		new Queries().buscaBookDescricao("Um livro qualquer");
+		//new Queries().buscaBookDescricao("Um livro qualquer");
 		
-		new Queries().buscaBookId(3);
+		//new Queries().buscaBookId(3);
 		
-		new Queries().buscaClientCpf(316341654);
+		//new Queries().buscaClientCpf(316341654);
 		
-		new Queries().buscaClientNome("Eduardo");
+		//new Queries().buscaClientNome("Eduardo");
 		
-		
+		new Queries().getTransactionsByClient(1);
 		
 		
 	}

@@ -81,6 +81,36 @@ public List<Book> listBooks() {
 		
 		return listBooks;
 	}
-	
+	public Book getBookById(int id) {
+		try {
+			TagDAO tagDAO = new TagDAO();
+			String bookSql = "SELECT * FROM public.book WHERE id="+id;
+			PreparedStatement prepstmt = c.prepareStatement(bookSql);
+			ResultSet result = prepstmt.executeQuery();
+			Book book = new Book();
+			while(result.next()) {
+				book.setId(result.getInt("id"));
+				book.setName(result.getString("name"));
+				book.setPrice(result.getDouble("price"));
+				book.setAuthor(result.getString("author"));
+				book.setDescription(result.getString("description"));
+				Integer[] tempArray = (Integer[])result.getArray("tags").getArray();
+				ArrayList<Tag> localTags = new ArrayList<Tag>();
+				for(Integer i:tempArray) {
+					Tag tag = tagDAO.getTagById(i);
+					if(tag != null) {
+						localTags.add(tag);
+					}
+				}
+				book.setTags(localTags);
+			}
+			prepstmt.close();
+			return book;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 }

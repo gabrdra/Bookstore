@@ -1,11 +1,14 @@
 package br.ufrn.imd.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrn.imd.DAO.BookDAO;
 import br.ufrn.imd.DAO.ClientDAO;
+import br.ufrn.imd.DAO.TransactionDAO;
 import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Client;
+import br.ufrn.imd.model.Transaction;
 
 public class Queries {
 	
@@ -140,5 +143,18 @@ public class Queries {
 		
 	}
 	
-	
+	public ArrayList<Transaction> getTransactionsByClient(int Client){
+		TransactionDAO transactionDAO = new TransactionDAO();
+		ArrayList<Transaction> transactions = transactionDAO.getTransactionsByClient(Client);
+		for(Transaction t: transactions) {
+			System.out.println("========Transação Encontrada==========");
+			System.out.println("Id:"+t.getId());
+			System.out.println("Cliente: "+t.getClient());
+			for(Book b: t.getBooks()) {
+				System.out.println("Livro: " + b);
+			}
+			System.out.println("==================================");
+		}
+		return transactions;
+	}
 }

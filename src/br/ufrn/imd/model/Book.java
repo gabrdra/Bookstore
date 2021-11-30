@@ -54,6 +54,9 @@ public class Book {
 		this.author = author;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "id: "+id+" name: "+name+" description: "+description+" tags: "+tags+" price: "+price+" author: "+author;
+	}
 	
 }
