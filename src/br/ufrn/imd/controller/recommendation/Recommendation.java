@@ -1,19 +1,22 @@
-package br.ufrn.imd.recommendation;
+package br.ufrn.imd.controller.recommendation;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
-import br.ufrn.imd.controller.Queries;
+import br.ufrn.imd.controller.data.BookDAOJDBC;
+import br.ufrn.imd.controller.data.TransactionDAOJDBC;
 import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Tag;
 import br.ufrn.imd.model.Transaction;
+import br.ufrn.imd.model.recommendation.WeightBook;
+import br.ufrn.imd.model.recommendation.WeightTag;
 
 public class Recommendation {
 	
 	public ArrayList<Book> getRecommendationsForClient(int client, int recommendationAmount){
-		Queries queries = new Queries();
-		ArrayList<Transaction> clientPreviousTransactions = queries.getTransactionsByClient(client);
+		TransactionDAOJDBC transactions = new TransactionDAOJDBC();
+		ArrayList<Transaction> clientPreviousTransactions = transactions.getTransactionsByClient(client);
 		ArrayList<Book> previouslyBoughtBooks = new ArrayList<Book>();
 		//Get every instance of a book
 		for(Transaction transaction: clientPreviousTransactions) {
@@ -46,7 +49,8 @@ public class Recommendation {
 				weightTags.add(new WeightTag(tag)); //Creates a new weight tag with a weight of 1
 			}
 		}
-		ArrayList<Book> books = (ArrayList<Book>) queries.getListBooks(); //Get all books
+
+		ArrayList<Book> books = new BookDAOJDBC().listBooks(); //Get all books
 		//Creates a priority queue that has the head as the one with the biggest priority
 		PriorityQueue<WeightBook> weightBooks = new PriorityQueue<WeightBook>(Collections.reverseOrder()); 
 		//Populate the weightBooks

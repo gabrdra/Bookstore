@@ -1,4 +1,4 @@
-package br.ufrn.imd.recommendation;
+package br.ufrn.imd.model.recommendation;
 
 import br.ufrn.imd.model.Book;
 

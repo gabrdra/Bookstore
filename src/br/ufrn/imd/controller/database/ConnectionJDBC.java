@@ -1,20 +1,20 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.database;
 
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 
-public class Conection {
+public class ConnectionJDBC {
 	private String url;
 	private String user;
 	private String password;
 	private Connection con;
 	
-	public Conection(){
+	public ConnectionJDBC(){
 		url="jdbc:postgresql://localhost:5432/Bookstore";
-		user = "postgres";
-		password= "root";
+		user = "eduardo";
+		password= "123";
 		
 		try {
 			

@@ -40,6 +40,14 @@ public class Transaction {
 	public void setBooks(ArrayList<Book> books) {
 		this.books = books;
 	}
+	
+	public ArrayList<Integer> getBooksId() {
+		ArrayList<Integer> tempArray = new ArrayList<Integer>();
+		for (Book book : books) {
+			tempArray.add(book.getId());
+		}
+		return tempArray;
+	}
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

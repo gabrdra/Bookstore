@@ -1,16 +1,9 @@
 package br.ufrn.imd.view;
 
-import java.util.HashSet;
-import java.util.List;
 
-import br.ufrn.imd.DAO.BookDAO;
-import br.ufrn.imd.DAO.ClientDAO;
-import br.ufrn.imd.DAO.TagDAO;
-import br.ufrn.imd.controller.Queries;
-import br.ufrn.imd.model.Book;
-import br.ufrn.imd.model.Client;
-import br.ufrn.imd.model.Tag;
-import br.ufrn.imd.recommendation.Recommendation;
+import br.ufrn.imd.controller.data.TransactionDAOJDBC;
+import br.ufrn.imd.controller.recommendation.Recommendation;
+
 
 public class Teste {
 
@@ -29,13 +22,17 @@ public class Teste {
 //		}
 //		
 //		Book book = new Book();
-//		book.setId(31);
-//		book.setAuthor("TesteVideo");
+//		book.setId(33);
+//		book.setAuthor("Teste3");
 //		book.setDescription("Um livro qualquer");
 //		book.setName("TesteVideo teste");
-//		HashSet<Integer> a =  new HashSet<Integer>();
-//		a.add(1);
-//		a.add(2);
+//		ArrayList<Tag> a =  new ArrayList<Tag>();
+//		Tag tag1 = new Tag();
+//		tag1.setId(25);
+//		Tag tag2 = new Tag();
+//		tag2.setId(32);
+//		a.add(tag1);
+//		a.add(tag2);
 //		book.setTags(a);
 //		book.setPrice(3.5);
 //		
@@ -62,7 +59,7 @@ public class Teste {
 		
 		//new Queries().buscaClientNome("Eduardo");
 		
-		System.out.println(new Queries().getTransactionsByClient(1));
+		System.out.println(new TransactionDAOJDBC().getTransactionsByClient(1));
 		Recommendation recommendation = new Recommendation();
 		//recommendation.getRecommendationsForClient(1, 4);
 		System.out.println(recommendation.getRecommendationsForClient(1, 7));

@@ -5,6 +5,9 @@ public class Tag {
 	private int id;
 	private String name;
 	
+	public Tag() {
+		super();
+	}
 	
 	public int getId() {
 		return id;

@@ -1,27 +1,32 @@
 package br.ufrn.imd.model;
 
-import java.util.HashSet;
 
 public class Client {
 
-	private long cpf;
+	private int id;
+	private String cpf;
 	private String name;
-	private HashSet<Transaction> transactions;
 
 	
 	
 	public Client() {
 		super();
-		
-		this.transactions = new HashSet<Transaction>();
 	}
+
 	
-	
-	public long getCpf() {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getCpf() {
 		return cpf;
 	}
-	public void setCpf(long l) {
-		this.cpf = l;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	public String getName() {
 		return name;
@@ -29,13 +34,5 @@ public class Client {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public HashSet<Transaction> getTransactions() {
-		return transactions;
-	}
-	public void setTransactions(HashSet<Transaction> transactions) {
-		this.transactions = transactions;
-	}
-	
-	
 	
 }

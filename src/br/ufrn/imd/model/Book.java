@@ -2,6 +2,7 @@ package br.ufrn.imd.model;
 
 //import java.util.HashSet;
 import java.util.ArrayList;
+
 public class Book {
 
 	private int id;
@@ -52,6 +53,14 @@ public class Book {
 	}
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+	
+	public ArrayList<Integer> getTagsId() {
+		ArrayList<Integer> tempArray = new ArrayList<Integer>();
+		for (Tag tag : tags) {
+			tempArray.add(tag.getId());
+		}
+		return tempArray;
 	}
 	
 	@Override
