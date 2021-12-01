@@ -1,11 +1,11 @@
-package br.ufrn.imd.controller.recommendation;
+package br.ufrn.imd.business.recommendation;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
-import br.ufrn.imd.controller.data.BookDAOJDBC;
-import br.ufrn.imd.controller.data.TransactionDAOJDBC;
+import br.ufrn.imd.data.BookDAOJDBC;
+import br.ufrn.imd.data.TransactionDAOJDBC;
 import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Tag;
 import br.ufrn.imd.model.Transaction;

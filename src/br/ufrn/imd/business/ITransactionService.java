@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller.business;
+package br.ufrn.imd.business;
 
 public interface ITransactionService {
 

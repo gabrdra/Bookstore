@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller.database;
+package br.ufrn.imd.data.connection;
 
 import java.sql.Statement;
 import java.sql.Connection;

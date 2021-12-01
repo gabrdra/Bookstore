@@ -1,8 +1,8 @@
 package br.ufrn.imd.view;
 
 
-import br.ufrn.imd.controller.data.TransactionDAOJDBC;
-import br.ufrn.imd.controller.recommendation.Recommendation;
+import br.ufrn.imd.business.recommendation.Recommendation;
+import br.ufrn.imd.data.TransactionDAOJDBC;
 
 
 public class Teste {

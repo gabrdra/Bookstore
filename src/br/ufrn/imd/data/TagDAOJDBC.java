@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller.data;
+package br.ufrn.imd.data;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufrn.imd.controller.database.ConnectionJDBC;
+import br.ufrn.imd.data.connection.ConnectionJDBC;
 import br.ufrn.imd.model.Tag;
 
 

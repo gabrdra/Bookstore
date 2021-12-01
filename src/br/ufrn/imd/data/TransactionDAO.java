@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller.data;
+package br.ufrn.imd.data;
 
 import java.util.ArrayList;
 import java.util.List;
