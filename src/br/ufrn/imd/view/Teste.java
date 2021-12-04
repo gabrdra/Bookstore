@@ -1,13 +1,15 @@
 package br.ufrn.imd.view;
 
 
-import br.ufrn.imd.business.recommendation.Recommendation;
-import br.ufrn.imd.data.TransactionDAOJDBC;
+import br.ufrn.imd.business.ClientService;
+import br.ufrn.imd.exceptions.ExistingCpfException;
+import br.ufrn.imd.exceptions.InvalidCpfException;
+import br.ufrn.imd.model.Client;
 
 
 public class Teste {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ExistingCpfException, InvalidCpfException {
 //		Conection con = new Conection();
 		
 //		String sql = "INSERT INTO public.book (id, description, price, author, name, tags) "
@@ -45,9 +47,12 @@ public class Teste {
 //		
 //		new TagDAO().adiciona(tag);
 //		
-//		Client client = new Client();
-//		client.setCpf(316341654);
-//		client.setName("TesteVideo");
+		Client client = new Client();
+		client.setCpf("11122233345");
+		client.setName("João");
+		
+		new ClientService().addClient(client);
+		
 //		
 		//new Queries().buscaBookNome("Foundation");
 		
@@ -58,11 +63,11 @@ public class Teste {
 		//new Queries().buscaClientCpf(316341654);
 		
 		//new Queries().buscaClientNome("Eduardo");
-		
-		System.out.println(new TransactionDAOJDBC().getTransactionsByClient(1));
-		Recommendation recommendation = new Recommendation();
-		//recommendation.getRecommendationsForClient(1, 4);
-		System.out.println(recommendation.getRecommendationsForClient(1, 7));
+//		
+//		System.out.println(new TransactionDAOJDBC().getTransactionsByClient(1));
+//		Recommendation recommendation = new Recommendation();
+//		//recommendation.getRecommendationsForClient(1, 4);
+//		System.out.println(recommendation.getRecommendationsForClient(1, 7));
 		
 	}
 

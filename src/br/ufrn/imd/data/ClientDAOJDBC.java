@@ -29,6 +29,7 @@ public class ClientDAOJDBC implements ClientDAO{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("Cliente inserido com sucesso!");
 	}
 
 	@Override
@@ -79,6 +80,28 @@ public class ClientDAOJDBC implements ClientDAO{
 	public Client getClientById(int id) {
 		try {
 			String clientSql = "SELECT * FROM public.client WHERE id="+id;
+			PreparedStatement prepstmt = connection.prepareStatement(clientSql);
+			ResultSet result = prepstmt.executeQuery();
+			Client client = new Client();
+			while(result.next()) {
+				client.setId(result.getInt("id"));
+				client.setName(result.getString("name"));
+				client.setCpf(result.getString("cpf"));
+			}
+			prepstmt.close();
+			return client;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	@Override
+	public Client getClientByCpf(String cpf) {
+		try {
+			String clientSql = "SELECT * FROM public.client WHERE cpf='"+cpf+"'" ;
 			PreparedStatement prepstmt = connection.prepareStatement(clientSql);
 			ResultSet result = prepstmt.executeQuery();
 			Client client = new Client();

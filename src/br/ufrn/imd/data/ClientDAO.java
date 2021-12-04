@@ -18,4 +18,7 @@ public interface ClientDAO {
 	public List<Client> ListClient();
 	
 	public Client getClientById(int id);
+
+
+	Client getClientByCpf(String cpf);
 }
