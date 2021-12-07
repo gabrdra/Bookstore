@@ -2,14 +2,13 @@ package br.ufrn.imd.view;
 
 
 import br.ufrn.imd.business.ClientService;
-import br.ufrn.imd.exceptions.ExistingCpfException;
-import br.ufrn.imd.exceptions.InvalidCpfException;
+import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.model.Client;
 
 
 public class Teste {
 
-	public static void main(String[] args) throws ExistingCpfException, InvalidCpfException {
+	public static void main(String[] args) throws BusinessException {
 //		Conection con = new Conection();
 		
 //		String sql = "INSERT INTO public.book (id, description, price, author, name, tags) "

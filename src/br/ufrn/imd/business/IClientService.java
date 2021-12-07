@@ -2,13 +2,12 @@ package br.ufrn.imd.business;
 
 import java.util.List;
 
-import br.ufrn.imd.exceptions.ExistingCpfException;
-import br.ufrn.imd.exceptions.InvalidCpfException;
+import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.model.Client;
 
 public interface IClientService {
 
-	public void addClient(Client client) throws ExistingCpfException, InvalidCpfException;
+	public void addClient(Client client) throws BusinessException;
 	
 	public void removeClient(Client client);
 	

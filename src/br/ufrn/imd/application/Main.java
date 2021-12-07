@@ -16,7 +16,9 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("BookStore");
-			primaryStage.setResizable(false);
+			primaryStage.setResizable(true);
+			primaryStage.setMinHeight(600);
+			primaryStage.setMinWidth(1000);
 			primaryStage.show();
 			
 		} catch(Exception e) {
