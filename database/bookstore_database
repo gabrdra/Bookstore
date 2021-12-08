@@ -5,7 +5,7 @@
 -- Dumped from database version 12.9
 -- Dumped by pg_dump version 12.9
 
--- Started on 2021-11-30 10:01:46
+-- Started on 2021-12-08 16:40:16
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -31,9 +31,10 @@ CREATE TABLE public.book (
     id integer NOT NULL,
     description text,
     price real NOT NULL,
-    author text NOT NULL,
-    name text NOT NULL,
-    tags integer[]
+    author character varying(64) NOT NULL,
+    name character varying(64) NOT NULL,
+    tags integer[],
+    barcode character varying(14) NOT NULL
 );
 
 
@@ -71,8 +72,8 @@ ALTER SEQUENCE public.book_id_seq OWNED BY public.book.id;
 
 CREATE TABLE public.client (
     id integer NOT NULL,
-    name text NOT NULL,
-    cpf text
+    name character varying(64) NOT NULL,
+    cpf character varying(12)
 );
 
 
@@ -100,7 +101,7 @@ ALTER TABLE public.client ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 
 CREATE TABLE public.tag (
     id integer NOT NULL,
-    name text NOT NULL
+    name character varying(32) NOT NULL
 );
 
 
@@ -171,7 +172,7 @@ ALTER SEQUENCE public.transaction_id_seq OWNED BY public.transaction.id;
 
 
 --
--- TOC entry 2709 (class 2604 OID 16424)
+-- TOC entry 2707 (class 2604 OID 16424)
 -- Name: book id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -179,7 +180,7 @@ ALTER TABLE ONLY public.book ALTER COLUMN id SET DEFAULT nextval('public.book_id
 
 
 --
--- TOC entry 2710 (class 2604 OID 16425)
+-- TOC entry 2708 (class 2604 OID 16425)
 -- Name: tag id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -187,7 +188,7 @@ ALTER TABLE ONLY public.tag ALTER COLUMN id SET DEFAULT nextval('public.tag_id_s
 
 
 --
--- TOC entry 2711 (class 2604 OID 16426)
+-- TOC entry 2709 (class 2604 OID 16426)
 -- Name: transaction id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -200,16 +201,16 @@ ALTER TABLE ONLY public.transaction ALTER COLUMN id SET DEFAULT nextval('public.
 -- Data for Name: book; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.book (id, description, price, author, name, tags) VALUES (1, NULL, 30.5, 'Isaac Asimov', 'Foundation', '{1,10,7,3,11}');
-INSERT INTO public.book (id, description, price, author, name, tags) VALUES (2, NULL, 21.6, 'Becky Chambers', 'The Long Way to a Small, Angry Planet', '{1,10,7,3,11}');
-INSERT INTO public.book (id, description, price, author, name, tags) VALUES (3, NULL, 40.5, 'Isaac Asimov', 'I, Robot', '{1,5,7,10,11}');
-INSERT INTO public.book (id, description, price, author, name, tags) VALUES (5, NULL, 30, 'João Andrade', 'Por sobre as Cabeças', '{12,8}');
-INSERT INTO public.book (id, description, price, author, name, tags) VALUES (4, NULL, 25.78, 'Machado de Assis', 'Memórias Póstumas de Brás Cubas', '{6,8,11,3}');
-INSERT INTO public.book (id, description, price, author, name, tags) VALUES (6, NULL, 50, 'Alan Moore', 'Watchmen', '{13,7,11,3}');
-INSERT INTO public.book (id, description, price, author, name, tags) VALUES (7, NULL, 24, 'Andy Weir
-', 'Project Hail Mary', '{1,10,11,7,3}');
-INSERT INTO public.book (id, description, price, author, name, tags) VALUES (8, NULL, 38.5, 'Neil Gaiman', 'Norse Mythology', '{2,5,7,11,3}');
-INSERT INTO public.book (id, description, price, author, name, tags) VALUES (9, NULL, 37, 'Becky Chambers', 'To Be Taught, If Fortunate', '{1,4,7,10}');
+INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (1, NULL, 30.5, 'Isaac Asimov', 'Foundation', '{1,10,7,3,11}', '6676476981216');
+INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (2, NULL, 21.6, 'Becky Chambers', 'The Long Way to a Small, Angry Planet', '{1,10,7,3,11}', '2293423603393');
+INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (3, NULL, 40.5, 'Isaac Asimov', 'I, Robot', '{1,5,7,10,11}', '4417955017296');
+INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (4, NULL, 25.78, 'Machado de Assis', 'Memórias Póstumas de Brás Cubas', '{6,8,11,3}', '4786959728418');
+INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (5, NULL, 30, 'João Andrade', 'Por sobre as Cabeças', '{12,8}', '1764016980495');
+INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (6, NULL, 50, 'Alan Moore', 'Watchmen', '{13,7,11,3}', '9960300780118');
+INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (7, NULL, 24, 'Andy Weir
+', 'Project Hail Mary', '{1,10,11,7,3}', '1985396252453');
+INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (8, NULL, 38.5, 'Neil Gaiman', 'Norse Mythology', '{2,5,7,11,3}', '7478709243205');
+INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (9, NULL, 37, 'Becky Chambers', 'To Be Taught, If Fortunate', '{1,4,7,10}', '7741597746939');
 
 
 --
@@ -218,9 +219,9 @@ INSERT INTO public.book (id, description, price, author, name, tags) VALUES (9, 
 -- Data for Name: client; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (1, 'Gabriel', '123');
-INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (2, 'Eduardo', '456');
-INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (3, 'Letícia', '789');
+INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (1, 'Gabriel', '12345678901');
+INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (2, 'Eduardo', '23456789012');
+INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (3, 'Letícia', '34567890123');
 
 
 --
@@ -291,6 +292,15 @@ SELECT pg_catalog.setval('public.transaction_id_seq', 6, true);
 
 
 --
+-- TOC entry 2711 (class 2606 OID 24591)
+-- Name: book book_barcode_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.book
+    ADD CONSTRAINT book_barcode_key UNIQUE (barcode);
+
+
+--
 -- TOC entry 2713 (class 2606 OID 16428)
 -- Name: book book_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
@@ -335,7 +345,7 @@ ALTER TABLE ONLY public.transaction
     ADD CONSTRAINT transaction_fk0 FOREIGN KEY (client) REFERENCES public.client(id);
 
 
--- Completed on 2021-11-30 10:01:46
+-- Completed on 2021-12-08 16:40:16
 
 --
 -- PostgreSQL database dump complete
