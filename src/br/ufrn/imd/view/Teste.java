@@ -1,6 +1,9 @@
 package br.ufrn.imd.view;
 
 
+import java.util.ArrayList;
+
+import br.ufrn.imd.business.BookService;
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;
@@ -63,7 +66,7 @@ public class Teste {
 		}*/
 		/*try {
 			System.out.println(new ClientService().retrieveClientById(-1));
-		} catch (DataException e) {
+		} catch (DataException |BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
@@ -102,6 +105,29 @@ public class Teste {
 		book.setName("Arsène Lupin");
 		book.setPrice(17.5);
 		book.setAuthor("Maurice Leblanc");
+		ArrayList<Tag> tags = new ArrayList<Tag>();
+		Tag tempTag1 = new Tag();
+		tempTag1.setId(3);
+		tags.add(tempTag1);
+		Tag tempTag2 = new Tag();
+		tempTag2.setId(11);
+		tags.add(tempTag1);
+		Tag tempTag3 = new Tag();
+		tempTag3.setId(15);
+		tags.add(tempTag1);
+		book.setTags(tags);
+		/*try {
+			new BookService().addBook(book);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		try {
+			System.out.println(new BookService().retrieveBookById(1));
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

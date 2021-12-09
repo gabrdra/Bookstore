@@ -91,8 +91,8 @@ public class ClientDAOJDBC implements ClientDAO{
 			return client;
 		}
 		catch (Exception e) {
-			throw new DataException("Erro ao tentar pegar o cliente usando a id \n");
 			//e.printStackTrace();
+			throw new DataException("Erro ao tentar pegar o cliente usando a id \n");
 			//return null;
 		}
 		

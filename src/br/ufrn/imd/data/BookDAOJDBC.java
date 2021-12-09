@@ -107,6 +107,7 @@ public class BookDAOJDBC implements BookDAO{
 				book.setName(result.getString("name"));
 				book.setPrice(result.getDouble("price"));
 				book.setAuthor(result.getString("author"));
+				book.setBarcode(result.getString("barcode"));
 				book.setDescription(result.getString("description"));
 				Integer[] tempArray = (Integer[])result.getArray("tags").getArray();
 				ArrayList<Tag> localTags = new ArrayList<Tag>();
@@ -118,13 +119,13 @@ public class BookDAOJDBC implements BookDAO{
 				}
 				book.setTags(localTags);
 			}
-			book.setBarcode(result.getString("barcode"));
+			
 			prepstmt.close();
 			return book;
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			throw new DataException("Erro ao tentar recuperar o livro usando id \n");
-			//e.printStackTrace();
 			//return null;
 		}
 	}
@@ -133,7 +134,7 @@ public class BookDAOJDBC implements BookDAO{
 	public Book retrieveBookByBarcode(String barcode) throws DataException{
 		try {
 			TagDAOJDBC tagDAOJDBC = new TagDAOJDBC();
-			String bookSql = "SELECT * FROM public.book WHERE barcode="+barcode;
+			String bookSql = "SELECT * FROM public.book WHERE barcode='"+barcode+"'";
 			PreparedStatement prepstmt = connection.prepareStatement(bookSql);
 			ResultSet result = prepstmt.executeQuery();
 			Book book = new Book();
@@ -142,6 +143,7 @@ public class BookDAOJDBC implements BookDAO{
 				book.setName(result.getString("name"));
 				book.setPrice(result.getDouble("price"));
 				book.setAuthor(result.getString("author"));
+				book.setBarcode(result.getString("barcode"));
 				book.setDescription(result.getString("description"));
 				Integer[] tempArray = (Integer[])result.getArray("tags").getArray();
 				ArrayList<Tag> localTags = new ArrayList<Tag>();
@@ -153,13 +155,12 @@ public class BookDAOJDBC implements BookDAO{
 				}
 				book.setTags(localTags);
 			}
-			book.setBarcode(result.getString("barcode"));
 			prepstmt.close();
 			return book;
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			throw new DataException("Erro ao tentar recuperar o livro usando o código de barras \n");
-			//e.printStackTrace();
 			//return null;
 		}
 	}
