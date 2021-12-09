@@ -61,6 +61,7 @@ public class ClientDAOJDBC implements ClientDAO{
 			
 			while(resultSet.next()) {
 				Client client = new Client();
+				client.setId(resultSet.getInt("id"));
 				client.setCpf(resultSet.getString("cpf"));
 				client.setName(resultSet.getString("name"));
 				listClients.add(client);

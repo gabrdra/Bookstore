@@ -5,6 +5,7 @@ import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
+import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Client;
 import br.ufrn.imd.model.Tag;
 
@@ -66,6 +67,12 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		/*try {
+			System.out.println(new ClientService().listClients());
+		} catch (DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
 		//Tests with tag
 		/*Tag testTag = new Tag();
@@ -82,12 +89,19 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		try {
+		/*try {
 			System.out.println(new TagService().listTags());
 		} catch (DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+		
+		//Tests with books
+		Book book = new Book();
+		book.setBarcode("7686626981215");
+		book.setName("Arsène Lupin");
+		book.setPrice(17.5);
+		book.setAuthor("Maurice Leblanc");
 	}
 
 }
