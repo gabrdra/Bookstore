@@ -144,7 +144,7 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		Transaction transaction = new Transaction();
+		/*Transaction transaction = new Transaction();
 		Book book = null;
 		try {
 			book = new BookService().retrieveBookByBarcode("7686626982215");
@@ -163,7 +163,7 @@ public class Teste {
 		} catch (DataException | BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		
 	}
