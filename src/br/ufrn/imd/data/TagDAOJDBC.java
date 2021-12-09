@@ -96,6 +96,27 @@ public class TagDAOJDBC implements TagDAO{
 		}
 		
 	}
+
+	@Override
+	public Tag retrieveTagByName(String name) throws DataException {
+		try {
+			String tagSql = "SELECT * FROM public.tag WHERE name="+name;
+			PreparedStatement prepstmt = connection.prepareStatement(tagSql);
+			ResultSet result = prepstmt.executeQuery();
+			Tag tag = new Tag();
+			while(result.next()) {
+				tag.setId(result.getInt("id"));
+				tag.setName(result.getString("name"));
+			}
+			prepstmt.close();
+			return tag;
+		}
+		catch (Exception e) {
+			throw new DataException("Erro ao tentar pegar a tag usando o nome \n");
+			//e.printStackTrace();
+			//return null;
+		}
+	}
 	
 	
 	

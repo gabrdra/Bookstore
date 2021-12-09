@@ -19,5 +19,7 @@ public interface TagDAO {
 	
 	public Tag retrieveTagById(int id) throws DataException;
 	
+	public Tag retrieveTagByName(String name) throws DataException;
+	
 	
 }

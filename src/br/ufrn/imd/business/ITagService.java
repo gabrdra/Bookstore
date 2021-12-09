@@ -17,4 +17,6 @@ public interface ITagService {
 	public List<Tag> listTags() throws DataException;
 	
 	public Tag retrieveTagById(int id) throws DataException, BusinessException;
+	
+	public Tag retrieveTagByName(String name) throws DataException, BusinessException;
 }

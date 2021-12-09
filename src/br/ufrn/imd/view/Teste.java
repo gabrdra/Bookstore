@@ -2,9 +2,11 @@ package br.ufrn.imd.view;
 
 
 import br.ufrn.imd.business.ClientService;
+import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Client;
+import br.ufrn.imd.model.Tag;
 
 
 public class Teste {
@@ -47,6 +49,8 @@ public class Teste {
 //		
 //		new TagDAO().adiciona(tag);
 //		
+		//Tests with client
+		
 		/*Client client = new Client();
 		client.setCpf("11122233345");
 		client.setName("João");
@@ -56,31 +60,22 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		try {
+		/*try {
 			System.out.println(new ClientService().retrieveClientById(-1));
 		} catch (DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
-		
-		
-//		
-		//new Queries().buscaBookNome("Foundation");
-		
-		//new Queries().buscaBookDescricao("Um livro qualquer");
-		
-		//new Queries().buscaBookId(3);
-		
-		//new Queries().buscaClientCpf(316341654);
-		
-		//new Queries().buscaClientNome("Eduardo");
-//		
-//		System.out.println(new TransactionDAOJDBC().getTransactionsByClient(1));
-//		Recommendation recommendation = new Recommendation();
-//		//recommendation.getRecommendationsForClient(1, 4);
-//		System.out.println(recommendation.getRecommendationsForClient(1, 7));
-		
+		//Tests with tag
+		Tag testTag = new Tag();
+		testTag.setName("Culinária");
+		try {
+			new TagService().addTag(testTag);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 
 }
