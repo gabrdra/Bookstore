@@ -14,7 +14,7 @@ public class TagService implements ITagService {
 	public void addTag(Tag tag) throws BusinessException, DataException {
 		String exceptions = "";
 		if(tag.getName().length() <= 1) {
-			exceptions += "O nome da tag deve ter ao menos duas letras \n"; 
+			exceptions += "O nome da tag deve ter ao menos 2 letras \n"; 
 		}
 		else if(tag.getName().length() >= 32) {
 			exceptions += "O nome da tag deve ser menor que 32 caracteres \n ";
