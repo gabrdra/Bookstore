@@ -17,7 +17,7 @@ public interface TagDAO {
 	
 	public List<Tag> listTags() throws DataException;
 	
-	public Tag getTagById(int id) throws DataException;
+	public Tag retrieveTagById(int id) throws DataException;
 	
 	
 }

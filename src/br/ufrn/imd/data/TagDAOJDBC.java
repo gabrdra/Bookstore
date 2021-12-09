@@ -20,11 +20,10 @@ public class TagDAOJDBC implements TagDAO{
 
 	@Override
 	public void addTag(Tag tag) throws DataException {
-		String sql="INSERT INTO public.tag (id, name) VALUES (?, ?);";
+		String sql="INSERT INTO public.tag (name) VALUES (?);";
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
-			stmt.setInt(1, tag.getId());
-			stmt.setString(2, tag.getName());
+			stmt.setString(1, tag.getName());
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
@@ -69,15 +68,15 @@ public class TagDAOJDBC implements TagDAO{
 			stmt.close();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			throw new DataException("Erro ao tentar listar as tags armazenados no banco de dados \n");
 		}
 		
 		
 		return listTags;
 	}
-
 	@Override
-	public Tag getTagById(int id) throws DataException{
+	public Tag retrieveTagById(int id) throws DataException{
 		try {
 			String tagSql = "SELECT * FROM public.tag WHERE id="+id;
 			PreparedStatement prepstmt = connection.prepareStatement(tagSql);
@@ -91,8 +90,9 @@ public class TagDAOJDBC implements TagDAO{
 			return tag;
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			throw new DataException("Erro ao tentar pegar a tag usando a id \n");
+			//e.printStackTrace();
+			//return null;
 		}
 		
 	}
