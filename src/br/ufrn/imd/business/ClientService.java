@@ -67,9 +67,8 @@ public class ClientService implements IClientService {
 	}
 
 	@Override
-	public List<Client> ListClient() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Client> listClients() throws DataException {
+		return new ClientDAOJDBC().listClients();
 	}
 
 	@Override

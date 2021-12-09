@@ -48,7 +48,7 @@ public class ClientDAOJDBC implements ClientDAO{
 	}
 
 	@Override
-	public List<Client> ListClient() {
+	public List<Client> listClients() throws DataException {
 		
 		List<Client> listClients = new ArrayList<Client>();
 		
@@ -68,7 +68,8 @@ public class ClientDAOJDBC implements ClientDAO{
 			stmt.close();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DataException("Erro ao acessar o banco de dados \n");
+			//e.printStackTrace();
 		}
 		return listClients;
 	}

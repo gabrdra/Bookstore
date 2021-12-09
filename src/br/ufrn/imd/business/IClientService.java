@@ -14,7 +14,7 @@ public interface IClientService {
 	
 	public void updateClient(Client client);
 	
-	public List<Client> ListClient();
+	public List<Client> listClients() throws DataException;
 	
 	public Client retrieveClientById(int id) throws DataException, BusinessException;
 	
