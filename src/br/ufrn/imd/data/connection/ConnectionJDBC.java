@@ -13,8 +13,8 @@ public class ConnectionJDBC {
 	
 	public ConnectionJDBC(){
 		url="jdbc:postgresql://localhost:5432/Bookstore";
-		user = "eduardo";
-		password= "123";
+		user = "postgres";
+		password= "root";
 		
 		try {
 			

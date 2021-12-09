@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrn.imd.data.connection.ConnectionJDBC;
+import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Client;
 
 public class ClientDAOJDBC implements ClientDAO{
@@ -18,7 +19,7 @@ public class ClientDAOJDBC implements ClientDAO{
 	}
 
 	@Override
-	public void addClient(Client client) {
+	public void addClient(Client client) throws DataException{
 		String sql="INSERT INTO public.client (cpf, name) VALUES (?, ?);";
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
@@ -27,9 +28,10 @@ public class ClientDAOJDBC implements ClientDAO{
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DataException("Erro ao tentar inserir o cliente no banco de dados \n");
+			//e.printStackTrace();
 		}
-		System.out.println("Cliente inserido com sucesso!");
+		//System.out.println("Cliente inserido com sucesso!");
 	}
 
 	@Override
@@ -38,11 +40,6 @@ public class ClientDAOJDBC implements ClientDAO{
 		
 	}
 
-	@Override
-	public Client consultClient() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void updateClient(Client client) {
@@ -51,7 +48,7 @@ public class ClientDAOJDBC implements ClientDAO{
 	}
 
 	@Override
-	public List<Client> ListClient() {
+	public List<Client> listClients() throws DataException {
 		
 		List<Client> listClients = new ArrayList<Client>();
 		
@@ -64,6 +61,7 @@ public class ClientDAOJDBC implements ClientDAO{
 			
 			while(resultSet.next()) {
 				Client client = new Client();
+				client.setId(resultSet.getInt("id"));
 				client.setCpf(resultSet.getString("cpf"));
 				client.setName(resultSet.getString("name"));
 				listClients.add(client);
@@ -71,13 +69,14 @@ public class ClientDAOJDBC implements ClientDAO{
 			stmt.close();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DataException("Erro ao tentar listar os clientes armazenados no banco de dados \n");
+			//e.printStackTrace();
 		}
 		return listClients;
 	}
 
 	@Override
-	public Client getClientById(int id) {
+	public Client retrieveClientById(int id) throws DataException{
 		try {
 			String clientSql = "SELECT * FROM public.client WHERE id="+id;
 			PreparedStatement prepstmt = connection.prepareStatement(clientSql);
@@ -92,14 +91,15 @@ public class ClientDAOJDBC implements ClientDAO{
 			return client;
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			//e.printStackTrace();
+			throw new DataException("Erro ao tentar pegar o cliente usando a id \n");
+			//return null;
 		}
 		
 	}
 	
 	@Override
-	public Client getClientByCpf(String cpf) {
+	public Client retrieveClientByCpf(String cpf) throws DataException {
 		try {
 			String clientSql = "SELECT * FROM public.client WHERE cpf='"+cpf+"'" ;
 			PreparedStatement prepstmt = connection.prepareStatement(clientSql);
@@ -114,8 +114,9 @@ public class ClientDAOJDBC implements ClientDAO{
 			return client;
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			throw new DataException("Erro ao tentar pegar o cliente usando o CPF \n");
+			//e.printStackTrace();
+			//return null;
 		}
 		
 	}

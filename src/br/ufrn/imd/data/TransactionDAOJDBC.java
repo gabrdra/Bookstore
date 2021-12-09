@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrn.imd.data.connection.ConnectionJDBC;
+import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Transaction;
 
@@ -19,18 +20,19 @@ public class TransactionDAOJDBC implements TransactionDAO{
 	}
 
 	@Override
-	public void addTransaction(Transaction transaction) {
-		String sql="INSERT INTO public.transaction (id, client, books) VALUES (?, ?, ?);";
+	public void addTransaction(Transaction transaction) throws DataException{
+		String sql="INSERT INTO public.transaction (client, books) VALUES (?, ?);";
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
-			stmt.setInt(1, transaction.getId());
-			stmt.setInt(2, transaction.getClient());
+			//stmt.setInt(1, transaction.getId());
+			stmt.setInt(1, transaction.getClient());
 			Array tempArray = connection.createArrayOf("INTEGER", transaction.getBooksId().toArray());
-			stmt.setArray(3, tempArray);
+			stmt.setArray(2, tempArray);
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DataException("Erro ao tentar inserir a transação no banco de dados \n");
+			//e.printStackTrace();
 		}	
 	}
 
@@ -53,7 +55,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 	}
 
 	@Override
-	public List<Transaction> listTransactions() {
+	public List<Transaction> listTransactions() throws DataException{
 		
 		List<Transaction> listTransactions = new ArrayList<Transaction>();
 		
@@ -74,7 +76,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 				Integer[] tempArray = (Integer[])resultSet.getArray("Books").getArray();
 				ArrayList<Book> localBooks = new ArrayList<Book>();
 				for(Integer i:tempArray) {
-					Book Book = bookDAOJDBC.getBookById(i);
+					Book Book = bookDAOJDBC.retrieveBookById(i);
 					if(Book != null) {
 						localBooks.add(Book);
 					}
@@ -84,14 +86,15 @@ public class TransactionDAOJDBC implements TransactionDAO{
 			}
 			stmt.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DataException("Erro ao tentar listar as transações armazenados no banco de dados \n");
+			//e.printStackTrace();
 		}
 		
 		return listTransactions;
 	}
 
 	@Override
-	public ArrayList<Transaction> getTransactionsByClient(int client) {
+	public ArrayList<Transaction> retrieveTransactionsByClient(int client) throws DataException{
 		try {
 			ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 			BookDAOJDBC bookDAOJDBC = new BookDAOJDBC();
@@ -105,7 +108,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 				Integer[] tempArray = (Integer[])resultSet.getArray("books").getArray();
 				ArrayList<Book> books = new ArrayList<Book>();
 				for(Integer i:tempArray) {
-					Book book = bookDAOJDBC.getBookById(i);
+					Book book = bookDAOJDBC.retrieveBookById(i);
 					if(book != null) {
 						books.add(book);
 					}
@@ -115,8 +118,9 @@ public class TransactionDAOJDBC implements TransactionDAO{
 			}
 			return transactions;
 		}catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			throw new DataException("Erro ao tentar recuperar as transações para o cliente passado \n");
+			//e.printStackTrace();
+			//return null;
 		}
 	}
 	
