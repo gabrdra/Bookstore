@@ -69,7 +69,7 @@ public class Teste {
 		
 		//Tests with tag
 		Tag testTag = new Tag();
-		testTag.setName("Francês");
+		testTag.setName("francês");
 		try {
 			new TagService().addTag(testTag);
 		} catch (BusinessException | DataException e) {

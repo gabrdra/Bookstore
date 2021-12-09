@@ -100,7 +100,7 @@ public class TagDAOJDBC implements TagDAO{
 	@Override
 	public Tag retrieveTagByName(String name) throws DataException {
 		try {
-			String tagSql = "SELECT * FROM public.tag WHERE name='"+name+"'";
+			String tagSql = "SELECT * FROM public.tag WHERE upper(name)='"+name.toUpperCase()+"'";
 			PreparedStatement prepstmt = connection.prepareStatement(tagSql);
 			ResultSet result = prepstmt.executeQuery();
 			Tag tag = new Tag();

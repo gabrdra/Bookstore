@@ -13,7 +13,7 @@ public class TagService implements ITagService {
 	@Override
 	public void addTag(Tag tag) throws BusinessException, DataException {
 		String exceptions = "";
-		if(retrieveTagByName(tag.getName())!=null) {
+		if(retrieveTagByName(tag.getName()).getName()!=null) {
 			exceptions += "Nome da tag já registrado no sistema \n";
 		}
 		if(!exceptions.equals("")) {
