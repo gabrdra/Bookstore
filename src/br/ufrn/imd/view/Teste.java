@@ -3,6 +3,7 @@ package br.ufrn.imd.view;
 
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.exceptions.BusinessException;
+import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Client;
 
 
@@ -46,11 +47,11 @@ public class Teste {
 //		
 //		new TagDAO().adiciona(tag);
 //		
-		Client client = new Client();
-		client.setCpf("11122233345");
-		client.setName("Jo√£o");
+		//Client client = new Client();
+		//client.setCpf("11122233345");
+		//client.setName("Jo„o");
+		System.out.println(new ClientService().retrieveClientById(1));
 		
-		new ClientService().addClient(client);
 		
 //		
 		//new Queries().buscaBookNome("Foundation");

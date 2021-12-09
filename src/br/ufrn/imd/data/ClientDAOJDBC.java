@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrn.imd.data.connection.ConnectionJDBC;
+import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Client;
 
 public class ClientDAOJDBC implements ClientDAO{
@@ -18,7 +19,7 @@ public class ClientDAOJDBC implements ClientDAO{
 	}
 
 	@Override
-	public void addClient(Client client) {
+	public void addClient(Client client) throws DataException{
 		String sql="INSERT INTO public.client (cpf, name) VALUES (?, ?);";
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
@@ -27,7 +28,8 @@ public class ClientDAOJDBC implements ClientDAO{
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DataException("Cliente não pode ser inserido no banco de dados");
+			//e.printStackTrace();
 		}
 		System.out.println("Cliente inserido com sucesso!");
 	}
