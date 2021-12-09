@@ -19,10 +19,10 @@ public class ClientService implements IClientService {
 			//throw new BusinessException("CPF digitado ja existe no sistema");
 			exceptions += "CPF digitado já existe no sistema \n";
 		}
-		if(client.getCpf().length()!=11) {
+		/*if(client.getCpf().length()!=11) {
 			//throw new BusinessException("Formato do CPF invalido");
 			exceptions += "Formato do CPF inválido \n";
-		}
+		}*/
 		if(client.getName().length() <= 2) {
 			exceptions += "Nome muito curto \n";
 		}
@@ -73,8 +73,11 @@ public class ClientService implements IClientService {
 	}
 
 	@Override
-	public Client retrieveClientById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Client retrieveClientById(int id) throws DataException, BusinessException{
+		if(id < 1) {
+			throw new BusinessException("id deve ser um número maior do que 0 \n");
+		}
+		return new ClientDAOJDBC().retrieveClientById(id);
+		
 	}
 }

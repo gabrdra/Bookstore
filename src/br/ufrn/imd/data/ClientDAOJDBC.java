@@ -89,7 +89,7 @@ public class ClientDAOJDBC implements ClientDAO{
 			return client;
 		}
 		catch (Exception e) {
-			throw new DataException("Erro ao tentar pegar o cliente usando o CPF \n");
+			throw new DataException("Erro ao tentar pegar o cliente usando a id \n");
 			//e.printStackTrace();
 			//return null;
 		}
@@ -97,7 +97,7 @@ public class ClientDAOJDBC implements ClientDAO{
 	}
 	
 	@Override
-	public Client retrieveClientByCpf(String cpf) {
+	public Client retrieveClientByCpf(String cpf) throws DataException {
 		try {
 			String clientSql = "SELECT * FROM public.client WHERE cpf='"+cpf+"'" ;
 			PreparedStatement prepstmt = connection.prepareStatement(clientSql);
@@ -112,8 +112,9 @@ public class ClientDAOJDBC implements ClientDAO{
 			return client;
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			throw new DataException("Erro ao tentar pegar o cliente usando o CPF \n");
+			//e.printStackTrace();
+			//return null;
 		}
 		
 	}

@@ -47,7 +47,7 @@ public class Teste {
 //		
 //		new TagDAO().adiciona(tag);
 //		
-		Client client = new Client();
+		/*Client client = new Client();
 		client.setCpf("11122233345");
 		client.setName("João");
 		try {
@@ -55,13 +55,13 @@ public class Teste {
 		} catch (BusinessException | DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		/*try {
-			System.out.println(new ClientService().retrieveClientByCpf("1112223334"));
+		}*/
+		try {
+			System.out.println(new ClientService().retrieveClientById(-1));
 		} catch (DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 		
 		

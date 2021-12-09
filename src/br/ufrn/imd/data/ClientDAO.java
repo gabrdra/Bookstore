@@ -9,7 +9,6 @@ public interface ClientDAO {
 
 	public void addClient(Client client) throws DataException;
 	
-	
 	public void removeClient(Client client);
 	
 	public void updateClient(Client client);
@@ -18,6 +17,5 @@ public interface ClientDAO {
 	
 	public Client retrieveClientById(int id) throws DataException;
 
-
-	Client retrieveClientByCpf(String cpf);
+	public Client retrieveClientByCpf(String cpf) throws DataException;
 }
