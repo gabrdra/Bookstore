@@ -6,6 +6,7 @@ import br.ufrn.imd.data.BookDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.Tag;
 
 public class BookService implements IBookService {
 
@@ -31,8 +32,8 @@ public class BookService implements IBookService {
 			exceptions += "Preço do livro não pode ser negativo \n";
 		}
 		ITagService tagService = new TagService();
-		for(int i = 0; i < bo.getTags().size(); i++) {
-			if(tagService.retrieveTagById(i).getName() == null) {
+		for(Tag tag: bo.getTags()) {
+			if(tagService.retrieveTagById(tag.getId()).getName() == null) {
 				exceptions += "Tag inexistente \n";
 			}
 		}

@@ -2,7 +2,7 @@ package br.ufrn.imd.business;
 
 import java.util.List;
 
-import br.ufrn.imd.data.ClientDAOJDBC;
+//import br.ufrn.imd.data.ClientDAOJDBC;
 import br.ufrn.imd.data.TagDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
