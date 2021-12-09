@@ -76,7 +76,7 @@ public class BookDAOJDBC implements BookDAO{
 				Integer[] tempArray = (Integer[])resultSet.getArray("tags").getArray();
 				ArrayList<Tag> localTags = new ArrayList<Tag>();
 				for(Integer i:tempArray) {
-					Tag tag = tagDAOJDBC.getTagById(i);
+					Tag tag = tagDAOJDBC.retrieveTagById(i);
 					if(tag != null) {
 						localTags.add(tag);
 					}
@@ -111,7 +111,7 @@ public class BookDAOJDBC implements BookDAO{
 				Integer[] tempArray = (Integer[])result.getArray("tags").getArray();
 				ArrayList<Tag> localTags = new ArrayList<Tag>();
 				for(Integer i:tempArray) {
-					Tag tag = tagDAOJDBC.getTagById(i);
+					Tag tag = tagDAOJDBC.retrieveTagById(i);
 					if(tag != null) {
 						localTags.add(tag);
 					}
@@ -146,7 +146,7 @@ public class BookDAOJDBC implements BookDAO{
 				Integer[] tempArray = (Integer[])result.getArray("tags").getArray();
 				ArrayList<Tag> localTags = new ArrayList<Tag>();
 				for(Integer i:tempArray) {
-					Tag tag = tagDAOJDBC.getTagById(i);
+					Tag tag = tagDAOJDBC.retrieveTagById(i);
 					if(tag != null) {
 						localTags.add(tag);
 					}

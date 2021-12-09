@@ -11,6 +11,7 @@ public class BookService implements IBookService {
 
 	@Override
 	public void addBook(Book bo) throws BusinessException, DataException {
+		//NEEDS TO ADD: check if all the tags are valid
 		String exceptions = "";
 		if(retrieveBookByBarcode(bo.getBarcode()).getBarcode() != null) {
 			exceptions += "Código de barras já foi cadastrado em outro livro \n";
