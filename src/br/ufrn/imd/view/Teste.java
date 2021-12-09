@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import br.ufrn.imd.business.BookService;
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.business.TagService;
+import br.ufrn.imd.business.TransactionService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Client;
 import br.ufrn.imd.model.Tag;
+import br.ufrn.imd.model.Transaction;
 
 
 public class Teste {
@@ -100,8 +102,8 @@ public class Teste {
 		}*/
 		
 		//Tests with books
-		Book book = new Book();
-		book.setBarcode("7686626981215");
+		/*Book book = new Book();
+		book.setBarcode("7686626982215");
 		book.setName("Arsène Lupin");
 		book.setPrice(17.5);
 		book.setAuthor("Maurice Leblanc");
@@ -111,23 +113,59 @@ public class Teste {
 		tags.add(tempTag1);
 		Tag tempTag2 = new Tag();
 		tempTag2.setId(11);
-		tags.add(tempTag1);
+		tags.add(tempTag2);
 		Tag tempTag3 = new Tag();
 		tempTag3.setId(15);
-		tags.add(tempTag1);
+		tags.add(tempTag3);
 		book.setTags(tags);
-		/*try {
+		try {
 			new BookService().addBook(book);
 		} catch (BusinessException | DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		/*try {
+			System.out.println(new BookService().retrieveBookByBarcode("6676476981216"));
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		//Tests with transaction
+		/*try {
+			System.out.println(new TransactionService().listTransactions());
+		} catch (DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		/*try {
+			System.out.println(new TransactionService().retrieveTransactionsByClient(1));
+		} catch (DataException | BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		Transaction transaction = new Transaction();
+		Book book = null;
 		try {
-			System.out.println(new BookService().retrieveBookById(1));
+			book = new BookService().retrieveBookByBarcode("7686626982215");
 		} catch (BusinessException | DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		ArrayList<Book> books = new ArrayList<Book>();
+		books.add(book);
+		transaction.setBooks(books);
+		transaction.setClient(1);
+		transaction.setValue(book.getPrice());
+		System.out.println(transaction);
+		try {
+			new TransactionService().addTransaction(transaction);
+		} catch (DataException | BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }

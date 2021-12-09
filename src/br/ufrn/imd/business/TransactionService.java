@@ -19,7 +19,8 @@ public class TransactionService implements ITransactionService {
 			exceptions += "Cliente inexistente \n";
 		}
 		IBookService bookService = new BookService();
-		for(Book book : transaction.getBooks()) {
+		ArrayList<Book>books = transaction.getBooks();
+		for(Book book : books) {
 			if(bookService.retrieveBookByBarcode(book.getBarcode()).getBarcode() == null) {
 				exceptions += "Livro inexistente \n";
 			}
@@ -27,7 +28,7 @@ public class TransactionService implements ITransactionService {
 		if(!exceptions.equals("")) {
 			throw new BusinessException(exceptions);
 		}
-		new TransactionService().addTransaction(transaction);
+		new TransactionDAOJDBC().addTransaction(transaction);
 	}
 
 	@Override
