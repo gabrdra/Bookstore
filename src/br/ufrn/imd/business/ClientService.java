@@ -11,7 +11,7 @@ public class ClientService implements IClientService {
 
 	@Override
 	public void addClient(Client client) throws BusinessException, DataException {
-		Client clientBd = new ClientDAOJDBC().getClientByCpf(client.getCpf());
+		Client clientBd = retrieveClientByCpf(client.getCpf());
 		
 		String exceptions = "";
 		
@@ -38,6 +38,22 @@ public class ClientService implements IClientService {
 	
 	
 
+	public Client retrieveClientByCpf(String cpf) throws BusinessException, DataException {
+		String exceptions = "";
+		if(!cpf.matches("[0-9]+")) {
+			exceptions += "CPF deve conter somente números \n";
+		}
+		if(cpf.length()!= 11) {
+			exceptions += "CPF deve conter exatamente 11 números \n";
+		}
+		if(!exceptions.equals("")) {
+			throw new BusinessException(exceptions);
+		}		
+		return new ClientDAOJDBC().retrieveClientByCpf(cpf);
+	}
+
+
+
 	@Override
 	public void removeClient(Client client) {
 		// TODO Auto-generated method stub
@@ -61,7 +77,4 @@ public class ClientService implements IClientService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-
 }

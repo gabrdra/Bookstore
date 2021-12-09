@@ -12,14 +12,12 @@ public interface ClientDAO {
 	
 	public void removeClient(Client client);
 	
-	public Client consultClient();
-	
 	public void updateClient(Client client);
 	
 	public List<Client> ListClient();
 	
-	public Client getClientById(int id);
+	public Client retrieveClientById(int id) throws DataException;
 
 
-	Client getClientByCpf(String cpf);
+	Client retrieveClientByCpf(String cpf);
 }

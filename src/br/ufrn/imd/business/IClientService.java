@@ -17,4 +17,6 @@ public interface IClientService {
 	public List<Client> ListClient();
 	
 	public Client retrieveClientById(int id);
+	
+	public Client retrieveClientByCpf(String cpf) throws DataException, BusinessException;
 }

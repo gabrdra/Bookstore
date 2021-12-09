@@ -47,10 +47,22 @@ public class Teste {
 //		
 //		new TagDAO().adiciona(tag);
 //		
-		//Client client = new Client();
-		//client.setCpf("11122233345");
-		//client.setName("João");
-		System.out.println(new ClientService().retrieveClientById(1));
+		Client client = new Client();
+		client.setCpf("11122233345");
+		client.setName("João");
+		try {
+			new ClientService().addClient(client);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		/*try {
+			System.out.println(new ClientService().retrieveClientByCpf("1112223334"));
+		} catch (DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
 		
 		
 //		
