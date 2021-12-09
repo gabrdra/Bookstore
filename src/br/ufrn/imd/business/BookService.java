@@ -11,7 +11,6 @@ public class BookService implements IBookService {
 
 	@Override
 	public void addBook(Book bo) throws BusinessException, DataException {
-		//NEEDS TO ADD: check if all the tags are valid
 		String exceptions = "";
 		if(retrieveBookByBarcode(bo.getBarcode()).getBarcode() != null) {
 			exceptions += "Código de barras já foi cadastrado em outro livro \n";
@@ -30,6 +29,12 @@ public class BookService implements IBookService {
 		}
 		if(bo.getPrice() < 0) {
 			exceptions += "Preço do livro não pode ser negativo \n";
+		}
+		ITagService tagService = new TagService();
+		for(int i = 0; i < bo.getTags().size(); i++) {
+			if(tagService.retrieveTagById(i).getName() == null) {
+				exceptions += "Tag inexistente \n";
+			}
 		}
 		if(!exceptions.equals("")) {
 			throw new BusinessException(exceptions);

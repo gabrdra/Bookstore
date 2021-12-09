@@ -6,6 +6,7 @@ import java.util.PriorityQueue;
 
 import br.ufrn.imd.data.BookDAOJDBC;
 import br.ufrn.imd.data.TransactionDAOJDBC;
+import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Tag;
 import br.ufrn.imd.model.Transaction;
@@ -14,9 +15,9 @@ import br.ufrn.imd.model.recommendation.WeightTag;
 
 public class Recommendation {
 	
-	public ArrayList<Book> getRecommendationsForClient(int client, int recommendationAmount){
+	public ArrayList<Book> getRecommendationsForClient(int client, int recommendationAmount) throws DataException{
 		TransactionDAOJDBC transactions = new TransactionDAOJDBC();
-		ArrayList<Transaction> clientPreviousTransactions = transactions.getTransactionsByClient(client);
+		ArrayList<Transaction> clientPreviousTransactions = transactions.retrieveTransactionsByClient(client);
 		ArrayList<Book> previouslyBoughtBooks = new ArrayList<Book>();
 		//Get every instance of a book
 		for(Transaction transaction: clientPreviousTransactions) {

@@ -94,7 +94,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 	}
 
 	@Override
-	public ArrayList<Transaction> getTransactionsByClient(int client) throws DataException{
+	public ArrayList<Transaction> retrieveTransactionsByClient(int client) throws DataException{
 		try {
 			ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 			BookDAOJDBC bookDAOJDBC = new BookDAOJDBC();

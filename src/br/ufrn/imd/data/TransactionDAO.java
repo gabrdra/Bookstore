@@ -19,5 +19,5 @@ public interface TransactionDAO {
 	
 	public List<Transaction> listTransactions() throws DataException;
 	
-	public ArrayList<Transaction> getTransactionsByClient(int client) throws DataException; 
+	public ArrayList<Transaction> retrieveTransactionsByClient(int client) throws DataException; 
 }
