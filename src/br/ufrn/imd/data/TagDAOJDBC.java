@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrn.imd.data.connection.ConnectionJDBC;
+import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Tag;
 
 
@@ -18,7 +19,7 @@ public class TagDAOJDBC implements TagDAO{
 	}
 
 	@Override
-	public void addTag(Tag tag) {
+	public void addTag(Tag tag) throws DataException {
 		String sql="INSERT INTO public.tag (id, name) VALUES (?, ?);";
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
@@ -27,7 +28,8 @@ public class TagDAOJDBC implements TagDAO{
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DataException("Erro ao tentar inserir a tag no banco de dados \n");
+			//e.printStackTrace();
 		}		
 	}
 
@@ -50,7 +52,7 @@ public class TagDAOJDBC implements TagDAO{
 	}
 
 	@Override
-	public List<Tag> listTags() {
+	public List<Tag> listTags() throws DataException{
 		List<Tag> listTags = new ArrayList<Tag>();
 		
 		try {
@@ -75,7 +77,7 @@ public class TagDAOJDBC implements TagDAO{
 	}
 
 	@Override
-	public Tag getTagById(int id) {
+	public Tag getTagById(int id) throws DataException{
 		try {
 			String tagSql = "SELECT * FROM public.tag WHERE id="+id;
 			PreparedStatement prepstmt = connection.prepareStatement(tagSql);

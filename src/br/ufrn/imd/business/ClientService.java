@@ -26,7 +26,7 @@ public class ClientService implements IClientService {
 		if(client.getName().length() <= 2) {
 			exceptions += "Nome muito curto \n";
 		}
-		if(client.getName().length() >= 64) {
+		else if(client.getName().length() >= 64) {
 			exceptions += "Nome muito longo \n";
 		}
 		

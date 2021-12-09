@@ -11,6 +11,7 @@ public class Book {
 	private ArrayList<Tag> tags;
 	private double price;
 	private String author;
+	private String barcode;
 	
 
 	public Book() {
@@ -54,7 +55,13 @@ public class Book {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	
+	public String getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
 	public ArrayList<Integer> getTagsId() {
 		ArrayList<Integer> tempArray = new ArrayList<Integer>();
 		for (Tag tag : tags) {
@@ -74,5 +81,4 @@ public class Book {
 	public String toString() {
 		return "id: "+id+" name: "+name;//+" description: "+description+" tags: "+tags+" price: "+price+" author: "+author;
 	}
-	
 }

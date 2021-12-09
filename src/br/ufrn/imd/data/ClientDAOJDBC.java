@@ -28,10 +28,10 @@ public class ClientDAOJDBC implements ClientDAO{
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
-			throw new DataException("Cliente não pode ser inserido no banco de dados \n");
+			throw new DataException("Erro ao tentar inserir o cliente no banco de dados \n");
 			//e.printStackTrace();
 		}
-		System.out.println("Cliente inserido com sucesso!");
+		//System.out.println("Cliente inserido com sucesso!");
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class ClientDAOJDBC implements ClientDAO{
 			stmt.close();
 			
 		} catch (Exception e) {
-			throw new DataException("Erro ao acessar o banco de dados \n");
+			throw new DataException("Erro ao tentar listar os clientes armazenados no banco de dados \n");
 			//e.printStackTrace();
 		}
 		return listClients;
