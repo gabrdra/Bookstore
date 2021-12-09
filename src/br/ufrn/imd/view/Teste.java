@@ -11,7 +11,7 @@ import br.ufrn.imd.model.Tag;
 
 public class Teste {
 
-	public static void main(String[] args) throws BusinessException {
+	public static void main(String[] args) {
 //		Conection con = new Conection();
 		
 //		String sql = "INSERT INTO public.book (id, description, price, author, name, tags) "
@@ -68,14 +68,26 @@ public class Teste {
 		}*/
 		
 		//Tests with tag
-		Tag testTag = new Tag();
+		/*Tag testTag = new Tag();
 		testTag.setName("francês");
 		try {
 			new TagService().addTag(testTag);
 		} catch (BusinessException | DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}*/		
+		/*try {
+			System.out.println(new TagService().retrieveTagById(1));
+		} catch (DataException | BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		try {
+			System.out.println(new TagService().listTags());
+		} catch (DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

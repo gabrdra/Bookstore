@@ -64,16 +64,14 @@ public class TagDAOJDBC implements TagDAO{
 				Tag Tag = new Tag();
 				Tag.setId(resultSet.getInt("id"));
 				Tag.setName(resultSet.getString("name"));
+				listTags.add(Tag);
 			}
 			stmt.close();
-			
+			return listTags;
 		} catch (Exception e) {
 			//e.printStackTrace();
 			throw new DataException("Erro ao tentar listar as tags armazenados no banco de dados \n");
 		}
-		
-		
-		return listTags;
 	}
 	@Override
 	public Tag retrieveTagById(int id) throws DataException{
