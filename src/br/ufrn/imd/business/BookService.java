@@ -14,7 +14,7 @@ public class BookService implements IBookService {
 	public void addBook(Book bo) throws BusinessException, DataException {
 		String exceptions = "";
 		if(retrieveBookByBarcode(bo.getBarcode()).getBarcode() != null) {
-			exceptions += "Código de barras já foi cadastrado em outro livro \n";
+			exceptions += "Cï¿½digo de barras jï¿½ foi cadastrado em outro livro \n";
 		}
 		if(bo.getName().length() >= 63) {
 			exceptions += "Nome do livro muito longo \n";
@@ -29,7 +29,7 @@ public class BookService implements IBookService {
 			exceptions += "Nome do(a) autor(a) muito curto \n";
 		}
 		if(bo.getPrice() < 0) {
-			exceptions += "Preço do livro não pode ser negativo \n";
+			exceptions += "Preï¿½o do livro nï¿½o pode ser negativo \n";
 		}
 		ITagService tagService = new TagService();
 		for(Tag tag: bo.getTags()) {
@@ -63,7 +63,7 @@ public class BookService implements IBookService {
 	@Override
 	public Book retrieveBookById(int id) throws BusinessException, DataException {
 		if(id < 1) {
-			throw new BusinessException("id deve ser um número maior do que 0 \n");
+			throw new BusinessException("id deve ser um nï¿½mero maior do que 0 \n");
 		}
 		return new BookDAOJDBC().retrieveBookById(id);
 	}
@@ -72,10 +72,10 @@ public class BookService implements IBookService {
 	public Book retrieveBookByBarcode(String barcode) throws BusinessException, DataException {
 		String exceptions = "";
 		if(!barcode.matches("[0-9]+")) {
-			exceptions += "O código de barras deve conter somente números \n";
+			exceptions += "O cÃ³digo de barras deve conter somente nÃºmeros \n";
 		}
 		if(barcode.length()!= 13) {
-			exceptions += "O código de barras deve conter exatamente 13 números \n";
+			exceptions += "O cÃ³digo de barras deve conter exatamente 13 nÃºmeros \n";
 		}
 		if(!exceptions.equals("")) {
 			throw new BusinessException(exceptions);
