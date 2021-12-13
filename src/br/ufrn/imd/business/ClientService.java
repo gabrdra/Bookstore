@@ -16,13 +16,8 @@ public class ClientService implements IClientService {
 		String exceptions = "";
 		
 		if(clientBd.getCpf()!=null) {
-			//throw new BusinessException("CPF digitado ja existe no sistema");
 			exceptions += "CPF digitado já existe no sistema \n";
 		}
-		/*if(client.getCpf().length()!=11) {
-			//throw new BusinessException("Formato do CPF invalido");
-			exceptions += "Formato do CPF inválido \n";
-		}*/
 		if(client.getName().length() <= 2) {
 			exceptions += "Nome muito curto \n";
 		}
@@ -61,8 +56,23 @@ public class ClientService implements IClientService {
 	}
 
 	@Override
-	public void updateClient(Client client) {
-		// TODO Auto-generated method stub
+	public void updateClient(Client client) throws DataException, BusinessException{
+		Client clientBd = retrieveClientByCpf(client.getCpf());
+		String exceptions = "";
+		if(clientBd.getId()!= client.getId()) {
+			exceptions += "CPF digitado já está cadastrado em outro cliente \n";
+		}
+		if(client.getName().length() <= 2) {
+			exceptions += "Nome muito curto \n";
+		}
+		else if(client.getName().length() >= 64) {
+			exceptions += "Nome muito longo \n";
+		}
+		
+		if(!exceptions.equals("")) {
+			throw new BusinessException(exceptions);
+		}
+		new ClientDAOJDBC().updateClient(client);
 
 	}
 

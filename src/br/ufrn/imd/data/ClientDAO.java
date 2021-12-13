@@ -11,7 +11,7 @@ public interface ClientDAO {
 	
 	public void removeClient(Client client);
 	
-	public void updateClient(Client client);
+	public void updateClient(Client client) throws DataException;
 	
 	public List<Client> listClients() throws DataException;
 	

@@ -66,6 +66,16 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		/*Client client = new Client();
+		client.setId(1);
+		client.setCpf("12345678901");
+		client.setName("Gabriel");
+		try {
+			new ClientService().updateClient(client);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		/*try {
 			System.out.println(new ClientService().retrieveClientById(-1));
 		} catch (DataException |BusinessException e) {
