@@ -87,7 +87,16 @@ public class Teste {
 		} catch (BusinessException | DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/		
+		}*/
+		/*Tag testTag = new Tag();
+		testTag.setId(16);
+		testTag.setName("Italiano");
+		try {
+			new TagService().updateTag(testTag);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		/*try {
 			System.out.println(new TagService().retrieveTagById(1));
 		} catch (DataException | BusinessException e) {

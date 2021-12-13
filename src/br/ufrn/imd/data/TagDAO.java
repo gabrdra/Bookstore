@@ -11,9 +11,8 @@ public interface TagDAO {
 	
 	public void removeTag();
 	
-	public Tag consultTag();
 	
-	public void updateTag();
+	public void updateTag(Tag tag) throws DataException;
 	
 	public List<Tag> listTags() throws DataException;
 	
