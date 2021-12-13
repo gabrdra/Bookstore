@@ -67,9 +67,9 @@ public class Teste {
 			e.printStackTrace();
 		}*/
 		/*Client client = new Client();
-		client.setId(1);
-		client.setCpf("12345678901");
-		client.setName("Gabriel");
+		client.setId(2);
+		client.setCpf("12345618911");
+		client.setName("Eduardo");
 		try {
 			new ClientService().updateClient(client);
 		} catch (BusinessException | DataException e) {
@@ -139,6 +139,29 @@ public class Teste {
 		book.setTags(tags);
 		try {
 			new BookService().addBook(book);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		/*Book book = new Book();
+		book.setId(11);
+		book.setBarcode("7686626982215");
+		book.setName("Arsène Lupin II");
+		book.setPrice(17.5);
+		book.setAuthor("Maurice Leblanc");
+		ArrayList<Tag> tags = new ArrayList<Tag>();
+		Tag tempTag1 = new Tag();
+		tempTag1.setId(3);
+		tags.add(tempTag1);
+		Tag tempTag2 = new Tag();
+		tempTag2.setId(11);
+		tags.add(tempTag2);
+		Tag tempTag3 = new Tag();
+		tempTag3.setId(15);
+		tags.add(tempTag3);
+		book.setTags(tags);
+		try {
+			new BookService().updateBook(book);
 		} catch (BusinessException | DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

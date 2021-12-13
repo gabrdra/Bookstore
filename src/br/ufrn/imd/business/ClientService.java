@@ -59,8 +59,14 @@ public class ClientService implements IClientService {
 	public void updateClient(Client client) throws DataException, BusinessException{
 		Client clientBd = retrieveClientByCpf(client.getCpf());
 		String exceptions = "";
-		if(clientBd.getId()!= client.getId()) {
-			exceptions += "CPF digitado já está cadastrado em outro cliente \n";
+		if(clientBd.getId() != client.getId() && clientBd.getCpf()!=null) {
+			if(retrieveClientById(client.getId()).getId()==0) {
+				exceptions += "Cliente inexistente \n";
+			}
+			else {
+				exceptions += "CPF digitado já está cadastrado em outro cliente \n";
+			}
+			
 		}
 		if(client.getName().length() <= 2) {
 			exceptions += "Nome muito curto \n";
