@@ -186,6 +186,30 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		/*try {
+			System.out.println(new TransactionService().retrieveTransactionById(5));
+		} catch (DataException | BusinessException e) {
+		// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		Transaction transaction = new Transaction();
+		ArrayList<Book> books = new ArrayList<Book>();
+		try {
+			books.add(new BookService().retrieveBookById(10));
+			books.add(new BookService().retrieveBookById(18));
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		transaction.setBooks(books);
+		transaction.setId(7);
+		transaction.setClient(1);
+		try {
+			new TransactionService().updateTransaction(transaction);
+		} catch (DataException | BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		/*Transaction transaction = new Transaction();
 		Book book = null;
 		try {

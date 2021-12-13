@@ -13,11 +13,12 @@ public interface TransactionDAO {
 	
 	public void removeTransaction();
 	
-	public Transaction consultTransaction();
-	
-	public void updateTransaction();
+	public void updateTransaction(Transaction transaction) throws DataException;
 	
 	public List<Transaction> listTransactions() throws DataException;
 	
-	public ArrayList<Transaction> retrieveTransactionsByClient(int client) throws DataException; 
+	public ArrayList<Transaction> retrieveTransactionsByClient(int client) throws DataException;
+	
+	public Transaction retrieveTransactionById(int id) throws DataException;
+ 
 }

@@ -38,8 +38,26 @@ public class TransactionService implements ITransactionService {
 	}
 
 	@Override
-	public void updateTransaction() {
-		// TODO Auto-generated method stub
+	public void updateTransaction(Transaction transaction) throws DataException, BusinessException {
+		String exceptions = "";
+		IClientService clientService = new ClientService();
+		if(retrieveTransactionById(transaction.getId()).getId() == 0) {
+			exceptions += "Transaction inexistente \n";
+		}
+		if(clientService.retrieveClientById(transaction.getClient()).getCpf() == null) {
+			exceptions += "Cliente inexistente \n";
+		}
+		IBookService bookService = new BookService();
+		ArrayList<Book>books = transaction.getBooks();
+		for(Book book : books) {
+			if(bookService.retrieveBookByBarcode(book.getBarcode()).getBarcode() == null) {
+				exceptions += "Livro inexistente \n";
+			}
+		}
+		if(!exceptions.equals("")) {
+			throw new BusinessException(exceptions);
+		}
+		new TransactionDAOJDBC().updateTransaction(transaction);
 
 	}
 
@@ -55,5 +73,12 @@ public class TransactionService implements ITransactionService {
 		}
 		return new TransactionDAOJDBC().retrieveTransactionsByClient(client);
 	}
-
+	
+	public Transaction retrieveTransactionById(int id) throws BusinessException, DataException{
+		if(id < 1) {
+			throw new BusinessException("id da transação deve ser um número maior do que 0 \n");
+		}
+		return new TransactionDAOJDBC().retrieveTransactionById(id);
+	}
+	
 }
