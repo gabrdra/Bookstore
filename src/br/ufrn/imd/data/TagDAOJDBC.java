@@ -38,16 +38,19 @@ public class TagDAOJDBC implements TagDAO{
 		
 	}
 
-	@Override
-	public Tag consultTag() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
-	public void updateTag() {
-		// TODO Auto-generated method stub
-		
+	public void updateTag(Tag tag) throws DataException{
+		String sql="UPDATE public.tag SET name = (?) WHERE id="+tag.getId();
+		try {
+			PreparedStatement stmt=connection.prepareStatement(sql);
+			stmt.setString(1, tag.getName());
+			stmt.execute();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DataException("Erro ao tentar atualizar a tag no banco de dados \n");
+		}
 	}
 
 	@Override

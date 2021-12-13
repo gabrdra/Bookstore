@@ -42,9 +42,18 @@ public class ClientDAOJDBC implements ClientDAO{
 
 
 	@Override
-	public void updateClient(Client client) {
-		// TODO Auto-generated method stub
-		
+	public void updateClient(Client client) throws DataException{
+		String sql="UPDATE public.client SET cpf = (?), name = (?) WHERE id="+client.getId();
+		try {
+			PreparedStatement stmt=connection.prepareStatement(sql);
+			stmt.setString(1, client.getCpf());
+			stmt.setString(2, client.getName());
+			stmt.execute();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DataException("Erro ao tentar atualizar o cliente no banco de dados \n");
+		}
 	}
 
 	@Override

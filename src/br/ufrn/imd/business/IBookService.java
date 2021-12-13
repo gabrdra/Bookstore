@@ -12,7 +12,7 @@ public interface IBookService {
 	
 	public void removeBook();
 	
-	public void updateBook();
+	public void updateBook(Book bo) throws DataException, BusinessException;
 	
 	public ArrayList<Book> listBooks() throws DataException;
 

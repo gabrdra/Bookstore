@@ -46,9 +46,24 @@ public class BookDAOJDBC implements BookDAO{
 	}
 
 	@Override
-	public void updateBook() {
-		// TODO Auto-generated method stub
-		
+	public void updateBook(Book bo) throws DataException{
+		String sql="UPDATE public.book SET description = (?), price = (?), author = (?), name = (?), tags = (?), barcode = (?) WHERE id="+bo.getId();
+		try {
+			PreparedStatement stmt=connection.prepareStatement(sql);
+			//stmt.setInt(1, bo.getId());
+			stmt.setString(1, bo.getDescription());
+			stmt.setDouble(2, bo.getPrice());
+			stmt.setString(3, bo.getAuthor());
+			stmt.setString(4, bo.getName());
+			Array tempArray = connection.createArrayOf("INTEGER", bo.getTagsId().toArray());
+			stmt.setArray(5, tempArray);
+			stmt.setString(6, bo.getBarcode());
+			stmt.execute();
+			stmt.close();
+		} catch (Exception e) {
+			throw new DataException("Erro ao tentar atualizar o livro no banco de dados \n");
+			//e.printStackTrace();
+		}
 	}
 
 	@Override

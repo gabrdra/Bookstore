@@ -42,15 +42,22 @@ public class TransactionDAOJDBC implements TransactionDAO{
 		
 	}
 
-	@Override
-	public Transaction consultTransaction() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
-	public void updateTransaction() {
-		// TODO Auto-generated method stub
+	public void updateTransaction(Transaction transaction) throws DataException {
+		String sql="UPDATE public.transaction SET client = (?), books = (?) WHERE id="+transaction.getId();
+		try {
+			PreparedStatement stmt=connection.prepareStatement(sql);
+			//stmt.setInt(1, transaction.getId());
+			stmt.setInt(1, transaction.getClient());
+			Array tempArray = connection.createArrayOf("INTEGER", transaction.getBooksId().toArray());
+			stmt.setArray(2, tempArray);
+			stmt.execute();
+			stmt.close();
+		} catch (Exception e) {
+			throw new DataException("Erro ao tentar atualizar a transação no banco de dados \n");
+			//e.printStackTrace();
+		}	
 		
 	}
 
@@ -117,6 +124,35 @@ public class TransactionDAOJDBC implements TransactionDAO{
 				transactions.add(transaction);
 			}
 			return transactions;
+		}catch (Exception e) {
+			throw new DataException("Erro ao tentar recuperar as transações para o cliente passado \n");
+			//e.printStackTrace();
+			//return null;
+		}
+	}
+
+	public Transaction retrieveTransactionById(int id) throws DataException{
+		try {
+			Transaction transaction = new Transaction();
+			BookDAOJDBC bookDAOJDBC = new BookDAOJDBC();
+			String sql = "SELECT * FROM public.transaction WHERE id = "+ id;
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			ResultSet resultSet = stmt.executeQuery();		
+			while(resultSet.next()) {
+				transaction.setId(resultSet.getInt("id"));
+				transaction.setClient(resultSet.getInt("client"));
+				Integer[] tempArray = (Integer[])resultSet.getArray("books").getArray();
+				ArrayList<Book> books = new ArrayList<Book>();
+				for(Integer i:tempArray) {
+					Book book = bookDAOJDBC.retrieveBookById(i);
+					if(book != null) {
+						books.add(book);
+					}
+				}
+				transaction.setBooks(books);
+				//transactions.add(transaction);
+			}
+			return transaction;
 		}catch (Exception e) {
 			throw new DataException("Erro ao tentar recuperar as transações para o cliente passado \n");
 			//e.printStackTrace();

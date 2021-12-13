@@ -12,7 +12,7 @@ public interface ITagService {
 	
 	public void removeTag();
 	
-	public void updateTag();
+	public void updateTag(Tag tag)throws BusinessException, DataException;
 	
 	public List<Tag> listTags() throws DataException;
 	

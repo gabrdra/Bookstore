@@ -29,12 +29,6 @@ public class TagService implements ITagService {
 	}
 
 	@Override
-	public void updateTag() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public List<Tag> listTags() throws DataException {
 		return new TagDAOJDBC().listTags();
 	}
@@ -60,6 +54,18 @@ public class TagService implements ITagService {
 			throw new BusinessException(exceptions);
 		}
 		return new TagDAOJDBC().retrieveTagByName(name);
+	}
+
+	@Override
+	public void updateTag(Tag tag) throws BusinessException, DataException {
+		String exceptions = "";
+		if(retrieveTagByName(tag.getName()).getName()!=null) {
+			exceptions += "Nome da tag já registrado no sistema \n";
+		}
+		if(!exceptions.equals("")) {
+			throw new BusinessException(exceptions);
+		}
+		new TagDAOJDBC().updateTag(tag);
 	}
 
 }

@@ -66,6 +66,16 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		/*Client client = new Client();
+		client.setId(2);
+		client.setCpf("12345618911");
+		client.setName("Eduardo");
+		try {
+			new ClientService().updateClient(client);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		/*try {
 			System.out.println(new ClientService().retrieveClientById(-1));
 		} catch (DataException |BusinessException e) {
@@ -87,7 +97,16 @@ public class Teste {
 		} catch (BusinessException | DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/		
+		}*/
+		/*Tag testTag = new Tag();
+		testTag.setId(16);
+		testTag.setName("Italiano");
+		try {
+			new TagService().updateTag(testTag);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		/*try {
 			System.out.println(new TagService().retrieveTagById(1));
 		} catch (DataException | BusinessException e) {
@@ -124,6 +143,29 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		/*Book book = new Book();
+		book.setId(11);
+		book.setBarcode("7686626982215");
+		book.setName("Arsène Lupin II");
+		book.setPrice(17.5);
+		book.setAuthor("Maurice Leblanc");
+		ArrayList<Tag> tags = new ArrayList<Tag>();
+		Tag tempTag1 = new Tag();
+		tempTag1.setId(3);
+		tags.add(tempTag1);
+		Tag tempTag2 = new Tag();
+		tempTag2.setId(11);
+		tags.add(tempTag2);
+		Tag tempTag3 = new Tag();
+		tempTag3.setId(15);
+		tags.add(tempTag3);
+		book.setTags(tags);
+		try {
+			new BookService().updateBook(book);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		/*try {
 			System.out.println(new BookService().retrieveBookByBarcode("6676476981216"));
 		} catch (BusinessException | DataException e) {
@@ -144,6 +186,30 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		/*try {
+			System.out.println(new TransactionService().retrieveTransactionById(5));
+		} catch (DataException | BusinessException e) {
+		// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		Transaction transaction = new Transaction();
+		ArrayList<Book> books = new ArrayList<Book>();
+		try {
+			books.add(new BookService().retrieveBookById(10));
+			books.add(new BookService().retrieveBookById(18));
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		transaction.setBooks(books);
+		transaction.setId(7);
+		transaction.setClient(1);
+		try {
+			new TransactionService().updateTransaction(transaction);
+		} catch (DataException | BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		/*Transaction transaction = new Transaction();
 		Book book = null;
 		try {

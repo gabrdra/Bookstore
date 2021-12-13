@@ -12,7 +12,7 @@ public interface IClientService {
 	
 	public void removeClient(Client client);
 	
-	public void updateClient(Client client);
+	public void updateClient(Client client) throws DataException, BusinessException;
 	
 	public List<Client> listClients() throws DataException;
 	

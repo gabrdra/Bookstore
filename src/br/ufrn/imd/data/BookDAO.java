@@ -11,7 +11,7 @@ public interface BookDAO {
 	
 	public void removeBook();
 	
-	public void updateBook();
+	public void updateBook(Book bo) throws DataException;
 	
 	public ArrayList<Book> listBooks() throws DataException;
 
