@@ -8,11 +8,11 @@ import br.ufrn.imd.model.Book;
 
 public interface IBookService {
 	
-	public void addBook(Book bo) throws BusinessException, DataException;
+	public void addBook(Book book) throws BusinessException, DataException;
 	
-	public void removeBook();
+	public void removeBook(Book book) throws DataException, BusinessException;
 	
-	public void updateBook(Book bo) throws DataException, BusinessException;
+	public void updateBook(Book book) throws DataException, BusinessException;
 	
 	public ArrayList<Book> listBooks() throws DataException;
 

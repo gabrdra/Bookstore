@@ -16,22 +16,22 @@ public class BookDAOJDBC implements BookDAO{
 	private Connection connection;
 
 	public BookDAOJDBC() {
-		this.connection= new ConnectionJDBC().getCon();
+		this.connection= ConnectionJDBC.getInstance().getCon();
 	}
 	
 	@Override
-	public void addBook(Book bo) throws DataException{
+	public void addBook(Book book) throws DataException{
 		String sql="INSERT INTO public.book (description, price, author, name, tags, barcode) VALUES (?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
 			//stmt.setInt(1, bo.getId());
-			stmt.setString(1, bo.getDescription());
-			stmt.setDouble(2, bo.getPrice());
-			stmt.setString(3, bo.getAuthor());
-			stmt.setString(4, bo.getName());
-			Array tempArray = connection.createArrayOf("INTEGER", bo.getTagsId().toArray());
+			stmt.setString(1, book.getDescription());
+			stmt.setDouble(2, book.getPrice());
+			stmt.setString(3, book.getAuthor());
+			stmt.setString(4, book.getName());
+			Array tempArray = connection.createArrayOf("INTEGER", book.getTagsId().toArray());
 			stmt.setArray(5, tempArray);
-			stmt.setString(6, bo.getBarcode());
+			stmt.setString(6, book.getBarcode());
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
@@ -41,23 +41,31 @@ public class BookDAOJDBC implements BookDAO{
 	}
 
 	@Override
-	public void removeBook() {
-		// TODO Auto-generated method stub
+	public void removeBook(Book book) throws DataException {
+		String sql = "DELETE FROM public.book WHERE id="+book.getId();
+		try {
+			PreparedStatement stmt=connection.prepareStatement(sql);
+			stmt.execute();
+			stmt.close();
+		} catch(Exception e) {
+			//e.printStackTrace();
+			throw new DataException("Erro ao remover o livro do banco de dados \n");
+		}
 	}
 
 	@Override
-	public void updateBook(Book bo) throws DataException{
-		String sql="UPDATE public.book SET description = (?), price = (?), author = (?), name = (?), tags = (?), barcode = (?) WHERE id="+bo.getId();
+	public void updateBook(Book book) throws DataException{
+		String sql="UPDATE public.book SET description = (?), price = (?), author = (?), name = (?), tags = (?), barcode = (?) WHERE id="+book.getId();
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
 			//stmt.setInt(1, bo.getId());
-			stmt.setString(1, bo.getDescription());
-			stmt.setDouble(2, bo.getPrice());
-			stmt.setString(3, bo.getAuthor());
-			stmt.setString(4, bo.getName());
-			Array tempArray = connection.createArrayOf("INTEGER", bo.getTagsId().toArray());
+			stmt.setString(1, book.getDescription());
+			stmt.setDouble(2, book.getPrice());
+			stmt.setString(3, book.getAuthor());
+			stmt.setString(4, book.getName());
+			Array tempArray = connection.createArrayOf("INTEGER", book.getTagsId().toArray());
 			stmt.setArray(5, tempArray);
-			stmt.setString(6, bo.getBarcode());
+			stmt.setString(6, book.getBarcode());
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {

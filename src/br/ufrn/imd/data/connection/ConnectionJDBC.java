@@ -10,8 +10,9 @@ public class ConnectionJDBC {
 	private String user;
 	private String password;
 	private Connection con;
+	private static ConnectionJDBC instance;
 	
-	public ConnectionJDBC(){
+	private ConnectionJDBC(){
 		url="jdbc:postgresql://localhost:5432/Bookstore";
 		user = "postgres";
 		password= "root";
@@ -25,6 +26,13 @@ public class ConnectionJDBC {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static ConnectionJDBC getInstance() {
+		if(instance == null) {
+			instance = new ConnectionJDBC();
+		}
+		return instance;
 	}
 	
 	public int execSQL(String sql) {

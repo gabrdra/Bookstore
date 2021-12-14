@@ -9,7 +9,7 @@ public interface ClientDAO {
 
 	public void addClient(Client client) throws DataException;
 	
-	public void removeClient(Client client);
+	public void removeClient(Client client) throws DataException;
 	
 	public void updateClient(Client client) throws DataException;
 	

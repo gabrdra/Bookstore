@@ -1,38 +1,40 @@
 package br.ufrn.imd.business;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.ufrn.imd.data.BookDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Tag;
+import br.ufrn.imd.model.Transaction;
 
 public class BookService implements IBookService {
 
 	@Override
-	public void addBook(Book bo) throws BusinessException, DataException {
+	public void addBook(Book book) throws BusinessException, DataException {
 		String exceptions = "";
-		if(retrieveBookByBarcode(bo.getBarcode()).getBarcode() != null) {
+		if(retrieveBookByBarcode(book.getBarcode()).getBarcode() != null) {
 			exceptions += "Código de barras já foi cadastrado em outro livro \n";
 		}
-		if(bo.getName().length() >= 63) {
+		if(book.getName().length() >= 63) {
 			exceptions += "Nome do livro muito longo \n";
 		}
-		else if(bo.getName().length() <= 1) {
+		else if(book.getName().length() <= 1) {
 			exceptions += "Nome do livro muito curto \n";
 		}
-		if(bo.getAuthor().length() >= 63) {
+		if(book.getAuthor().length() >= 63) {
 			exceptions += "Nome do(a) autor(a) muito longo \n";
 		}
-		else if(bo.getAuthor().length() <= 1) {
+		else if(book.getAuthor().length() <= 1) {
 			exceptions += "Nome do(a) autor(a) muito curto \n";
 		}
-		if(bo.getPrice() < 0) {
+		if(book.getPrice() < 0) {
 			exceptions += "Preço do livro não pode ser negativo \n";
 		}
 		ITagService tagService = new TagService();
-		for(Tag tag: bo.getTags()) {
+		for(Tag tag: book.getTags()) {
 			if(tagService.retrieveTagById(tag.getId()).getName() == null) {
 				exceptions += "Tag inexistente \n";
 			}
@@ -40,45 +42,63 @@ public class BookService implements IBookService {
 		if(!exceptions.equals("")) {
 			throw new BusinessException(exceptions);
 		}
-		new BookDAOJDBC().addBook(bo);
+		new BookDAOJDBC().addBook(book);
 	}
 
 	@Override
-	public void removeBook() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void updateBook(Book bo) throws DataException, BusinessException{
+	public void removeBook(Book book) throws DataException, BusinessException{
 		String exceptions = "";
-		Book book = retrieveBookByBarcode(bo.getBarcode());
-		if(bo.getId() != book.getId() && book.getBarcode()!= null) {
-			System.out.println(retrieveBookById(bo.getId()).getId());
-			if(retrieveBookById(bo.getId()).getId()==0) {
+		List<Transaction> transactions = new TransactionService().listTransactions();
+		for(Transaction transaction: transactions) {
+			boolean found = false;
+			for(Book bookOnTransaction: transaction.getBooks()) {
+				if(bookOnTransaction.getId() == book.getId()) {
+					exceptions += "O livro não pode ser removido pois existe dentro de ao menos uma transação \n";
+					found = true;
+					break;
+				}
+			}
+			if(found) {
+				break;
+			}
+		}
+		if(!exceptions.equals("")) {
+			throw new BusinessException(exceptions);
+		}
+		new BookDAOJDBC().removeBook(book);
+
+	}
+
+	@Override
+	public void updateBook(Book book) throws DataException, BusinessException{
+		String exceptions = "";
+		Book bookDb = retrieveBookByBarcode(book.getBarcode());
+		if(book.getId() != bookDb.getId() && bookDb.getBarcode()!= null) {
+			System.out.println(retrieveBookById(book.getId()).getId());
+			if(retrieveBookById(book.getId()).getId()==0) {
 				exceptions += "Livro inexistente \n";
 			}
 			else {
 				exceptions += "Código de barras já foi cadastrado em outro livro \n";
 			}
 		}
-		if(bo.getName().length() >= 63) {
+		if(book.getName().length() >= 63) {
 			exceptions += "Nome do livro muito longo \n";
 		}
-		else if(bo.getName().length() <= 1) {
+		else if(book.getName().length() <= 1) {
 			exceptions += "Nome do livro muito curto \n";
 		}
-		if(bo.getAuthor().length() >= 63) {
+		if(book.getAuthor().length() >= 63) {
 			exceptions += "Nome do(a) autor(a) muito longo \n";
 		}
-		else if(bo.getAuthor().length() <= 1) {
+		else if(book.getAuthor().length() <= 1) {
 			exceptions += "Nome do(a) autor(a) muito curto \n";
 		}
-		if(bo.getPrice() < 0) {
+		if(book.getPrice() < 0) {
 			exceptions += "Preço do livro não pode ser negativo \n";
 		}
 		ITagService tagService = new TagService();
-		for(Tag tag: bo.getTags()) {
+		for(Tag tag: book.getTags()) {
 			if(tagService.retrieveTagById(tag.getId()).getName() == null) {
 				exceptions += "Tag inexistente \n";
 			}
@@ -86,7 +106,7 @@ public class BookService implements IBookService {
 		if(!exceptions.equals("")) {
 			throw new BusinessException(exceptions);
 		}
-		new BookDAOJDBC().updateBook(bo);
+		new BookDAOJDBC().updateBook(book);
 
 	}
 
@@ -106,6 +126,9 @@ public class BookService implements IBookService {
 	@Override
 	public Book retrieveBookByBarcode(String barcode) throws BusinessException, DataException {
 		String exceptions = "";
+		if(barcode == null) {
+			throw new BusinessException("O código de barras não pode ser nulo \n");
+		}
 		if(!barcode.matches("[0-9]+")) {
 			exceptions += "O código de barras deve conter somente números \n";
 		}

@@ -10,7 +10,7 @@ public interface ITagService {
 
 	public void addTag(Tag tag) throws BusinessException, DataException;
 	
-	public void removeTag();
+	public void removeTag(Tag tag) throws BusinessException, DataException;
 	
 	public void updateTag(Tag tag)throws BusinessException, DataException;
 	

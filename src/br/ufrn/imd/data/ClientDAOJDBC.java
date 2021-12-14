@@ -15,7 +15,7 @@ public class ClientDAOJDBC implements ClientDAO{
 	private Connection connection;
 	
 	public ClientDAOJDBC() {
-		this.connection= new ConnectionJDBC().getCon();
+		this.connection= ConnectionJDBC.getInstance().getCon();
 	}
 
 	@Override
@@ -35,8 +35,16 @@ public class ClientDAOJDBC implements ClientDAO{
 	}
 
 	@Override
-	public void removeClient(Client client) {
-		// TODO Auto-generated method stub
+	public void removeClient(Client client) throws DataException {
+		String sql = "DELETE FROM public.client WHERE id="+client.getId();
+		try {
+			PreparedStatement stmt=connection.prepareStatement(sql);
+			stmt.execute();
+			stmt.close();
+		} catch(Exception e) {
+			//e.printStackTrace();
+			throw new DataException("Erro ao remover o cliente do banco de dados \n");
+		}
 		
 	}
 

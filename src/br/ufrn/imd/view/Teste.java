@@ -58,10 +58,20 @@ public class Teste {
 		//Tests with client
 		
 		/*Client client = new Client();
-		client.setCpf("11122233345");
-		client.setName("João");
+		client.setCpf("11122277745");
+		client.setName("Rodrigo");
 		try {
 			new ClientService().addClient(client);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		/*Client client = new Client();
+		client.setId(8);
+		client.setCpf("11122277745");
+		client.setName("Rodrigo");
+		try {
+			new ClientService().removeClient(client);
 		} catch (BusinessException | DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -107,6 +117,14 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		/*Tag testTag = new Tag();
+		testTag.setId(16);
+		try {
+			new TagService().removeTag(testTag);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		/*try {
 			System.out.println(new TagService().retrieveTagById(1));
 		} catch (DataException | BusinessException e) {
@@ -144,7 +162,7 @@ public class Teste {
 			e.printStackTrace();
 		}*/
 		/*Book book = new Book();
-		book.setId(11);
+		book.setId(12);
 		book.setBarcode("7686626982215");
 		book.setName("Arsène Lupin II");
 		book.setPrice(17.5);
@@ -161,13 +179,50 @@ public class Teste {
 		tags.add(tempTag3);
 		book.setTags(tags);
 		try {
-			new BookService().updateBook(book);
+			new BookService().addBook(book);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		/*Book book = new Book();
+		book.setId(12);
+		book.setBarcode("7686626982215");
+		book.setName("Arsène Lupin II");
+		book.setPrice(17.5);
+		book.setAuthor("Maurice Leblanc");
+		ArrayList<Tag> tags = new ArrayList<Tag>();
+		Tag tempTag1 = new Tag();
+		tempTag1.setId(3);
+		tags.add(tempTag1);
+		Tag tempTag2 = new Tag();
+		tempTag2.setId(11);
+		tags.add(tempTag2);
+		Tag tempTag3 = new Tag();
+		tempTag3.setId(15);
+		tags.add(tempTag3);
+		book.setTags(tags);
+		try {
+			new BookService().removeBook(book);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		/*Book book = new Book();
+		book.setId(13);
+		try {
+			new BookService().removeBook(book);
 		} catch (BusinessException | DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
 		/*try {
 			System.out.println(new BookService().retrieveBookByBarcode("6676476981216"));
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		/*try {
+			System.out.println(new BookService().retrieveBookByBarcode(null));
 		} catch (BusinessException | DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -179,20 +234,20 @@ public class Teste {
 		} catch (DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		/*try {
+		}
+		try {
 			System.out.println(new TransactionService().retrieveTransactionsByClient(1));
 		} catch (DataException | BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		/*try {
+		}
+		try {
 			System.out.println(new TransactionService().retrieveTransactionById(5));
 		} catch (DataException | BusinessException e) {
 		// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		Transaction transaction = new Transaction();
+		}/*
+		/*Transaction transaction = new Transaction();
 		ArrayList<Book> books = new ArrayList<Book>();
 		try {
 			books.add(new BookService().retrieveBookById(10));
@@ -209,7 +264,7 @@ public class Teste {
 		} catch (DataException | BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		/*Transaction transaction = new Transaction();
 		Book book = null;
 		try {

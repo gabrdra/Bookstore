@@ -15,7 +15,7 @@ public class TagDAOJDBC implements TagDAO{
 	private Connection connection;
 	
 	public TagDAOJDBC() {
-		this.connection= new ConnectionJDBC().getCon();
+		this.connection= ConnectionJDBC.getInstance().getCon();
 	}
 
 	@Override
@@ -33,8 +33,16 @@ public class TagDAOJDBC implements TagDAO{
 	}
 
 	@Override
-	public void removeTag() {
-		// TODO Auto-generated method stub
+	public void removeTag(Tag tag) throws DataException {
+		String sql = "DELETE FROM public.tag WHERE id="+tag.getId();
+		try {
+			PreparedStatement stmt=connection.prepareStatement(sql);
+			stmt.execute();
+			stmt.close();
+		} catch(Exception e) {
+			//e.printStackTrace();
+			throw new DataException("Erro ao remover a tag do banco de dados \n");
+		}
 		
 	}
 
