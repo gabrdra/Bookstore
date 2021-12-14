@@ -36,6 +36,9 @@ public class ClientService implements IClientService {
 
 	public Client retrieveClientByCpf(String cpf) throws BusinessException, DataException {
 		String exceptions = "";
+		if(cpf == null) {
+			throw new BusinessException("CPF não pode ser nulo \n");
+		}
 		if(!cpf.matches("[0-9]+")) {
 			exceptions += "CPF deve conter somente números \n";
 		}

@@ -126,6 +126,9 @@ public class BookService implements IBookService {
 	@Override
 	public Book retrieveBookByBarcode(String barcode) throws BusinessException, DataException {
 		String exceptions = "";
+		if(barcode == null) {
+			throw new BusinessException("O código de barras não pode ser nulo \n");
+		}
 		if(!barcode.matches("[0-9]+")) {
 			exceptions += "O código de barras deve conter somente números \n";
 		}

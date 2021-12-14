@@ -221,6 +221,12 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		/*try {
+			System.out.println(new BookService().retrieveBookByBarcode(null));
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
 		//Tests with transaction
 		/*try {
