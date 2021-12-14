@@ -154,7 +154,7 @@ public class Teste {
 			e.printStackTrace();
 		}*/
 		/*Book book = new Book();
-		book.setId(11);
+		book.setId(12);
 		book.setBarcode("7686626982215");
 		book.setName("Arsène Lupin II");
 		book.setPrice(17.5);
@@ -171,7 +171,38 @@ public class Teste {
 		tags.add(tempTag3);
 		book.setTags(tags);
 		try {
-			new BookService().updateBook(book);
+			new BookService().addBook(book);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		/*Book book = new Book();
+		book.setId(12);
+		book.setBarcode("7686626982215");
+		book.setName("Arsène Lupin II");
+		book.setPrice(17.5);
+		book.setAuthor("Maurice Leblanc");
+		ArrayList<Tag> tags = new ArrayList<Tag>();
+		Tag tempTag1 = new Tag();
+		tempTag1.setId(3);
+		tags.add(tempTag1);
+		Tag tempTag2 = new Tag();
+		tempTag2.setId(11);
+		tags.add(tempTag2);
+		Tag tempTag3 = new Tag();
+		tempTag3.setId(15);
+		tags.add(tempTag3);
+		book.setTags(tags);
+		try {
+			new BookService().removeBook(book);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		/*Book book = new Book();
+		book.setId(13);
+		try {
+			new BookService().removeBook(book);
 		} catch (BusinessException | DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

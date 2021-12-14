@@ -1,12 +1,14 @@
 package br.ufrn.imd.business;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.ufrn.imd.data.BookDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Tag;
+import br.ufrn.imd.model.Transaction;
 
 public class BookService implements IBookService {
 
@@ -44,8 +46,25 @@ public class BookService implements IBookService {
 	}
 
 	@Override
-	public void removeBook() {
-		// TODO Auto-generated method stub
+	public void removeBook(Book book) throws DataException, BusinessException{
+		String exceptions = "";
+		List<Transaction> transactions = new TransactionService().listTransactions();
+		for(Transaction transaction: transactions) {
+			boolean found = false;
+			for(Book bookOnTransaction: transaction.getBooks()) {
+				if(bookOnTransaction.getId() == book.getId()) {
+					exceptions += "O livro não pode ser removido pois existe dentro de ao menos uma transação \n";
+					break;
+				}
+			}
+			if(found) {
+				break;
+			}
+		}
+		if(!exceptions.equals("")) {
+			throw new BusinessException(exceptions);
+		}
+		new BookDAOJDBC().removeBook(book);
 
 	}
 
