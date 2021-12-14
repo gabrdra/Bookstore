@@ -16,7 +16,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 	private Connection connection;
 	
 	public TransactionDAOJDBC(){
-		this.connection = new ConnectionJDBC().getCon();
+		this.connection = ConnectionJDBC.getInstance().getCon();
 	}
 
 	@Override
@@ -78,8 +78,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 				Transaction Transaction = new Transaction();
 				
 				Transaction.setId(resultSet.getInt("id"));
-
-
+				Transaction.setClient(resultSet.getInt("client"));
 				Integer[] tempArray = (Integer[])resultSet.getArray("Books").getArray();
 				ArrayList<Book> localBooks = new ArrayList<Book>();
 				for(Integer i:tempArray) {

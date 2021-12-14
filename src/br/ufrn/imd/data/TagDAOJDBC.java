@@ -15,7 +15,7 @@ public class TagDAOJDBC implements TagDAO{
 	private Connection connection;
 	
 	public TagDAOJDBC() {
-		this.connection= new ConnectionJDBC().getCon();
+		this.connection= ConnectionJDBC.getInstance().getCon();
 	}
 
 	@Override

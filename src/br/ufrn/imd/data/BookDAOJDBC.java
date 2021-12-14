@@ -16,7 +16,7 @@ public class BookDAOJDBC implements BookDAO{
 	private Connection connection;
 
 	public BookDAOJDBC() {
-		this.connection= new ConnectionJDBC().getCon();
+		this.connection= ConnectionJDBC.getInstance().getCon();
 	}
 	
 	@Override

@@ -15,7 +15,7 @@ public class ClientDAOJDBC implements ClientDAO{
 	private Connection connection;
 	
 	public ClientDAOJDBC() {
-		this.connection= new ConnectionJDBC().getCon();
+		this.connection= ConnectionJDBC.getInstance().getCon();
 	}
 
 	@Override

@@ -58,8 +58,8 @@ public class Teste {
 		//Tests with client
 		
 		/*Client client = new Client();
-		client.setCpf("11122233345");
-		client.setName("João");
+		client.setCpf("11122277745");
+		client.setName("Rodrigo");
 		try {
 			new ClientService().addClient(client);
 		} catch (BusinessException | DataException e) {
@@ -179,20 +179,20 @@ public class Teste {
 		} catch (DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		/*try {
+		}
+		try {
 			System.out.println(new TransactionService().retrieveTransactionsByClient(1));
 		} catch (DataException | BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		/*try {
+		}
+		try {
 			System.out.println(new TransactionService().retrieveTransactionById(5));
 		} catch (DataException | BusinessException e) {
 		// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		Transaction transaction = new Transaction();
+		}/*
+		/*Transaction transaction = new Transaction();
 		ArrayList<Book> books = new ArrayList<Book>();
 		try {
 			books.add(new BookService().retrieveBookById(10));
@@ -209,7 +209,7 @@ public class Teste {
 		} catch (DataException | BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		/*Transaction transaction = new Transaction();
 		Book book = null;
 		try {
