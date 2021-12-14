@@ -117,6 +117,14 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		/*Tag testTag = new Tag();
+		testTag.setId(16);
+		try {
+			new TagService().removeTag(testTag);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		/*try {
 			System.out.println(new TagService().retrieveTagById(1));
 		} catch (DataException | BusinessException e) {

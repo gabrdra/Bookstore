@@ -9,7 +9,7 @@ public interface TagDAO {
 
 	public void addTag(Tag tag) throws DataException;
 	
-	public void removeTag();
+	public void removeTag(Tag tag) throws DataException;
 	
 	
 	public void updateTag(Tag tag) throws DataException;

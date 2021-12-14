@@ -54,6 +54,7 @@ public class BookService implements IBookService {
 			for(Book bookOnTransaction: transaction.getBooks()) {
 				if(bookOnTransaction.getId() == book.getId()) {
 					exceptions += "O livro não pode ser removido pois existe dentro de ao menos uma transação \n";
+					found = true;
 					break;
 				}
 			}
