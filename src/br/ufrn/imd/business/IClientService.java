@@ -10,7 +10,7 @@ public interface IClientService {
 
 	public void addClient(Client client) throws BusinessException, DataException;
 	
-	public void removeClient(Client client);
+	public void removeClient(Client client) throws BusinessException, DataException;
 	
 	public void updateClient(Client client) throws DataException, BusinessException;
 	
