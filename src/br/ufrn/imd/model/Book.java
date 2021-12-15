@@ -79,6 +79,6 @@ public class Book {
 	}
 	@Override
 	public String toString() {
-		return "id: "+id+" name: "+name + " barcode: "+barcode;//+" description: "+description+" tags: "+tags+" price: "+price+" author: "+author;
+		return name;//"id: "+id+" name: "+name + " barcode: "+barcode;//+" description: "+description+" tags: "+tags+" price: "+price+" author: "+author;
 	}
 }
