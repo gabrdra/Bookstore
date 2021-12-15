@@ -207,7 +207,6 @@ public class TelaPrincipalController implements Initializable{
 	        TelaCadastroLivroController controller = fxmlLoader.getController();
 	    	controller.setMyStage(stageBook);
 	    	stageBook.showAndWait();
-	    	System.out.println("TESTE");
 	        
     	 }catch (IOException e) {
 			e.printStackTrace();
@@ -259,13 +258,45 @@ public class TelaPrincipalController implements Initializable{
     }
     
     @FXML
+    void openListClients(ActionEvent event) {
+    	
+    }
+    
+    @FXML
+    void openListTags(ActionEvent event) {
+    	
+    }
+    
+    @FXML
+    void openListSales(ActionEvent event) {
+    	
+    }
+    
+    @FXML
     void fecharMainApp(ActionEvent event) {
 
     }
 
     @FXML
-    void listarCadastroProdutos(ActionEvent event) {
-
+    void openListBooks(ActionEvent event) {
+     	 try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+		    fxmlLoader.setLocation(TelaListagemLivrosController.class.getResource("/br/ufrn/imd/view/TelaListagemLivros.fxml"));
+		    AnchorPane page = (AnchorPane) fxmlLoader.load();
+		    
+		    Stage stageClient = new Stage();
+		    stageClient.setTitle("Lista Livros");
+		    Scene scene = new Scene(page);
+		    stageClient.setResizable(false);
+		    stageClient.setScene(scene);
+		    
+		    TelaListagemLivrosController controller = fxmlLoader.getController();
+	    	controller.setMyStage(stageClient);
+	    	stageClient.showAndWait();
+	        
+   	 }catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     @FXML

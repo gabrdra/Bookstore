@@ -31,10 +31,10 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Consultas">
             <items>
-              <MenuItem fx:id="mnListBooks" mnemonicParsing="false" onAction="#listarCadastroProdutos" text="Listar Livros" />
-                  <MenuItem fx:id="mnListClients" mnemonicParsing="false" onAction="#listarCadastroProdutos" text="Listar Clientes" />
-                  <MenuItem fx:id="mnListTags" mnemonicParsing="false" onAction="#listarCadastroProdutos" text="Listar Tags" />
-                  <MenuItem fx:id="mnListSales" mnemonicParsing="false" onAction="#listarCadastroProdutos" text="Listar Vendas" />
+              <MenuItem fx:id="mnListBooks" mnemonicParsing="false" onAction="#openListBooks" text="Listar Livros" />
+                  <MenuItem fx:id="mnListClients" mnemonicParsing="false" onAction="#openListClients" text="Listar Clientes" />
+                  <MenuItem fx:id="mnListTags" mnemonicParsing="false" onAction="#openListTags" text="Listar Tags" />
+                  <MenuItem fx:id="mnListSales" mnemonicParsing="false" onAction="#openListSales" text="Listar Vendas" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ajuda">

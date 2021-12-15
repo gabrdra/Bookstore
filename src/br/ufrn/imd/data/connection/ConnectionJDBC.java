@@ -14,8 +14,8 @@ public class ConnectionJDBC {
 	
 	private ConnectionJDBC(){
 		url="jdbc:postgresql://localhost:5432/Bookstore";
-		user = "postgres";
-		password= "root";
+		user = "eduardo";
+		password= "123";
 		
 		try {
 			
