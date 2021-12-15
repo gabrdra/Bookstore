@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.exceptions.ViewException;
+import br.ufrn.imd.exceptions.GUIException;
 import br.ufrn.imd.model.Tag;
 import javafx.event.ActionEvent;
 
@@ -59,13 +59,13 @@ public class TelaAtualizacaoTagController {
 	private void populateInterface(Tag tag) {
 		try {
 			if(tag.getId() == 0) {
-				throw new ViewException("Tag inexistente \n");
+				throw new GUIException("Tag inexistente \n");
 			}
 			tfId.setText(String.valueOf(tag.getId()));
 			tfName.setText(tag.getName());
 		}
 		
-		catch(ViewException e) {
+		catch(GUIException e) {
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;

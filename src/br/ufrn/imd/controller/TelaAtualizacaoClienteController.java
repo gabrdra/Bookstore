@@ -9,7 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.exceptions.ViewException;
+import br.ufrn.imd.exceptions.GUIException;
 import br.ufrn.imd.model.Client;
 import javafx.event.ActionEvent;
 
@@ -64,12 +64,12 @@ public class TelaAtualizacaoClienteController {
 	private void populateInterface(Client client) {
 		try {
 		if(client.getId() == 0) {
-			throw new ViewException("Cliente inexistente \n");
+			throw new GUIException("Cliente inexistente \n");
 		}
 		tfId.setText(String.valueOf(client.getId()));
 		tfName.setText(client.getName());
 		tfCpf.setText(client.getCpf());}
-		catch(ViewException e) {
+		catch(GUIException e) {
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;
