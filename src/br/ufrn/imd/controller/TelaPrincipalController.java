@@ -180,6 +180,14 @@ public class TelaPrincipalController implements Initializable{
         	alert.showAndWait();
         	return;
 		}
+    	
+    	Alert alert = new Alert(AlertType.CONFIRMATION, "Venda realizada com sucesso!", ButtonType.OK);
+    	alert.showAndWait();
+    	resetObservableList();
+    	tableReset();
+    	remCleintToCart(event);
+    	valorTotal = 0;
+    	lbTotalValue.setText("R$0,00");
     }
     
     @FXML
@@ -259,18 +267,69 @@ public class TelaPrincipalController implements Initializable{
     
     @FXML
     void openListClients(ActionEvent event) {
-    	
-    }
+    	 try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+		    fxmlLoader.setLocation(TelaListagemClientesController.class.getResource("/br/ufrn/imd/view/TelaListagemClientes.fxml"));
+		    AnchorPane page = (AnchorPane) fxmlLoader.load();
+		    
+		    Stage stageClient = new Stage();
+		    stageClient.setTitle("Lista Clientes");
+		    Scene scene = new Scene(page);
+		    stageClient.setResizable(false);
+		    stageClient.setScene(scene);
+		    
+		    TelaListagemClientesController controller = fxmlLoader.getController();
+	    	controller.setMyStage(stageClient);
+	    	stageClient.showAndWait();
+	        
+  	 }catch (IOException e) {
+			e.printStackTrace();
+		}
+   }
     
     @FXML
     void openListTags(ActionEvent event) {
-    	
-    }
+	   	 try {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+			    fxmlLoader.setLocation(TelaListagemTagsController.class.getResource("/br/ufrn/imd/view/TelaListagemTags.fxml"));
+			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			    
+			    Stage stageTag = new Stage();
+			    stageTag.setTitle("Lista Clientes");
+			    Scene scene = new Scene(page);
+			    stageTag.setResizable(false);
+			    stageTag.setScene(scene);
+			    
+			    TelaListagemTagsController controller = fxmlLoader.getController();
+		    	controller.setMyStage(stageTag);
+		    	stageTag.showAndWait();
+		        
+	 	 }catch (IOException e) {
+				e.printStackTrace();
+			}
+	  }
     
     @FXML
     void openListSales(ActionEvent event) {
-    	
-    }
+	   	 try {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+			    fxmlLoader.setLocation(TelaListagemVendasController.class.getResource("/br/ufrn/imd/view/TelaListagemVendas.fxml"));
+			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			    
+			    Stage stage = new Stage();
+			    stage.setTitle("Lista Vendas");
+			    Scene scene = new Scene(page);
+			    stage.setResizable(false);
+			    stage.setScene(scene);
+			    
+			    TelaListagemVendasController controller = fxmlLoader.getController();
+		    	controller.setMyStage(stage);
+		    	stage.showAndWait();
+		        
+	 	 }catch (IOException e) {
+				e.printStackTrace();
+			}
+	  }
     
     @FXML
     void fecharMainApp(ActionEvent event) {
@@ -284,15 +343,15 @@ public class TelaPrincipalController implements Initializable{
 		    fxmlLoader.setLocation(TelaListagemLivrosController.class.getResource("/br/ufrn/imd/view/TelaListagemLivros.fxml"));
 		    AnchorPane page = (AnchorPane) fxmlLoader.load();
 		    
-		    Stage stageClient = new Stage();
-		    stageClient.setTitle("Lista Livros");
+		    Stage stageBook = new Stage();
+		    stageBook.setTitle("Lista Livros");
 		    Scene scene = new Scene(page);
-		    stageClient.setResizable(false);
-		    stageClient.setScene(scene);
+		    stageBook.setResizable(false);
+		    stageBook.setScene(scene);
 		    
 		    TelaListagemLivrosController controller = fxmlLoader.getController();
-	    	controller.setMyStage(stageClient);
-	    	stageClient.showAndWait();
+	    	controller.setMyStage(stageBook);
+	    	stageBook.showAndWait();
 	        
    	 }catch (IOException e) {
 			e.printStackTrace();
