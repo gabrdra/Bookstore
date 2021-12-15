@@ -268,7 +268,7 @@ public class Teste {
 		/*Transaction transaction = new Transaction();
 		Book book = null;
 		try {
-			book = new BookService().retrieveBookByBarcode("7686626982215");
+			book = new BookService().retrieveBookByBarcode("1764016980495");
 		} catch (BusinessException | DataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
