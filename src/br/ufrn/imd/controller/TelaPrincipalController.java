@@ -7,32 +7,42 @@ import br.ufrn.imd.business.BookService;
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.business.IBookService;
 import br.ufrn.imd.business.IClientService;
+import br.ufrn.imd.business.TransactionService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Client;
+import br.ufrn.imd.model.Transaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class TelaPrincipalController implements Initializable{
 	
 	private Client client;
 	private Book book;
 	private double valorTotal;
-	TelaAvisoController warning = new TelaAvisoController();
+	private Transaction transaction;
 	
 	ArrayList<Book> listBooks = new ArrayList<Book>();
+	
 	ObservableList<Book> observableBookList = FXCollections.observableArrayList();
 	
 	@FXML
@@ -136,8 +146,24 @@ public class TelaPrincipalController implements Initializable{
 	}
 
     @FXML
-    void ConfirmarVenda(ActionEvent event) {
-
+    void ConfirmarVenda(ActionEvent event) throws DataException, BusinessException {
+    	transaction = new Transaction();
+    	transaction.setBooks(listBooks);
+    	transaction.setClient(client.getId());
+    	transaction.setValue(valorTotal);
+    	try {
+    		new TransactionService().addTransaction(transaction);
+    		
+    	}catch (BusinessException e) {
+        	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        	alert.showAndWait();
+        	return;
+		}
+    	catch (DataException e) {
+        	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        	alert.showAndWait();
+        	return;
+		}
     }
     
     @FXML
@@ -146,11 +172,39 @@ public class TelaPrincipalController implements Initializable{
     }
 
     @FXML
-    void abrirTelaProduto(ActionEvent event) {
-
+    void openAddBookScreen(ActionEvent event) throws IOException {
+    	 try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+		    fxmlLoader.setLocation(TelaCadastroLivroController.class.getResource("/br/ufrn/imd/view/TelaCadastroLivro.fxml"));
+		    AnchorPane page = (AnchorPane) fxmlLoader.load();
+		    
+		    Stage stageBook = new Stage();
+		    stageBook.setTitle("Cadastrar Livro");
+		    Scene scene = new Scene(page);
+		    stageBook.setResizable(false);
+		    stageBook.setScene(scene);
+		    
+	        TelaCadastroLivroController controller = fxmlLoader.getController();
+	    	controller.setMyStage(stageBook);
+	    	stageBook.showAndWait();
+	    	System.out.println("TESTE");
+	        
+    	 }catch (IOException e) {
+			e.printStackTrace();
+		}
+    	 System.out.println("TESTE");
+    	 
     }
 
+    @FXML
+    void openAddClientScreen(ActionEvent event) {
+    	
+    }
+    @FXML
+    void openAddTagScreen(ActionEvent event) {
 
+    }
+    
     @FXML
     void fecharMainApp(ActionEvent event) {
 
@@ -174,10 +228,16 @@ public class TelaPrincipalController implements Initializable{
     	client = clientService.retrieveClientByCpf(tfCpf.getText());
     	}
     	catch (BusinessException e) {
-    		warning.openWarning(e.getMessage());
+        	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        	alert.showAndWait();
+        	client = null;
+        	return;
 		}
     	catch (DataException e) {
-    		warning.openWarning(e.getMessage());
+        	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        	alert.showAndWait();
+        	client = null;
+        	return;
 		}
     	
     	tfClientName.setText(client.getName());
@@ -192,10 +252,14 @@ public class TelaPrincipalController implements Initializable{
     		book = bookService.retrieveBookByBarcode(tfBarCode.getText());
 		}
     	catch (BusinessException e) {
-    		warning.openWarning(e.getMessage());
+        	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        	alert.showAndWait();
+        	return;
 		}
     	catch (DataException e) {
-    		warning.openWarning(e.getMessage());
+        	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        	alert.showAndWait();
+        	return;
 		}
     	
 		

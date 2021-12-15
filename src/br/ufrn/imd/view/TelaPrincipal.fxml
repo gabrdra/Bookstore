@@ -18,15 +18,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="800.0" prefHeight="720.0" prefWidth="1326.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controller.TelaPrincipalController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="800.0" prefHeight="620.0" prefWidth="1266.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controller.TelaPrincipalController">
    <children>
       <MenuBar>
         <menus>
           <Menu mnemonicParsing="false" text="Cadastros">
             <items>
-                  <MenuItem fx:id="mnItemCadProduto" mnemonicParsing="false" onAction="#abrirTelaProduto" text="Livro" />
-                  <MenuItem fx:id="mnItemCadProduto1" mnemonicParsing="false" onAction="#abrirTelaProduto" text="Cliente" />
-                  <MenuItem fx:id="mnItemCadProduto2" mnemonicParsing="false" onAction="#abrirTelaProduto" text="Categoria" />
+                  <MenuItem fx:id="mnItemCadProduto" mnemonicParsing="false" onAction="#openAddBookScreen" text="Livro" />
+                  <MenuItem fx:id="mnItemCadProduto1" mnemonicParsing="false" onAction="#openAddClientScreen" text="Cliente" />
+                  <MenuItem fx:id="mnItemCadProduto2" mnemonicParsing="false" onAction="#openAddTagScreen" text="Categoria" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Consultas">
