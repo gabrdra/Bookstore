@@ -49,6 +49,9 @@ public class TelaPrincipalController implements Initializable{
     private Button btAddCleintToCart;
 	
 	@FXML
+    private Button btRemCleintToCart;
+	
+	@FXML
     private TextField tfCpf;
 	
 
@@ -69,7 +72,7 @@ public class TelaPrincipalController implements Initializable{
     private Button btCancelarVenda;
     
     @FXML
-    private Label lbCbFuncionarios;
+    private Label lbClientCpf;
 
     @FXML
     private GridPane lbCodPro;
@@ -90,17 +93,26 @@ public class TelaPrincipalController implements Initializable{
     private Label lbTotalValue;
 
     @FXML
-    private MenuItem mnItemCadProduto;
+    private MenuItem mnAddBook;
 
     @FXML
-    private MenuItem mnItemCadProduto1;
+    private MenuItem mnAddClient;
 
     @FXML
-    private MenuItem mnItemCadProduto2;
+    private MenuItem mnAddTag;
 
     @FXML
-    private MenuItem mnItemListarProduto;
+    private MenuItem mnListBooks;
 
+    @FXML
+    private MenuItem mnListClients;
+    
+    @FXML
+    private MenuItem mnListTags;
+    
+    @FXML
+    private MenuItem mnListSales;
+    
     @FXML
     private MenuItem mnItemSair;
 
@@ -148,8 +160,12 @@ public class TelaPrincipalController implements Initializable{
     @FXML
     void ConfirmarVenda(ActionEvent event) throws DataException, BusinessException {
     	transaction = new Transaction();
+    	
     	transaction.setBooks(listBooks);
-    	transaction.setClient(client.getId());
+    	if(client != null) {
+        	transaction.setClient(client.getId());
+    	}
+
     	transaction.setValue(valorTotal);
     	try {
     		new TransactionService().addTransaction(transaction);
@@ -168,7 +184,11 @@ public class TelaPrincipalController implements Initializable{
     
     @FXML
     void CancelarVenda(ActionEvent event) {
-
+    	resetObservableList();
+    	tableReset();
+    	remCleintToCart(event);
+    	valorTotal = 0;
+    	lbTotalValue.setText("R$0,00");
     }
 
     @FXML
@@ -192,17 +212,50 @@ public class TelaPrincipalController implements Initializable{
     	 }catch (IOException e) {
 			e.printStackTrace();
 		}
-    	 System.out.println("TESTE");
     	 
     }
 
     @FXML
     void openAddClientScreen(ActionEvent event) {
-    	
+   	 try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+		    fxmlLoader.setLocation(TelaCadastroClienteController.class.getResource("/br/ufrn/imd/view/TelaCadastroCliente.fxml"));
+		    AnchorPane page = (AnchorPane) fxmlLoader.load();
+		    
+		    Stage stageClient = new Stage();
+		    stageClient.setTitle("Cadastrar Cliente");
+		    Scene scene = new Scene(page);
+		    stageClient.setResizable(false);
+		    stageClient.setScene(scene);
+		    
+		    TelaCadastroClienteController controller = fxmlLoader.getController();
+	    	controller.setMyStage(stageClient);
+	    	stageClient.showAndWait();
+	        
+   	 }catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     @FXML
     void openAddTagScreen(ActionEvent event) {
-
+      	 try {
+ 			FXMLLoader fxmlLoader = new FXMLLoader();
+ 		    fxmlLoader.setLocation(TelaCadastroTagController.class.getResource("/br/ufrn/imd/view/TelaCadastroTag.fxml"));
+ 		    AnchorPane page = (AnchorPane) fxmlLoader.load();
+ 		    
+ 		    Stage stageClient = new Stage();
+ 		    stageClient.setTitle("Cadastrar Tag");
+ 		    Scene scene = new Scene(page);
+ 		    stageClient.setResizable(false);
+ 		    stageClient.setScene(scene);
+ 		    
+ 		   TelaCadastroTagController controller = fxmlLoader.getController();
+ 	    	controller.setMyStage(stageClient);
+ 	    	stageClient.showAndWait();
+ 	        
+    	 }catch (IOException e) {
+ 			e.printStackTrace();
+ 		}
     }
     
     @FXML
@@ -230,17 +283,23 @@ public class TelaPrincipalController implements Initializable{
     	catch (BusinessException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
-        	client = null;
         	return;
 		}
     	catch (DataException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
-        	client = null;
         	return;
 		}
     	
     	tfClientName.setText(client.getName());
+    }
+    
+    @FXML
+    void remCleintToCart(ActionEvent event) {
+    	client = new Client();
+    	tfClientName.setText(null);
+    	tfCpf.setText(null);
+    	
     }
 
     @FXML
@@ -299,6 +358,14 @@ public class TelaPrincipalController implements Initializable{
 		tfBookName.setText(null);
 		tfBookAuthor.setText(null);
     }
+    
+    void resetObservableList() {
+    	listBooks = new ArrayList<Book>();
+    	observableBookList = FXCollections.observableArrayList();
+		tableCartList.setItems(observableBookList);
+    }
+    
+    
 
     
 }

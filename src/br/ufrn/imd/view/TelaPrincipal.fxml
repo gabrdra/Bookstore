@@ -24,14 +24,17 @@
         <menus>
           <Menu mnemonicParsing="false" text="Cadastros">
             <items>
-                  <MenuItem fx:id="mnItemCadProduto" mnemonicParsing="false" onAction="#openAddBookScreen" text="Livro" />
-                  <MenuItem fx:id="mnItemCadProduto1" mnemonicParsing="false" onAction="#openAddClientScreen" text="Cliente" />
-                  <MenuItem fx:id="mnItemCadProduto2" mnemonicParsing="false" onAction="#openAddTagScreen" text="Categoria" />
+                  <MenuItem fx:id="mnAddBook" mnemonicParsing="false" onAction="#openAddBookScreen" text="Livro" />
+                  <MenuItem fx:id="mnAddClient" mnemonicParsing="false" onAction="#openAddClientScreen" text="Cliente" />
+                  <MenuItem fx:id="mnAddTag" mnemonicParsing="false" onAction="#openAddTagScreen" text="Categoria" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Consultas">
             <items>
-              <MenuItem fx:id="mnItemListarProduto" mnemonicParsing="false" onAction="#listarCadastroProdutos" text="Listar Livros" />
+              <MenuItem fx:id="mnListBooks" mnemonicParsing="false" onAction="#listarCadastroProdutos" text="Listar Livros" />
+                  <MenuItem fx:id="mnListClients" mnemonicParsing="false" onAction="#listarCadastroProdutos" text="Listar Clientes" />
+                  <MenuItem fx:id="mnListTags" mnemonicParsing="false" onAction="#listarCadastroProdutos" text="Listar Tags" />
+                  <MenuItem fx:id="mnListSales" mnemonicParsing="false" onAction="#listarCadastroProdutos" text="Listar Vendas" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ajuda">
@@ -138,7 +141,7 @@
                                   <RowConstraints maxHeight="142.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label fx:id="lbCbFuncionarios" prefHeight="16.0" prefWidth="79.0" text="CPF:">
+                                    <Label fx:id="lbClientCpf" prefHeight="16.0" prefWidth="79.0" text="CPF:">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -154,7 +157,7 @@
                                           <Insets />
                                        </opaqueInsets>
                                     </TextField>
-                                    <Label text="Nome:" GridPane.rowIndex="1">
+                                    <Label fx:id="lbClientNome" text="Nome:" GridPane.rowIndex="1">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -166,7 +169,12 @@
                                        </padding>
                                     </Label>
                                     <TextField fx:id="tfClientName" alignment="CENTER" editable="false" prefHeight="24.0" prefWidth="113.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Button fx:id="btAddCleintToCart" mnemonicParsing="false" onAction="#addCleintToCart" prefHeight="28.0" prefWidth="127.0" text="Adicionar" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <Button fx:id="btAddCleintToCart" alignment="CENTER" mnemonicParsing="false" onAction="#addCleintToCart" prefHeight="28.0" prefWidth="127.0" text="Adicionar" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="btRemCleintToCart" mnemonicParsing="false" onAction="#remCleintToCart" prefHeight="28.0" prefWidth="127.0" text="Remover" GridPane.rowIndex="2">
                                        <font>
                                           <Font size="15.0" />
                                        </font>

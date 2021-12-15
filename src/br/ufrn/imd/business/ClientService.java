@@ -17,7 +17,7 @@ public class ClientService implements IClientService {
 		String exceptions = "";
 		
 		if(clientBd.getCpf()!=null) {
-			exceptions += "CPF digitado já existe no sistema \n";
+			exceptions += "CPF digitado jï¿½ existe no sistema \n";
 		}
 		if(client.getName().length() <= 2) {
 			exceptions += "Nome muito curto \n";
@@ -37,13 +37,13 @@ public class ClientService implements IClientService {
 	public Client retrieveClientByCpf(String cpf) throws BusinessException, DataException {
 		String exceptions = "";
 		if(cpf == null) {
-			throw new BusinessException("CPF não pode ser nulo \n");
+			throw new BusinessException("CPF nï¿½o pode ser nulo \n");
 		}
 		if(!cpf.matches("[0-9]+")) {
-			exceptions += "CPF deve conter somente números \n";
+			exceptions += "CPF deve conter somente nï¿½meros \n";
 		}
 		if(cpf.length()!= 11) {
-			exceptions += "CPF deve conter exatamente 11 números \n";
+			exceptions += "CPF deve conter exatamente 11 nï¿½meros \n";
 		}
 		if(!exceptions.equals("")) {
 			throw new BusinessException(exceptions);
@@ -59,10 +59,10 @@ public class ClientService implements IClientService {
 		String exceptions = "";
 		try {
 			if(transactionService.retrieveTransactionsByClient(client.getId()).size() != 0) {
-				exceptions += "Não é possível remover o cliente pois há transações envolvendo ele \n";
+				exceptions += "Nï¿½o ï¿½ possï¿½vel remover o cliente pois hï¿½ transaï¿½ï¿½es envolvendo ele \n";
 			}
 		} catch (BusinessException | DataException e) {
-			throw new BusinessException("Erro ao tentar recuperar as transações envolvendo o cliente passado \n");
+			throw new BusinessException("Erro ao tentar recuperar as transaï¿½ï¿½es envolvendo o cliente passado \n");
 		}
 		if(!exceptions.equals("")) {
 			throw new BusinessException(exceptions);
@@ -80,7 +80,7 @@ public class ClientService implements IClientService {
 				exceptions += "Cliente inexistente \n";
 			}
 			else {
-				exceptions += "CPF digitado já está cadastrado em outro cliente \n";
+				exceptions += "CPF digitado jï¿½ estï¿½ cadastrado em outro cliente \n";
 			}
 			
 		}
@@ -106,7 +106,7 @@ public class ClientService implements IClientService {
 	@Override
 	public Client retrieveClientById(int id) throws DataException, BusinessException{
 		if(id < 1) {
-			throw new BusinessException("id deve ser um número maior do que 0 \n");
+			throw new BusinessException("Cliente nÃ£o encontrado\n");
 		}
 		return new ClientDAOJDBC().retrieveClientById(id);
 		
