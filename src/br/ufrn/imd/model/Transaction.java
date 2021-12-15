@@ -51,7 +51,7 @@ public class Transaction {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "id: "+id+ " client: " + client + " books: "+ books;
+		return "id: "+id+ " client: " + client + " value: "+value+ " books: "+ books;
 	}
 	
 }

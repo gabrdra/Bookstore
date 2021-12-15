@@ -21,13 +21,14 @@ public class TransactionDAOJDBC implements TransactionDAO{
 
 	@Override
 	public void addTransaction(Transaction transaction) throws DataException{
-		String sql="INSERT INTO public.transaction (client, books) VALUES (?, ?);";
+		String sql="INSERT INTO public.transaction (client, books, value) VALUES (?, ?, ?);";
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
 			//stmt.setInt(1, transaction.getId());
 			stmt.setInt(1, transaction.getClient());
 			Array tempArray = connection.createArrayOf("INTEGER", transaction.getBooksId().toArray());
 			stmt.setArray(2, tempArray);
+			stmt.setDouble(3, transaction.getValue());
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
@@ -52,6 +53,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 			stmt.setInt(1, transaction.getClient());
 			Array tempArray = connection.createArrayOf("INTEGER", transaction.getBooksId().toArray());
 			stmt.setArray(2, tempArray);
+			stmt.setDouble(3, transaction.getValue());
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
@@ -75,10 +77,11 @@ public class TransactionDAOJDBC implements TransactionDAO{
 			ResultSet resultSet = stmt.executeQuery();
 			
 			while(resultSet.next()) {
-				Transaction Transaction = new Transaction();
+				Transaction transaction = new Transaction();
 				
-				Transaction.setId(resultSet.getInt("id"));
-				Transaction.setClient(resultSet.getInt("client"));
+				transaction.setId(resultSet.getInt("id"));
+				transaction.setClient(resultSet.getInt("client"));
+				transaction.setValue(resultSet.getDouble("value"));
 				Integer[] tempArray = (Integer[])resultSet.getArray("Books").getArray();
 				ArrayList<Book> localBooks = new ArrayList<Book>();
 				for(Integer i:tempArray) {
@@ -87,8 +90,8 @@ public class TransactionDAOJDBC implements TransactionDAO{
 						localBooks.add(Book);
 					}
 				}
-				Transaction.setBooks(localBooks);
-				listTransactions.add(Transaction);
+				transaction.setBooks(localBooks);
+				listTransactions.add(transaction);
 			}
 			stmt.close();
 		} catch (Exception e) {
@@ -111,6 +114,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 				Transaction transaction = new Transaction();
 				transaction.setId(resultSet.getInt("id"));
 				transaction.setClient(resultSet.getInt("client"));
+				transaction.setValue(resultSet.getDouble("value"));
 				Integer[] tempArray = (Integer[])resultSet.getArray("books").getArray();
 				ArrayList<Book> books = new ArrayList<Book>();
 				for(Integer i:tempArray) {
@@ -140,6 +144,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 			while(resultSet.next()) {
 				transaction.setId(resultSet.getInt("id"));
 				transaction.setClient(resultSet.getInt("client"));
+				transaction.setValue(resultSet.getDouble("value"));
 				Integer[] tempArray = (Integer[])resultSet.getArray("books").getArray();
 				ArrayList<Book> books = new ArrayList<Book>();
 				for(Integer i:tempArray) {
