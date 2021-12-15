@@ -5,7 +5,7 @@
 -- Dumped from database version 12.9
 -- Dumped by pg_dump version 12.9
 
--- Started on 2021-12-08 21:46:49
+-- Started on 2021-12-15 17:22:22
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -140,7 +140,8 @@ ALTER SEQUENCE public.tag_id_seq OWNED BY public.tag.id;
 CREATE TABLE public.transaction (
     id integer NOT NULL,
     client integer NOT NULL,
-    books integer[] NOT NULL
+    books integer[] NOT NULL,
+    value real
 );
 
 
@@ -211,6 +212,8 @@ INSERT INTO public.book (id, description, price, author, name, tags, barcode) VA
 ', 'Project Hail Mary', '{1,10,11,7,3}', '1985396252453');
 INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (8, NULL, 38.5, 'Neil Gaiman', 'Norse Mythology', '{2,5,7,11,3}', '7478709243205');
 INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (9, NULL, 37, 'Becky Chambers', 'To Be Taught, If Fortunate', '{1,4,7,10}', '7741597746939');
+INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (10, NULL, 17.5, 'Maurice Leblanc', 'Arsène Lupin', '{3,11,15}', '7686626981215');
+INSERT INTO public.book (id, description, price, author, name, tags, barcode) VALUES (12, NULL, 17.5, 'Maurice Leblanc', 'Arsène Lupin II', '{3,11,15}', '7686626982215');
 
 
 --
@@ -219,10 +222,10 @@ INSERT INTO public.book (id, description, price, author, name, tags, barcode) VA
 -- Data for Name: client; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (1, 'Gabriel', '12345678901');
-INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (2, 'Eduardo', '23456789012');
 INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (3, 'Letícia', '34567890123');
 INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (4, 'João', '11122233345');
+INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (1, 'Gabriel', '12345678901');
+INSERT INTO public.client (id, name, cpf) OVERRIDING SYSTEM VALUE VALUES (2, 'Eduardo', '12345618911');
 
 
 --
@@ -243,6 +246,8 @@ INSERT INTO public.tag (id, name) VALUES (9, 'viagem');
 INSERT INTO public.tag (id, name) VALUES (10, 'espaço');
 INSERT INTO public.tag (id, name) VALUES (11, 'Ficção');
 INSERT INTO public.tag (id, name) VALUES (12, 'Poesia');
+INSERT INTO public.tag (id, name) VALUES (15, 'Francês');
+INSERT INTO public.tag (id, name) VALUES (14, 'Culinaria');
 INSERT INTO public.tag (id, name) VALUES (13, 'Quadrinho');
 
 
@@ -252,8 +257,10 @@ INSERT INTO public.tag (id, name) VALUES (13, 'Quadrinho');
 -- Data for Name: transaction; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.transaction (id, client, books) VALUES (5, 1, '{1,2}');
-INSERT INTO public.transaction (id, client, books) VALUES (6, 1, '{4}');
+INSERT INTO public.transaction (id, client, books, value) VALUES (5, 1, '{1,2}', 52.1);
+INSERT INTO public.transaction (id, client, books, value) VALUES (6, 1, '{4}', 25.78);
+INSERT INTO public.transaction (id, client, books, value) VALUES (7, 1, '{10,12}', 35);
+INSERT INTO public.transaction (id, client, books, value) VALUES (8, 1, '{5}', 30);
 
 
 --
@@ -262,7 +269,7 @@ INSERT INTO public.transaction (id, client, books) VALUES (6, 1, '{4}');
 -- Name: book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.book_id_seq', 9, true);
+SELECT pg_catalog.setval('public.book_id_seq', 13, true);
 
 
 --
@@ -271,7 +278,7 @@ SELECT pg_catalog.setval('public.book_id_seq', 9, true);
 -- Name: client_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.client_id_seq', 7, true);
+SELECT pg_catalog.setval('public.client_id_seq', 8, true);
 
 
 --
@@ -280,7 +287,7 @@ SELECT pg_catalog.setval('public.client_id_seq', 7, true);
 -- Name: tag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tag_id_seq', 13, true);
+SELECT pg_catalog.setval('public.tag_id_seq', 16, true);
 
 
 --
@@ -289,7 +296,7 @@ SELECT pg_catalog.setval('public.tag_id_seq', 13, true);
 -- Name: transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.transaction_id_seq', 6, true);
+SELECT pg_catalog.setval('public.transaction_id_seq', 8, true);
 
 
 --
@@ -355,7 +362,7 @@ ALTER TABLE ONLY public.transaction
     ADD CONSTRAINT transaction_fk0 FOREIGN KEY (client) REFERENCES public.client(id);
 
 
--- Completed on 2021-12-08 21:46:49
+-- Completed on 2021-12-15 17:22:23
 
 --
 -- PostgreSQL database dump complete
