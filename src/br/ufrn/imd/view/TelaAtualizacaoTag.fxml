@@ -27,7 +27,6 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="tfName" promptText="Digite o nome da tag..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="lbName" alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="163.0" text="Nome.:" GridPane.rowIndex="1">
                <font>
                   <Font size="16.0" />
@@ -35,6 +34,7 @@
             </Label>
             <TextField fx:id="tfId" layoutX="125.0" layoutY="49.0" promptText="Digite a id da tag..." GridPane.columnIndex="1" />
             <Button fx:id="btSearchId" alignment="CENTER" mnemonicParsing="false" onAction="#onSearchId" prefHeight="38.0" prefWidth="100.0" text="Buscar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <TextField fx:id="tfName" promptText="Digite o nome da tag..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button fx:id="btSearchName" layoutX="349.0" layoutY="10.0" mnemonicParsing="false" onAction="#onSearchName" prefHeight="38.0" prefWidth="100.0" text="Buscar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
