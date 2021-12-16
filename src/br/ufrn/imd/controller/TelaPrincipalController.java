@@ -598,7 +598,7 @@ public class TelaPrincipalController implements Initializable{
 			    AnchorPane page = (AnchorPane) fxmlLoader.load();
 			    
 			    Stage stage = new Stage();
-			    stage.setTitle("Remover Cliente");
+			    stage.setTitle("Atualizar Cliente");
 			    Scene scene = new Scene(page);
 			    stage.setResizable(false);
 			    stage.setScene(scene);
@@ -620,7 +620,7 @@ public class TelaPrincipalController implements Initializable{
 			    AnchorPane page = (AnchorPane) fxmlLoader.load();
 			    
 			    Stage stage = new Stage();
-			    stage.setTitle("Remover Cliente");
+			    stage.setTitle("Atualizar Tag");
 			    Scene scene = new Scene(page);
 			    stage.setResizable(false);
 			    stage.setScene(scene);
