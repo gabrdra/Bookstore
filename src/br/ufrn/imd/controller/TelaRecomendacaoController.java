@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import br.ufrn.imd.business.recommendation.Recommendation;
+import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Book;
 import javafx.collections.FXCollections;
@@ -64,7 +65,7 @@ public class TelaRecomendacaoController implements Initializable {
 		Recommendation recommendation = new Recommendation();
 		try {
 			listBooks = recommendation.getRecommendationsForClient(Integer.parseInt(fxId.getText()), Integer.parseInt(fxNumber.getText()));
-		} catch (NumberFormatException | DataException e) {
+		} catch (NumberFormatException | DataException | BusinessException e) {
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;

@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
+import br.ufrn.imd.business.BookService;
+import br.ufrn.imd.business.ClientService;
+import br.ufrn.imd.business.ITransactionService;
+import br.ufrn.imd.business.TransactionService;
 import br.ufrn.imd.data.BookDAOJDBC;
 import br.ufrn.imd.data.TransactionDAOJDBC;
+import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Tag;
@@ -15,8 +20,18 @@ import br.ufrn.imd.model.recommendation.WeightTag;
 
 public class Recommendation {
 	
-	public ArrayList<Book> getRecommendationsForClient(int client, int recommendationAmount) throws DataException{
-		TransactionDAOJDBC transactions = new TransactionDAOJDBC();
+	public ArrayList<Book> getRecommendationsForClient(int client, int recommendationAmount) throws DataException, BusinessException{
+		ITransactionService transactions = new TransactionService();
+		String exceptions = "";
+		if(new ClientService().retrieveClientById(client).getId() == 0) {
+			exceptions += "Cliente não existente \n";
+		}
+		if(recommendationAmount < 1) {
+			exceptions += "Deve ser pedida ao menos uma recomendação \n";
+		}
+		if(!exceptions.equals("")) {
+			throw new BusinessException(exceptions);
+		}
 		ArrayList<Transaction> clientPreviousTransactions = transactions.retrieveTransactionsByClient(client);
 		ArrayList<Book> previouslyBoughtBooks = new ArrayList<Book>();
 		//Get every instance of a book
@@ -51,7 +66,7 @@ public class Recommendation {
 			}
 		}
 
-		ArrayList<Book> books = new BookDAOJDBC().listBooks(); //Get all books
+		ArrayList<Book> books = new BookService().listBooks(); //Get all books
 		//Creates a priority queue that has the head as the one with the biggest priority
 		PriorityQueue<WeightBook> weightBooks = new PriorityQueue<WeightBook>(Collections.reverseOrder()); 
 		//Populate the weightBooks
