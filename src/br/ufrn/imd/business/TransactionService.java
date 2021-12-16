@@ -26,7 +26,7 @@ public class TransactionService implements ITransactionService {
 			}
 		}
 		if(books.size()<1) {
-			exceptions += "Insira ao menos um livro Ã¡ compra \n";
+			exceptions += "Insira ao menos um livro na compra \n";
 		}
 		if(!exceptions.equals("")) {
 			throw new BusinessException(exceptions);
@@ -79,7 +79,7 @@ public class TransactionService implements ITransactionService {
 	
 	public Transaction retrieveTransactionById(int id) throws BusinessException, DataException{
 		if(id < 1) {
-			throw new BusinessException("id da transaï¿½ï¿½o deve ser um nï¿½mero maior do que 0 \n");
+			throw new BusinessException("id da transação deve ser um número maior do que 0 \n");
 		}
 		return new TransactionDAOJDBC().retrieveTransactionById(id);
 	}

@@ -121,7 +121,7 @@ public class TelaCadastroLivroController implements Initializable{
     	book = new Book();
     	book.setBarcode(tfCodigo.getText());
     	book.setName(tfNome.getText());
-    	book.setPrice((tfPreco.getText() == "") ? null : Double.parseDouble(tfPreco.getText()));
+    	book.setPrice((tfPreco.getText() == "") ? 0 : Double.parseDouble(tfPreco.getText()));
     	book.setAuthor(tfAutor.getText());
     	book.setDescription(taDescricao.getText());
     	book.setTags(listTags);
@@ -137,6 +137,11 @@ public class TelaCadastroLivroController implements Initializable{
         	alert.showAndWait();
         	return;
 		}
+    	catch(NumberFormatException e) {
+    		Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        	alert.showAndWait();
+        	return;
+    	}
     	Alert alert = new Alert(AlertType.CONFIRMATION, "Livro adicionado com sucesso", ButtonType.OK);
     	alert.showAndWait();
     	myStage.close();
