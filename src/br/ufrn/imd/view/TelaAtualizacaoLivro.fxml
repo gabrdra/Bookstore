@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="523.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="br.ufrn.imd.controller.TelaAtualizacaoLivroController">
+   <children>
+      <GridPane layoutX="35.0" layoutY="34.0" prefHeight="385.0" prefWidth="453.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="111.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.0" minWidth="10.0" prefWidth="232.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.0" minWidth="10.0" prefWidth="116.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="6.0" prefHeight="46.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label fx:id="lbId" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="163.0" text="ID:">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfId" layoutX="125.0" layoutY="49.0" promptText="Digite a id do livro..." GridPane.columnIndex="1" />
+            <Button fx:id="btSearchId" alignment="CENTER" mnemonicParsing="false" onAction="#onSearchId" prefHeight="38.0" prefWidth="100.0" text="Buscar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label fx:id="lbBarcode" alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="163.0" text="Código:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfBarcode" promptText="Digite o cógido de barras do livro.." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="btSearchBarcode" alignment="CENTER" layoutX="356.0" layoutY="12.0" mnemonicParsing="false" onAction="#onSearchBarcode" prefHeight="38.0" prefWidth="100.0" text="Buscar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label fx:id="lbName" alignment="CENTER" layoutX="10.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="163.0" text="Nome:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfName" layoutX="119.0" layoutY="62.0" promptText="Digite o nome do livro..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lbPrice" alignment="CENTER" layoutX="10.0" layoutY="98.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="163.0" text="Preço:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfPrice" layoutX="119.0" layoutY="108.0" promptText="Digite o preço do livro..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="lbTags" alignment="CENTER" layoutX="10.0" layoutY="155.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="163.0" text="Tags:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbAuthor" alignment="CENTER" layoutX="10.0" layoutY="203.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="163.0" text="Autor(a):" GridPane.rowIndex="5">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbDescription" alignment="CENTER" layoutX="10.0" layoutY="251.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="163.0" text="Descrição" GridPane.rowIndex="6">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfTags" layoutX="119.0" layoutY="167.0" promptText="Digite as tags do livro..." GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="tfAuthor" layoutX="119.0" layoutY="215.0" promptText="Digite o(a) autor(a) do livro..." GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="tfDescription" layoutX="119.0" layoutY="263.0" prefHeight="106.0" prefWidth="230.0" promptText="Digite a descrição..." GridPane.columnIndex="1" GridPane.rowIndex="6" />
+         </children>
+      </GridPane>
+      <Button fx:id="btUpdate" layoutX="212.0" layoutY="441.0" mnemonicParsing="false" onAction="#updateClient" prefHeight="38.0" prefWidth="100.0" text="Atualizar" />
+   </children>
+</AnchorPane>
