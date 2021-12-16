@@ -357,7 +357,7 @@ public class TelaPrincipalController implements Initializable{
     
     @FXML
     void fecharMainApp(ActionEvent event) {
-
+    	System.exit(0);
     }
 
     @FXML
@@ -384,7 +384,8 @@ public class TelaPrincipalController implements Initializable{
 
     @FXML
     void listarInfo(ActionEvent event) {
-
+    	Alert alert = new Alert(AlertType.INFORMATION, "Autores: Eduardo e João", ButtonType.OK);
+    	alert.showAndWait();
     }
     
     @FXML
@@ -569,7 +570,24 @@ public class TelaPrincipalController implements Initializable{
 
     @FXML
     void openUpdateBookScreen(ActionEvent event) {
-
+	   	 try {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+			    fxmlLoader.setLocation(TelaAtualizacaoLivroController.class.getResource("/br/ufrn/imd/view/TelaAtualizacaoLivro.fxml"));
+			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			    
+			    Stage stageBook = new Stage();
+			    stageBook.setTitle("Atualizar Livro");
+			    Scene scene = new Scene(page);
+			    stageBook.setResizable(false);
+			    stageBook.setScene(scene);
+			    
+//			    TelaAtualizacaoLivroController controller = fxmlLoader.getController();
+//		    	controller.setMyStage(stageBook);
+		    	stageBook.showAndWait();
+		        
+	   	 }catch (IOException e) {
+				e.printStackTrace();
+			}
     }
 
     @FXML
@@ -619,8 +637,25 @@ public class TelaPrincipalController implements Initializable{
     
     @FXML
     void openUpdateSalesScreen(ActionEvent event) {
-
-    }
+	   	 try {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+			    fxmlLoader.setLocation(TelaAtualizacaoTransacaoController.class.getResource("/br/ufrn/imd/view/TelaAtualizacaoTransacao.fxml"));
+			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			    
+			    Stage stage = new Stage();
+			    stage.setTitle("Atualizar Venda");
+			    Scene scene = new Scene(page);
+			    stage.setResizable(false);
+			    stage.setScene(scene);
+			    
+//			    TelaAtualizacaoClienteController controller = fxmlLoader.getController();
+//		    	controller.setMyStage(stage);
+		    	stage.showAndWait();
+		        
+	 	 }catch (IOException e) {
+				e.printStackTrace();
+			}
+	  }
 
     
 }

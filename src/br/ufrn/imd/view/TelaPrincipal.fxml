@@ -48,7 +48,7 @@
             <items>
               <MenuItem fx:id="mnListBooks" mnemonicParsing="false" onAction="#openListBooks" text="Listar Livros" />
                   <MenuItem fx:id="mnListClients" mnemonicParsing="false" onAction="#openListClients" text="Listar Clientes" />
-                  <MenuItem fx:id="mnListTags" mnemonicParsing="false" onAction="#openListTags" text="Listar Tags" />
+                  <MenuItem fx:id="mnListTags" mnemonicParsing="false" onAction="#openListTags" text="Listar Categorias" />
                   <MenuItem fx:id="mnListSales" mnemonicParsing="false" onAction="#openListSales" text="Listar Vendas" />
             </items>
           </Menu>
