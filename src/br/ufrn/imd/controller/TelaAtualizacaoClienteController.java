@@ -39,7 +39,7 @@ public class TelaAtualizacaoClienteController {
 	@FXML
 	public void onSearchId(ActionEvent event) {
 		try {
-			System.out.println(tfName.getText());
+			//System.out.println(tfName.getText());
 			populateInterface(new ClientService().retrieveClientById(Integer.parseInt(tfId.getText())));
 		} catch (NumberFormatException | DataException | BusinessException e) {
 			// TODO Auto-generated catch block
