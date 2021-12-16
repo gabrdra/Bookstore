@@ -46,7 +46,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 
 	@Override
 	public void updateTransaction(Transaction transaction) throws DataException {
-		String sql="UPDATE public.transaction SET client = (?), books = (?) WHERE id="+transaction.getId();
+		String sql="UPDATE public.transaction SET client = (?), books = (?), value = (?) WHERE id="+transaction.getId();
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
 			//stmt.setInt(1, transaction.getId());
@@ -57,8 +57,9 @@ public class TransactionDAOJDBC implements TransactionDAO{
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
-			throw new DataException("Erro ao tentar atualizar a transação no banco de dados \n");
 			//e.printStackTrace();
+			throw new DataException("Erro ao tentar atualizar a transação no banco de dados \n");
+			
 		}	
 		
 	}
