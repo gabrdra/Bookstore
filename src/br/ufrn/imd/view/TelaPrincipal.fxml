@@ -29,6 +29,21 @@
                   <MenuItem fx:id="mnAddTag" mnemonicParsing="false" onAction="#openAddTagScreen" text="Categoria" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Remoções">
+               <items>
+                  <MenuItem fx:id="mnRemBook" mnemonicParsing="false" onAction="#openRemBookScreen" text="Livro" />
+                  <MenuItem fx:id="mnRemClient" mnemonicParsing="false" onAction="#openRemClientScreen" text="Cliente" />
+                  <MenuItem fx:id="mnRemTag" mnemonicParsing="false" onAction="#openRemTagScreen" text="Categoria" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Atualizações">
+               <items>
+                  <MenuItem fx:id="mnUpdateBook" mnemonicParsing="false" onAction="#openUpdateBookScreen" text="Livro" />
+                  <MenuItem fx:id="mnUpdateClient" mnemonicParsing="false" onAction="#openUpdateClientScreen" text="Cliente" />
+                  <MenuItem fx:id="mnUpdateTag" mnemonicParsing="false" onAction="#openUpdateTagScreen" text="Categoria" />
+                  <MenuItem fx:id="mnUpdateSales" mnemonicParsing="false" onAction="#openUpdateSalesScreen" text="Venda" />
+               </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Consultas">
             <items>
               <MenuItem fx:id="mnListBooks" mnemonicParsing="false" onAction="#openListBooks" text="Listar Livros" />
@@ -37,6 +52,11 @@
                   <MenuItem fx:id="mnListSales" mnemonicParsing="false" onAction="#openListSales" text="Listar Vendas" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Recomendações">
+              <items>
+                <MenuItem fx:id="mnRecommendation" mnemonicParsing="false" onAction="#openRecomScreen" text="Gerar Recomendação" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Ajuda">
             <items>
                   <MenuItem fx:id="mnItemSobre" mnemonicParsing="false" onAction="#listarInfo" text="Sobre" />

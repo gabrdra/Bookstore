@@ -54,11 +54,35 @@ public class TelaPrincipalController implements Initializable{
 	@FXML
     private TextField tfCpf;
 	
+	
+
+    @FXML
+    private MenuItem mnRecommendation;
+
+    @FXML
+    private MenuItem mnRemBook;
+
+    @FXML
+    private MenuItem mnRemClient;
+
+    @FXML
+    private MenuItem mnRemTag;
+
+    @FXML
+    private MenuItem mnUpdateBook;
+
+    @FXML
+    private MenuItem mnUpdateClient;
+
+    @FXML
+    private MenuItem mnUpdateTag;
+    
+    @FXML
+    private MenuItem mnUpdateSales;
 
     @FXML
     private TextField tfClientName;
-
-
+   
     @FXML
     private Button btAddBookToCart;
 
@@ -455,7 +479,148 @@ public class TelaPrincipalController implements Initializable{
 		tableCartList.setItems(observableBookList);
     }
     
+    @FXML
+    void openRecomScreen(ActionEvent event) {
+	   	 try {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+			    fxmlLoader.setLocation(TelaRecomendacaoController.class.getResource("/br/ufrn/imd/view/TelaRecomendacao.fxml"));
+			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			    
+			    Stage stage = new Stage();
+			    stage.setTitle("Gerar Recomedanção");
+			    Scene scene = new Scene(page);
+			    stage.setResizable(false);
+			    stage.setScene(scene);
+			    
+//			    TelaRecomendacaoController controller = fxmlLoader.getController();
+//		    	controller.setMyStage(stage);
+		    	stage.showAndWait();
+		        
+	 	 }catch (IOException e) {
+				e.printStackTrace();
+			}
+	  }
+
+    @FXML
+    void openRemBookScreen(ActionEvent event) {
+	   	 try {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+			    fxmlLoader.setLocation(TelaRemoverLivroController.class.getResource("/br/ufrn/imd/view/TelaRemoverLivro.fxml"));
+			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			    
+			    Stage stage = new Stage();
+			    stage.setTitle("Remover Livro");
+			    Scene scene = new Scene(page);
+			    stage.setResizable(false);
+			    stage.setScene(scene);
+			    
+			    TelaRemoverLivroController controller = fxmlLoader.getController();
+		    	controller.setMyStage(stage);
+		    	stage.showAndWait();
+		        
+	 	 }catch (IOException e) {
+				e.printStackTrace();
+			}
+	  }
+
+    @FXML
+    void openRemClientScreen(ActionEvent event) {
+	   	 try {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+			    fxmlLoader.setLocation(TelaRemoverClienteController.class.getResource("/br/ufrn/imd/view/TelaRemoverCliente.fxml"));
+			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			    
+			    Stage stage = new Stage();
+			    stage.setTitle("Remover Cliente");
+			    Scene scene = new Scene(page);
+			    stage.setResizable(false);
+			    stage.setScene(scene);
+			    
+			    TelaRemoverClienteController controller = fxmlLoader.getController();
+		    	controller.setMyStage(stage);
+		    	stage.showAndWait();
+		        
+	 	 }catch (IOException e) {
+				e.printStackTrace();
+			}
+	  }
+
+    @FXML
+    void openRemTagScreen(ActionEvent event) {
+	   	 try {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+			    fxmlLoader.setLocation(TelaRemoverTagController.class.getResource("/br/ufrn/imd/view/TelaRemoverTag.fxml"));
+			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			    
+			    Stage stage = new Stage();
+			    stage.setTitle("Remover Tag");
+			    Scene scene = new Scene(page);
+			    stage.setResizable(false);
+			    stage.setScene(scene);
+			    
+			    TelaRemoverTagController controller = fxmlLoader.getController();
+		    	controller.setMyStage(stage);
+		    	stage.showAndWait();
+		        
+	 	 }catch (IOException e) {
+				e.printStackTrace();
+			}
+	  }
+
+    @FXML
+    void openUpdateBookScreen(ActionEvent event) {
+
+    }
+
+    @FXML
+    void openUpdateClientScreen(ActionEvent event) {
+	   	 try {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+			    fxmlLoader.setLocation(TelaAtualizacaoClienteController.class.getResource("/br/ufrn/imd/view/TelaAtualizacaoCliente.fxml"));
+			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			    
+			    Stage stage = new Stage();
+			    stage.setTitle("Remover Cliente");
+			    Scene scene = new Scene(page);
+			    stage.setResizable(false);
+			    stage.setScene(scene);
+			    
+//			    TelaAtualizacaoClienteController controller = fxmlLoader.getController();
+//		    	controller.setMyStage(stage);
+		    	stage.showAndWait();
+		        
+	 	 }catch (IOException e) {
+				e.printStackTrace();
+			}
+	  }
+
+    @FXML
+    void openUpdateTagScreen(ActionEvent event) {
+	   	 try {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+			    fxmlLoader.setLocation(TelaAtualizacaoTagController.class.getResource("/br/ufrn/imd/view/TelaAtualizacaoTag.fxml"));
+			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			    
+			    Stage stage = new Stage();
+			    stage.setTitle("Remover Cliente");
+			    Scene scene = new Scene(page);
+			    stage.setResizable(false);
+			    stage.setScene(scene);
+			    
+//			    TelaAtualizacaoTagController controller = fxmlLoader.getController();
+//		    	controller.setMyStage(stage);
+		    	stage.showAndWait();
+		        
+	 	 }catch (IOException e) {
+				e.printStackTrace();
+			}
+	  }
+
     
+    @FXML
+    void openUpdateSalesScreen(ActionEvent event) {
+
+    }
 
     
 }
