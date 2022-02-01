@@ -63,8 +63,9 @@ public class TelaRecomendacaoController implements Initializable {
 	// Event Listener on Button[#btSearch].onAction
 	@FXML
 	public void onSearchButtonPressed(ActionEvent event) {
-		RecommendationBook recommendation = new RecommendationBook();
+		RecommendationBook recommendation;
 		try {
+			recommendation = new RecommendationBook();
 			listBooks = recommendation.retrieveRecommendationsForClient(Integer.parseInt(fxId.getText()), Integer.parseInt(fxNumber.getText()), null);
 		} catch (NumberFormatException | DataException | BusinessException e) {
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);

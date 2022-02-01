@@ -9,12 +9,14 @@ import javafx.scene.control.Alert.AlertType;
 
 import java.util.ArrayList;
 
-import br.ufrn.imd.business.BookService;
+import br.ufrn.imd.business.IProductService;
 import br.ufrn.imd.business.ITagService;
+import br.ufrn.imd.business.ProductBookService;
 import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.exceptions.GUIException;
+import br.ufrn.imd.instanceController.InstanceController;
 import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 import javafx.event.ActionEvent;
@@ -61,7 +63,7 @@ public class TelaAtualizacaoLivroController {
 	@FXML
 	public void onSearchId(ActionEvent event) {
 		try {
-			populateInterface(new BookService().retrieveBookById(Integer.parseInt(tfId.getText())));
+			populateInterface(new ProductBookService().retrieveProductById(Integer.parseInt(tfId.getText())));
 		} catch (NumberFormatException | DataException | BusinessException e) {
 			// TODO Auto-generated catch block
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
@@ -103,7 +105,7 @@ public class TelaAtualizacaoLivroController {
 	@FXML
 	public void onSearchBarcode(ActionEvent event) {
 		try {
-			populateInterface(new BookService().retrieveBookByBarcode(tfBarcode.getText()));
+			populateInterface(new ProductBookService().retrieveProductByBarcode(tfBarcode.getText()));
 		} catch (NumberFormatException | DataException | BusinessException e) {
 			// TODO Auto-generated catch block
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
@@ -131,7 +133,7 @@ public class TelaAtualizacaoLivroController {
 			    tags.add(tagService.retrieveTagById(Integer.parseInt(t)));
 			}
 			book.setTags(tags);
-			new BookService().updateBook(book);
+			new ProductBookService().updateProduct(book);
 			}
 			catch(NumberFormatException | BusinessException | DataException e) {
 				Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);

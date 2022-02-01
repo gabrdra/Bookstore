@@ -3,15 +3,15 @@ package br.ufrn.imd.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import br.ufrn.imd.business.BookService;
 import br.ufrn.imd.business.ClientService;
-import br.ufrn.imd.business.IBookService;
 import br.ufrn.imd.business.IClientService;
+import br.ufrn.imd.business.ProductBookService;
 import br.ufrn.imd.business.TransactionService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Client;
+import br.ufrn.imd.model.Product;
 import br.ufrn.imd.model.Transaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -184,8 +184,12 @@ public class TelaPrincipalController implements Initializable{
     @FXML
     void ConfirmarVenda(ActionEvent event) throws DataException, BusinessException {
     	transaction = new Transaction();
+    	ArrayList<Integer> productsId = new ArrayList<Integer>();
+    	for(Product product:listBooks) {
+    		productsId.add(product.getId());
+    	}
     	
-    	transaction.setBooks(listBooks);
+    	transaction.setProductsId(productsId);
     	if(client != null) {
         	transaction.setClient(client.getId());
     	}
@@ -419,11 +423,11 @@ public class TelaPrincipalController implements Initializable{
 
     @FXML
     void searchBook(ActionEvent event) throws IOException {
-    	IBookService bookService = new BookService();
+    	ProductBookService bookService = new ProductBookService();
     	
     	
     	try {
-    		book = bookService.retrieveBookByBarcode(tfBarCode.getText());
+    		book = bookService.retrieveProductByBarcode(tfBarCode.getText());
 		}
     	catch (BusinessException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);

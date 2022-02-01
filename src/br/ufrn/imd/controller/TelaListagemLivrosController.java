@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import br.ufrn.imd.business.BookService;
+import br.ufrn.imd.business.ProductBookService;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.ProductBook;
 import javafx.collections.FXCollections;
@@ -66,7 +66,7 @@ public class TelaListagemLivrosController implements Initializable{
     @FXML
     void listBooks(ActionEvent event) {
     	try {
-    		bookList =  new BookService().listBooks();
+    		bookList =  (ArrayList<ProductBook>) new ProductBookService().listProducts();
 		} catch (DataException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();

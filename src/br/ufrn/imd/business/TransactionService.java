@@ -74,7 +74,7 @@ public class TransactionService implements ITransactionService {
 		ArrayList<Integer> productsId = transaction.getProductsId();
 		for(Integer productId : productsId) {
 			if(productService.retrieveProductByBarcode(productService.retrieveProductById(productId).getBarcode()).getBarcode() == null) {
-				exceptions += "Livro inexistente \n";
+				exceptions += "Produto inexistente \n";
 			}
 		}
 		if(!exceptions.equals("")) {

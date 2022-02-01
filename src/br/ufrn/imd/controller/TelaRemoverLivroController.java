@@ -1,6 +1,6 @@
 package br.ufrn.imd.controller;
 
-import br.ufrn.imd.business.BookService;
+import br.ufrn.imd.business.ProductBookService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.ProductBook;
@@ -56,7 +56,7 @@ public class TelaRemoverLivroController {
     @FXML
     void buscarLivro(ActionEvent event) {
     	try {
-			book = new BookService().retrieveBookByBarcode(tfCodigo.getText());
+			book = new ProductBookService().retrieveProductByBarcode(tfCodigo.getText());
 		} catch (BusinessException | DataException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
@@ -79,7 +79,7 @@ public class TelaRemoverLivroController {
     @FXML
     void remBook(ActionEvent event) {
     	try {
-			new BookService().removeBook(book);
+			new ProductBookService().removeProduct(book);
 		} catch (BusinessException | DataException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();

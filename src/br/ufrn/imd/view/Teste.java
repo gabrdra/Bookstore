@@ -3,7 +3,6 @@ package br.ufrn.imd.view;
 
 import java.util.ArrayList;
 
-import br.ufrn.imd.business.BookService;
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.business.TransactionService;
