@@ -15,7 +15,7 @@ import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.exceptions.GUIException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 import javafx.event.ActionEvent;
 
@@ -69,7 +69,7 @@ public class TelaAtualizacaoLivroController {
         	return;
 		}
 	}
-	private void populateInterface(Book book) {
+	private void populateInterface(ProductBook book) {
 		try {
 			if(book.getId() == 0) {
 				throw new GUIException("Livro inexistente \n");
@@ -115,7 +115,7 @@ public class TelaAtualizacaoLivroController {
 	@FXML
 	public void updateClient(ActionEvent event) {
 		try {
-			Book book = new Book();
+			ProductBook book = new ProductBook();
 			book.setId(Integer.parseInt(tfId.getText()));
 			book.setName(tfName.getText());
 			book.setBarcode(tfBarcode.getText());

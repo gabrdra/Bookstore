@@ -3,7 +3,7 @@ package br.ufrn.imd.controller;
 import br.ufrn.imd.business.BookService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class TelaRemoverLivroController {
 	
 	private Stage myStage;
-	private Book book;
+	private ProductBook book;
 
     @FXML
     private Button btBuscar;

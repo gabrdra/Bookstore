@@ -5,44 +5,46 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.ufrn.imd.data.connection.ConnectionJDBC;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 
-public class BookDAOJDBC implements BookDAO{
+public class ProductBookDAOJDBC extends ProductDAOJDBC<ProductBook>{
 	
 	private Connection connection;
 
-	public BookDAOJDBC() {
+	public ProductBookDAOJDBC() {
 		this.connection= ConnectionJDBC.getInstance().getCon();
 	}
 	
 	@Override
-	public void addBook(Book book) throws DataException{
+	public void addProduct(ProductBook product) throws DataException {
 		String sql="INSERT INTO public.book (description, price, author, name, tags, barcode) VALUES (?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
 			//stmt.setInt(1, bo.getId());
-			stmt.setString(1, book.getDescription());
-			stmt.setDouble(2, book.getPrice());
-			stmt.setString(3, book.getAuthor());
-			stmt.setString(4, book.getName());
-			Array tempArray = connection.createArrayOf("INTEGER", book.getTagsId().toArray());
+			stmt.setString(1, product.getDescription());
+			stmt.setDouble(2, product.getPrice());
+			stmt.setString(3, product.getAuthor());
+			stmt.setString(4, product.getName());
+			Array tempArray = connection.createArrayOf("INTEGER", product.getTagsId().toArray());
 			stmt.setArray(5, tempArray);
-			stmt.setString(6, book.getBarcode());
+			stmt.setString(6, product.getBarcode());
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
 			throw new DataException("Erro ao tentar inserir o livro no banco de dados \n");
 			//e.printStackTrace();
 		}
+		
 	}
-
+	
 	@Override
-	public void removeBook(Book book) throws DataException {
-		String sql = "DELETE FROM public.book WHERE id="+book.getId();
+	public void removeProduct(ProductBook product) throws DataException{
+		String sql = "DELETE FROM public.book WHERE id="+product.getId();
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
 			stmt.execute();
@@ -52,20 +54,20 @@ public class BookDAOJDBC implements BookDAO{
 			throw new DataException("Erro ao remover o livro do banco de dados \n");
 		}
 	}
-
+	
 	@Override
-	public void updateBook(Book book) throws DataException{
-		String sql="UPDATE public.book SET description = (?), price = (?), author = (?), name = (?), tags = (?), barcode = (?) WHERE id="+book.getId();
+	public void updateProduct(ProductBook product) throws DataException{
+		String sql="UPDATE public.book SET description = (?), price = (?), author = (?), name = (?), tags = (?), barcode = (?) WHERE id="+product.getId();
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
 			//stmt.setInt(1, bo.getId());
-			stmt.setString(1, book.getDescription());
-			stmt.setDouble(2, book.getPrice());
-			stmt.setString(3, book.getAuthor());
-			stmt.setString(4, book.getName());
-			Array tempArray = connection.createArrayOf("INTEGER", book.getTagsId().toArray());
+			stmt.setString(1, product.getDescription());
+			stmt.setDouble(2, product.getPrice());
+			stmt.setString(3, product.getAuthor());
+			stmt.setString(4, product.getName());
+			Array tempArray = connection.createArrayOf("INTEGER", product.getTagsId().toArray());
 			stmt.setArray(5, tempArray);
-			stmt.setString(6, book.getBarcode());
+			stmt.setString(6, product.getBarcode());
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
@@ -73,11 +75,10 @@ public class BookDAOJDBC implements BookDAO{
 			//e.printStackTrace();
 		}
 	}
-
+	
 	@Override
-	public ArrayList<Book> listBooks() throws DataException {
-		
-		ArrayList<Book> listBooks = new ArrayList<Book>();
+	public List<ProductBook> listProducts() throws DataException{
+		ArrayList<ProductBook> listBooks = new ArrayList<ProductBook>();
 		
 		try {
 			TagDAOJDBC tagDAOJDBC = new TagDAOJDBC();
@@ -88,7 +89,7 @@ public class BookDAOJDBC implements BookDAO{
 			ResultSet resultSet = stmt.executeQuery();
 			
 			while(resultSet.next()) {
-				Book book = new Book();
+				ProductBook book = new ProductBook();
 				
 				book.setId(resultSet.getInt("id"));
 				book.setName(resultSet.getString("name"));
@@ -114,17 +115,17 @@ public class BookDAOJDBC implements BookDAO{
 			throw new DataException("Erro ao tentar listar os livros armazenados no banco de dados \n");
 		}
 		
-		
 		return listBooks;
 	}
 	
-	public Book retrieveBookById(int id) throws DataException {
+	@Override
+	public ProductBook retrieveProductById(int id) throws DataException{
 		try {
 			TagDAOJDBC tagDAOJDBC = new TagDAOJDBC();
 			String bookSql = "SELECT * FROM public.book WHERE id="+id;
 			PreparedStatement prepstmt = connection.prepareStatement(bookSql);
 			ResultSet result = prepstmt.executeQuery();
-			Book book = new Book();
+			ProductBook book = new ProductBook();
 			while(result.next()) {
 				book.setId(result.getInt("id"));
 				book.setName(result.getString("name"));
@@ -149,18 +150,17 @@ public class BookDAOJDBC implements BookDAO{
 		catch (Exception e) {
 			e.printStackTrace();
 			throw new DataException("Erro ao tentar recuperar o livro usando id \n");
-			//return null;
 		}
 	}
 
 	@Override
-	public Book retrieveBookByBarcode(String barcode) throws DataException{
+	public ProductBook retrieveProductByBarcode(String barcode) throws DataException{
 		try {
 			TagDAOJDBC tagDAOJDBC = new TagDAOJDBC();
 			String bookSql = "SELECT * FROM public.book WHERE barcode='"+barcode+"'";
 			PreparedStatement prepstmt = connection.prepareStatement(bookSql);
 			ResultSet result = prepstmt.executeQuery();
-			Book book = new Book();
+			ProductBook book = new ProductBook();
 			while(result.next()) {
 				book.setId(result.getInt("id"));
 				book.setName(result.getString("name"));
@@ -187,6 +187,4 @@ public class BookDAOJDBC implements BookDAO{
 			//return null;
 		}
 	}
-
-
 }

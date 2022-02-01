@@ -15,7 +15,7 @@ import br.ufrn.imd.business.TransactionService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.exceptions.GUIException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Transaction;
 import javafx.event.ActionEvent;
 
@@ -90,7 +90,7 @@ public class TelaAtualizacaoTransacaoController {
 		transaction.setId(Integer.parseInt(tfId.getText()));
 		transaction.setClient(Integer.parseInt(tfIdClient.getText()));
 		transaction.setValue(Double.parseDouble(tfPrice.getText()));
-		ArrayList<Book> books  = new ArrayList<Book>();
+		ArrayList<ProductBook> books  = new ArrayList<ProductBook>();
 		IBookService bookService = new BookService();
 		for (String t : tfBooks.getText().split("\\D+")) { // the \\D+ is a regular expression that leaves only the numbers behind
 			if (t.isEmpty()) {

@@ -1,11 +1,11 @@
 package br.ufrn.imd.model.recommendation;
 
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 
 public class WeightBook implements Comparable<WeightBook>{
 	private int weight;
-	private Book book;
-	public WeightBook(int weight, Book book) {
+	private ProductBook book;
+	public WeightBook(int weight, ProductBook book) {
 		this.weight = weight;
 		this.book = book;
 	}
@@ -15,10 +15,10 @@ public class WeightBook implements Comparable<WeightBook>{
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
-	public Book getBook() {
+	public ProductBook getBook() {
 		return book;
 	}
-	public void setBook(Book book) {
+	public void setBook(ProductBook book) {
 		this.book = book;
 	}
 	@Override

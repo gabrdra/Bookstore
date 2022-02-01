@@ -2,25 +2,27 @@ package br.ufrn.imd.business.recommendation;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.PriorityQueue;
 
 import br.ufrn.imd.business.BookService;
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.business.ITransactionService;
 import br.ufrn.imd.business.TransactionService;
-import br.ufrn.imd.data.BookDAOJDBC;
+import br.ufrn.imd.data.ProductBookDAOJDBC;
 import br.ufrn.imd.data.TransactionDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 import br.ufrn.imd.model.Transaction;
 import br.ufrn.imd.model.recommendation.WeightBook;
 import br.ufrn.imd.model.recommendation.WeightTag;
 
-public class Recommendation {
+public class RecommendationBook implements IRecommendation<ProductBook, Integer>{
 	
-	public ArrayList<Book> getRecommendationsForClient(int client, int recommendationAmount) throws DataException, BusinessException{
+	public List<ProductBook> retrieveRecommendationsForClient(int client, int recommendationAmount, HashMap<String,Integer> options) throws DataException, BusinessException{
 		ITransactionService transactions = new TransactionService();
 		String exceptions = "";
 		if(new ClientService().retrieveClientById(client).getId() == 0) {
@@ -33,16 +35,16 @@ public class Recommendation {
 			throw new BusinessException(exceptions);
 		}
 		ArrayList<Transaction> clientPreviousTransactions = transactions.retrieveTransactionsByClient(client);
-		ArrayList<Book> previouslyBoughtBooks = new ArrayList<Book>();
+		ArrayList<ProductBook> previouslyBoughtBooks = new ArrayList<ProductBook>();
 		//Get every instance of a book
 		for(Transaction transaction: clientPreviousTransactions) {
-			for(Book book:transaction.getBooks()) {
+			for(ProductBook book:transaction.getBooks()) {
 				previouslyBoughtBooks.add(book);
 			}
 		}
 		ArrayList<Tag> tags = new ArrayList<Tag>();
 		//Get every instance of a tag in the client's previously bought books
-		for(Book book:previouslyBoughtBooks) {
+		for(ProductBook book:previouslyBoughtBooks) {
 			for(Tag tag:book.getTags()) {
 				tags.add(tag);
 			}
@@ -66,11 +68,11 @@ public class Recommendation {
 			}
 		}
 
-		ArrayList<Book> books = new BookService().listBooks(); //Get all books
+		ArrayList<ProductBook> books = new BookService().listBooks(); //Get all books
 		//Creates a priority queue that has the head as the one with the biggest priority
 		PriorityQueue<WeightBook> weightBooks = new PriorityQueue<WeightBook>(Collections.reverseOrder()); 
 		//Populate the weightBooks
-		for(Book book:books) {
+		for(ProductBook book:books) {
 			if(!(previouslyBoughtBooks.contains(book))) { //If the client already bought a book it won't recommend that book
 				int weight = 0;
 				for(Tag bookTag:book.getTags()) {
@@ -87,7 +89,7 @@ public class Recommendation {
 			}
 		}
 		System.out.println(weightBooks);
-		ArrayList<Book> recommendedBooks = new ArrayList<Book>();
+		ArrayList<ProductBook> recommendedBooks = new ArrayList<ProductBook>();
 		for(int i = 0; i < recommendationAmount; i++) {
 			//Book currentBook = weightBooks.poll().getBook();
 			recommendedBooks.add(weightBooks.poll().getBook());
@@ -98,5 +100,9 @@ public class Recommendation {
 		
 		return recommendedBooks;
 	}
+
+	
+
+	
 	
 }

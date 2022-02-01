@@ -6,12 +6,12 @@ public class Transaction {
 	private int id;
 	private double value;
 	private int client;
-	private ArrayList<Book> books;
+	private ArrayList<ProductBook> books;
 	
 	
 	public Transaction() {
 		super();
-		this.books = new ArrayList<Book>();
+		this.books = new ArrayList<ProductBook>();
 	}
 	
 	
@@ -34,16 +34,16 @@ public class Transaction {
 	public int getClient() {
 		return this.client;
 	}
-	public ArrayList<Book> getBooks() {
+	public ArrayList<ProductBook> getBooks() {
 		return books;
 	}
-	public void setBooks(ArrayList<Book> books) {
+	public void setBooks(ArrayList<ProductBook> books) {
 		this.books = books;
 	}
 	
 	public ArrayList<Integer> getBooksId() {
 		ArrayList<Integer> tempArray = new ArrayList<Integer>();
-		for (Book book : books) {
+		for (ProductBook book : books) {
 			tempArray.add(book.getId());
 		}
 		return tempArray;

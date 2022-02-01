@@ -6,7 +6,7 @@ import java.util.List;
 import br.ufrn.imd.data.TransactionDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Transaction;
 
 public class TransactionService implements ITransactionService {
@@ -19,8 +19,8 @@ public class TransactionService implements ITransactionService {
 			exceptions += "Cliente inexistente \n";
 		}
 		IBookService bookService = new BookService();
-		ArrayList<Book>books = transaction.getBooks();
-		for(Book book : books) {
+		ArrayList<ProductBook>books = transaction.getBooks();
+		for(ProductBook book : books) {
 			if(bookService.retrieveBookByBarcode(book.getBarcode()).getBarcode() == null) {
 				exceptions += "Livro inexistente \n";
 			}
@@ -51,8 +51,8 @@ public class TransactionService implements ITransactionService {
 			exceptions += "Cliente inexistente \n";
 		}
 		IBookService bookService = new BookService();
-		ArrayList<Book>books = transaction.getBooks();
-		for(Book book : books) {
+		ArrayList<ProductBook>books = transaction.getBooks();
+		for(ProductBook book : books) {
 			if(bookService.retrieveBookByBarcode(book.getBarcode()).getBarcode() == null) {
 				exceptions += "Livro inexistente \n";
 			}

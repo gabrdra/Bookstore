@@ -10,7 +10,7 @@ import br.ufrn.imd.business.IClientService;
 import br.ufrn.imd.business.TransactionService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Client;
 import br.ufrn.imd.model.Transaction;
 import javafx.collections.FXCollections;
@@ -37,13 +37,13 @@ import javafx.stage.Stage;
 public class TelaPrincipalController implements Initializable{
 	
 	private Client client;
-	private Book book;
+	private ProductBook book;
 	private double valorTotal;
 	private Transaction transaction;
 	
-	ArrayList<Book> listBooks = new ArrayList<Book>();
+	ArrayList<ProductBook> listBooks = new ArrayList<ProductBook>();
 	
-	ObservableList<Book> observableBookList = FXCollections.observableArrayList();
+	ObservableList<ProductBook> observableBookList = FXCollections.observableArrayList();
 	
 	@FXML
     private Button btAddCleintToCart;
@@ -144,19 +144,19 @@ public class TelaPrincipalController implements Initializable{
     private MenuItem mnItemSobre;
 
     @FXML
-    private TableColumn<Book, String> tableBarcode;
+    private TableColumn<ProductBook, String> tableBarcode;
 
     @FXML
-    private TableView<Book> tableCartList;
+    private TableView<ProductBook> tableCartList;
 
     @FXML
-    private TableColumn<Book, String> tableDesc;
+    private TableColumn<ProductBook, String> tableDesc;
 
     @FXML
-    private TableColumn<Book, String> tableName;
+    private TableColumn<ProductBook, String> tableName;
 
     @FXML
-    private TableColumn<Book, Double> tableValue;
+    private TableColumn<ProductBook, Double> tableValue;
     @FXML
     private TextField tfBarCode;
 
@@ -175,10 +175,10 @@ public class TelaPrincipalController implements Initializable{
     
 	@java.lang.Override
 	public void initialize(java.net.URL arg0, java.util.ResourceBundle arg1) {
-	    tableBarcode.setCellValueFactory(new PropertyValueFactory<Book, String>("barcode"));
-	    tableName.setCellValueFactory(new PropertyValueFactory<Book, String>("name"));
-		tableValue.setCellValueFactory(new PropertyValueFactory<Book, Double>("price"));
-		tableDesc.setCellValueFactory(new PropertyValueFactory<Book, String>("description"));
+	    tableBarcode.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("barcode"));
+	    tableName.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("name"));
+		tableValue.setCellValueFactory(new PropertyValueFactory<ProductBook, Double>("price"));
+		tableDesc.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("description"));
 	}
 
     @FXML
@@ -460,7 +460,7 @@ public class TelaPrincipalController implements Initializable{
     
     void totalValueRefresh() {
     	valorTotal=0;
-    	for (Book book : listBooks) {
+    	for (ProductBook book : listBooks) {
 			valorTotal+=book.getPrice();
 		}
     	lbTotalValue.setText("R$" + String.format("%.2f", valorTotal));
@@ -475,7 +475,7 @@ public class TelaPrincipalController implements Initializable{
     }
     
     void resetObservableList() {
-    	listBooks = new ArrayList<Book>();
+    	listBooks = new ArrayList<ProductBook>();
     	observableBookList = FXCollections.observableArrayList();
 		tableCartList.setItems(observableBookList);
     }

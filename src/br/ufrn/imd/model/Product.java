@@ -12,6 +12,10 @@ public abstract class Product {
 	private double price;
 	private String barcode;
 	
+	public Product() {
+		this.tags = new ArrayList<Tag>();
+	}
+	
 	public abstract void validate() throws BusinessException;
 
 	public int getId() {
@@ -50,6 +54,14 @@ public abstract class Product {
 		return price;
 	}
 
+	public ArrayList<Integer> getTagsId() {
+		ArrayList<Integer> tempArray = new ArrayList<Integer>();
+		for (Tag tag : tags) {
+			tempArray.add(tag.getId());
+		}
+		return tempArray;
+	}
+	
 	public void setPrice(double price) {
 		this.price = price;
 	}
