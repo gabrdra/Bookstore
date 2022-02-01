@@ -2,6 +2,7 @@ package br.ufrn.imd.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.business.IClientService;
@@ -193,8 +194,15 @@ public class TelaPrincipalController implements Initializable{
     	if(client != null) {
         	transaction.setClient(client.getId());
     	}
-
+    	
     	transaction.setValue(valorTotal);
+    	
+    	Alert confirmationAlert = new Alert(AlertType.CONFIRMATION, "Valor: "+ transaction.getValue()+"\n Chave pix: 1234567891012", ButtonType.YES, ButtonType.CANCEL);
+    	Optional<ButtonType> result = confirmationAlert.showAndWait();
+    	if(result.isPresent() && result.get() == ButtonType.CANCEL) {
+    		CancelarVenda(null);
+    		return;
+    	}
     	try {
     		new TransactionService().addTransaction(transaction);
     		
@@ -208,7 +216,6 @@ public class TelaPrincipalController implements Initializable{
         	alert.showAndWait();
         	return;
 		}
-    	
     	Alert alert = new Alert(AlertType.CONFIRMATION, "Venda realizada com sucesso!", ButtonType.OK);
     	alert.showAndWait();
     	resetObservableList();
