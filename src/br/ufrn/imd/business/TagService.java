@@ -7,12 +7,35 @@ import br.ufrn.imd.data.ProductBookDAOJDBC;
 import br.ufrn.imd.data.TagDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
+import br.ufrn.imd.instanceController.InstanceController;
+import br.ufrn.imd.model.Product;
 import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 import br.ufrn.imd.model.Transaction;
 
 public class TagService implements ITagService {
 
+	
+	private IProductService<?> productService;
+	
+	public TagService() throws BusinessException {
+		switch(InstanceController.currentInstanceType) {
+	    case BOOK:
+	      productService = new ProductBookService();
+	      break;
+	    case GAME:
+	      
+	      break;
+	      
+	    case VINYL:
+	      
+	      break;
+	    
+	    default:
+	      throw new BusinessException("Erro na definição da instância do programa \n");
+	    }
+	}
+	
 	@Override
 	public void addTag(Tag tag) throws BusinessException, DataException {
 		String exceptions = "";
@@ -28,12 +51,13 @@ public class TagService implements ITagService {
 	@Override
 	public void removeTag(Tag tag) throws BusinessException, DataException {
 		String exceptions = "";
-		List<ProductBook> books = new BookService().listBooks();
-		for(ProductBook book: books) {
+		//List<ProductBook> books = new BookService().listBooks();
+		List<Product> products = (List<Product>) productService.listProducts();
+		for(Product product: products) {
 			boolean found = false;
-			for(Tag t: book.getTags()) {
+			for(Tag t: product.getTags()) {
 				if(t.getId() == tag.getId()) {
-					exceptions += "A tag não pode ser removida pois existe dentro de ao menos um livro \n";
+					exceptions += "A tag não pode ser removida pois existe dentro de ao menos um produto \n";
 					found = true;
 					break;
 				}

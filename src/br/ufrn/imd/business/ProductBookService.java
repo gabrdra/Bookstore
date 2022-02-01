@@ -6,7 +6,6 @@ import br.ufrn.imd.data.ProductBookDAOJDBC;
 import br.ufrn.imd.data.ProductDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Product;
 import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 import br.ufrn.imd.model.Transaction;
@@ -35,8 +34,8 @@ public class ProductBookService implements IProductService<ProductBook> {
 		List<Transaction> transactions = new TransactionService().listTransactions();
 		for(Transaction transaction: transactions) {
 			boolean found = false;
-			for(ProductBook bookOnTransaction: transaction.getBooks()) {
-				if(bookOnTransaction.getId() == product.getId()) {
+			for(Integer productOnTransaction: transaction.getProductsId()) {
+				if(productOnTransaction == product.getId()) {
 					exceptions += "O produto não pode ser removido pois existe dentro de ao menos uma transação \n";
 					found = true;
 					break;

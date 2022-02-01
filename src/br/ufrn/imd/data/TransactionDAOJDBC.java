@@ -9,7 +9,6 @@ import java.util.List;
 
 import br.ufrn.imd.data.connection.ConnectionJDBC;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Transaction;
 
 public class TransactionDAOJDBC implements TransactionDAO{
@@ -26,7 +25,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 			PreparedStatement stmt=connection.prepareStatement(sql);
 			//stmt.setInt(1, transaction.getId());
 			stmt.setInt(1, transaction.getClient());
-			Array tempArray = connection.createArrayOf("INTEGER", transaction.getBooksId().toArray());
+			Array tempArray = connection.createArrayOf("INTEGER", transaction.getProductsId().toArray());
 			stmt.setArray(2, tempArray);
 			stmt.setDouble(3, transaction.getValue());
 			stmt.execute();
@@ -51,7 +50,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 			PreparedStatement stmt=connection.prepareStatement(sql);
 			//stmt.setInt(1, transaction.getId());
 			stmt.setInt(1, transaction.getClient());
-			Array tempArray = connection.createArrayOf("INTEGER", transaction.getBooksId().toArray());
+			Array tempArray = connection.createArrayOf("INTEGER", transaction.getProductsId().toArray());
 			stmt.setArray(2, tempArray);
 			stmt.setDouble(3, transaction.getValue());
 			stmt.execute();
@@ -70,7 +69,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 		List<Transaction> listTransactions = new ArrayList<Transaction>();
 		
 		try {
-			ProductBookDAOJDBC bookDAOJDBC = new ProductBookDAOJDBC();
+			//ProductBookDAOJDBC bookDAOJDBC = new ProductBookDAOJDBC();
 			String sql = "SELECT * FROM public.Transaction";
 			
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -84,14 +83,19 @@ public class TransactionDAOJDBC implements TransactionDAO{
 				transaction.setClient(resultSet.getInt("client"));
 				transaction.setValue(resultSet.getDouble("value"));
 				Integer[] tempArray = (Integer[])resultSet.getArray("Books").getArray();
-				ArrayList<ProductBook> localBooks = new ArrayList<ProductBook>();
+				ArrayList<Integer> localProductsId = new ArrayList<Integer>();
+				for (Integer i: tempArray) {
+					localProductsId.add(i);
+				}
+				/*ArrayList<ProductBook> localBooks = new ArrayList<ProductBook>();
 				for(Integer i:tempArray) {
 					ProductBook Book = bookDAOJDBC.retrieveBookById(i);
 					if(Book != null) {
 						localBooks.add(Book);
 					}
-				}
-				transaction.setBooks(localBooks);
+				}*/
+				//transaction.setBooks(localBooks);
+				transaction.setProductsId(localProductsId);
 				listTransactions.add(transaction);
 			}
 			stmt.close();
@@ -107,7 +111,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 	public ArrayList<Transaction> retrieveTransactionsByClient(int client) throws DataException{
 		try {
 			ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-			ProductBookDAOJDBC bookDAOJDBC = new ProductBookDAOJDBC();
+			//ProductBookDAOJDBC bookDAOJDBC = new ProductBookDAOJDBC();
 			String sql = "SELECT * FROM public.transaction WHERE client = "+ client;
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			ResultSet resultSet = stmt.executeQuery();		
@@ -117,14 +121,20 @@ public class TransactionDAOJDBC implements TransactionDAO{
 				transaction.setClient(resultSet.getInt("client"));
 				transaction.setValue(resultSet.getDouble("value"));
 				Integer[] tempArray = (Integer[])resultSet.getArray("books").getArray();
-				ArrayList<ProductBook> books = new ArrayList<ProductBook>();
+				ArrayList<Integer> localProductsId = new ArrayList<Integer>();
+				for (Integer i: tempArray) {
+					localProductsId.add(i);
+				}
+				transaction.setProductsId(localProductsId);
+				/*ArrayList<ProductBook> books = new ArrayList<ProductBook>();
 				for(Integer i:tempArray) {
 					ProductBook book = bookDAOJDBC.retrieveBookById(i);
 					if(book != null) {
 						books.add(book);
 					}
 				}
-				transaction.setBooks(books);
+				transaction.setBooks(books);*/
+				
 				transactions.add(transaction);
 			}
 			return transactions;
@@ -138,7 +148,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 	public Transaction retrieveTransactionById(int id) throws DataException{
 		try {
 			Transaction transaction = new Transaction();
-			ProductBookDAOJDBC bookDAOJDBC = new ProductBookDAOJDBC();
+			//ProductBookDAOJDBC bookDAOJDBC = new ProductBookDAOJDBC();
 			String sql = "SELECT * FROM public.transaction WHERE id = "+ id;
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			ResultSet resultSet = stmt.executeQuery();		
@@ -147,14 +157,19 @@ public class TransactionDAOJDBC implements TransactionDAO{
 				transaction.setClient(resultSet.getInt("client"));
 				transaction.setValue(resultSet.getDouble("value"));
 				Integer[] tempArray = (Integer[])resultSet.getArray("books").getArray();
-				ArrayList<ProductBook> books = new ArrayList<ProductBook>();
+				/*ArrayList<ProductBook> books = new ArrayList<ProductBook>();
 				for(Integer i:tempArray) {
 					ProductBook book = bookDAOJDBC.retrieveBookById(i);
 					if(book != null) {
 						books.add(book);
 					}
 				}
-				transaction.setBooks(books);
+				transaction.setBooks(books);*/
+				ArrayList<Integer> localProductsId = new ArrayList<Integer>();
+				for (Integer i: tempArray) {
+					localProductsId.add(i);
+				}
+				transaction.setProductsId(localProductsId);
 				//transactions.add(transaction);
 			}
 			return transaction;

@@ -6,12 +6,12 @@ public class Transaction {
 	private int id;
 	private double value;
 	private int client;
-	private ArrayList<ProductBook> books;
+	private ArrayList<Integer> productsId;
 	
 	
 	public Transaction() {
 		super();
-		this.books = new ArrayList<ProductBook>();
+		this.productsId = new ArrayList<Integer>();
 	}
 	
 	
@@ -34,24 +34,24 @@ public class Transaction {
 	public int getClient() {
 		return this.client;
 	}
-	public ArrayList<ProductBook> getBooks() {
-		return books;
+	public ArrayList<Integer> getProductsId() {
+		return productsId;
 	}
-	public void setBooks(ArrayList<ProductBook> books) {
-		this.books = books;
+	public void setProductsId(ArrayList<Integer> products) {
+		this.productsId = products;
 	}
 	
-	public ArrayList<Integer> getBooksId() {
+	/*public ArrayList<Integer> getBooksId() {
 		ArrayList<Integer> tempArray = new ArrayList<Integer>();
 		for (ProductBook book : books) {
 			tempArray.add(book.getId());
 		}
 		return tempArray;
-	}
+	}*/
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "id: "+id+ " client: " + client + " value: "+value+ " books: "+ books;
+		return "id: "+id+ " client: " + client + " value: "+value+ " products: "+ productsId;
 	}
 	
 }

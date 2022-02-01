@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.PriorityQueue;
 
-import br.ufrn.imd.business.BookService;
 import br.ufrn.imd.business.ClientService;
+import br.ufrn.imd.business.IProductService;
 import br.ufrn.imd.business.ITransactionService;
+import br.ufrn.imd.business.ProductBookService;
 import br.ufrn.imd.business.TransactionService;
-import br.ufrn.imd.data.ProductBookDAOJDBC;
-import br.ufrn.imd.data.TransactionDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
+import br.ufrn.imd.instanceController.InstanceController;
 import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 import br.ufrn.imd.model.Transaction;
@@ -21,6 +21,26 @@ import br.ufrn.imd.model.recommendation.WeightBook;
 import br.ufrn.imd.model.recommendation.WeightTag;
 
 public class RecommendationBook implements IRecommendation<ProductBook, Integer>{
+	
+	private IProductService<?> productService;
+	
+	public RecommendationBook() throws BusinessException {
+		switch(InstanceController.currentInstanceType) {
+	    case BOOK:
+	      productService = new ProductBookService();
+	      break;
+	    case GAME:
+	      
+	      break;
+	      
+	    case VINYL:
+	      
+	      break;
+	    
+	    default:
+	      throw new BusinessException("Erro na definição da instância do programa \n");
+	    }
+	}
 	
 	public List<ProductBook> retrieveRecommendationsForClient(int client, int recommendationAmount, HashMap<String,Integer> options) throws DataException, BusinessException{
 		ITransactionService transactions = new TransactionService();
@@ -38,8 +58,8 @@ public class RecommendationBook implements IRecommendation<ProductBook, Integer>
 		ArrayList<ProductBook> previouslyBoughtBooks = new ArrayList<ProductBook>();
 		//Get every instance of a book
 		for(Transaction transaction: clientPreviousTransactions) {
-			for(ProductBook book:transaction.getBooks()) {
-				previouslyBoughtBooks.add(book);
+			for(Integer productId:transaction.getProductsId()) {
+				previouslyBoughtBooks.add((ProductBook)productService.retrieveProductById(productId));
 			}
 		}
 		ArrayList<Tag> tags = new ArrayList<Tag>();
@@ -68,7 +88,7 @@ public class RecommendationBook implements IRecommendation<ProductBook, Integer>
 			}
 		}
 
-		ArrayList<ProductBook> books = new BookService().listBooks(); //Get all books
+		ArrayList<ProductBook> books = (ArrayList<ProductBook>)productService.listProducts(); //new BookService().listBooks(); //Get all books
 		//Creates a priority queue that has the head as the one with the biggest priority
 		PriorityQueue<WeightBook> weightBooks = new PriorityQueue<WeightBook>(Collections.reverseOrder()); 
 		//Populate the weightBooks
