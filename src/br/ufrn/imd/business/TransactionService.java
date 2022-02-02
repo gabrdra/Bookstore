@@ -6,11 +6,32 @@ import java.util.List;
 import br.ufrn.imd.data.TransactionDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.instanceController.InstanceController;
 import br.ufrn.imd.model.Transaction;
 
 public class TransactionService implements ITransactionService {
 
+	
+	private IProductService<?> productService;
+	
+	public TransactionService() throws BusinessException{
+		switch(InstanceController.currentInstanceType) {
+	    case BOOK:
+	      productService = new ProductBookService();
+	      break;
+	    case GAME:
+	      
+	      break;
+	      
+	    case VINYL:
+	      
+	      break;
+	    
+	    default:
+	      throw new BusinessException("Erro na definição da instância do programa \n");
+	    }
+	}
+	
 	@Override
 	public void addTransaction(Transaction transaction) throws DataException, BusinessException {
 		String exceptions = "";
@@ -18,14 +39,14 @@ public class TransactionService implements ITransactionService {
 		if(clientService.retrieveClientById(transaction.getClient()).getCpf() == null) {
 			exceptions += "Cliente inexistente \n";
 		}
-		IBookService bookService = new BookService();
-		ArrayList<Book>books = transaction.getBooks();
-		for(Book book : books) {
-			if(bookService.retrieveBookByBarcode(book.getBarcode()).getBarcode() == null) {
+		//IBookService bookService = new BookService();
+		ArrayList<Integer> productsId = transaction.getProductsId();
+		for(Integer productId : productsId) {
+			if(productService.retrieveProductByBarcode(productService.retrieveProductById(productId).getBarcode()).getBarcode() == null) {
 				exceptions += "Livro inexistente \n";
 			}
 		}
-		if(books.size()<1) {
+		if(productsId.size()<1) {
 			exceptions += "Insira ao menos um livro na compra \n";
 		}
 		if(!exceptions.equals("")) {
@@ -50,11 +71,10 @@ public class TransactionService implements ITransactionService {
 		if(clientService.retrieveClientById(transaction.getClient()).getCpf() == null) {
 			exceptions += "Cliente inexistente \n";
 		}
-		IBookService bookService = new BookService();
-		ArrayList<Book>books = transaction.getBooks();
-		for(Book book : books) {
-			if(bookService.retrieveBookByBarcode(book.getBarcode()).getBarcode() == null) {
-				exceptions += "Livro inexistente \n";
+		ArrayList<Integer> productsId = transaction.getProductsId();
+		for(Integer productId : productsId) {
+			if(productService.retrieveProductByBarcode(productService.retrieveProductById(productId).getBarcode()).getBarcode() == null) {
+				exceptions += "Produto inexistente \n";
 			}
 		}
 		if(!exceptions.equals("")) {

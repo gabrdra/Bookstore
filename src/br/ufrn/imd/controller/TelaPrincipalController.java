@@ -2,16 +2,17 @@ package br.ufrn.imd.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
-import br.ufrn.imd.business.BookService;
 import br.ufrn.imd.business.ClientService;
-import br.ufrn.imd.business.IBookService;
 import br.ufrn.imd.business.IClientService;
+import br.ufrn.imd.business.ProductBookService;
 import br.ufrn.imd.business.TransactionService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Client;
+import br.ufrn.imd.model.Product;
 import br.ufrn.imd.model.Transaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,13 +38,13 @@ import javafx.stage.Stage;
 public class TelaPrincipalController implements Initializable{
 	
 	private Client client;
-	private Book book;
+	private ProductBook book;
 	private double valorTotal;
 	private Transaction transaction;
 	
-	ArrayList<Book> listBooks = new ArrayList<Book>();
+	ArrayList<ProductBook> listBooks = new ArrayList<ProductBook>();
 	
-	ObservableList<Book> observableBookList = FXCollections.observableArrayList();
+	ObservableList<ProductBook> observableBookList = FXCollections.observableArrayList();
 	
 	@FXML
     private Button btAddCleintToCart;
@@ -144,19 +145,19 @@ public class TelaPrincipalController implements Initializable{
     private MenuItem mnItemSobre;
 
     @FXML
-    private TableColumn<Book, String> tableBarcode;
+    private TableColumn<ProductBook, String> tableBarcode;
 
     @FXML
-    private TableView<Book> tableCartList;
+    private TableView<ProductBook> tableCartList;
 
     @FXML
-    private TableColumn<Book, String> tableDesc;
+    private TableColumn<ProductBook, String> tableDesc;
 
     @FXML
-    private TableColumn<Book, String> tableName;
+    private TableColumn<ProductBook, String> tableName;
 
     @FXML
-    private TableColumn<Book, Double> tableValue;
+    private TableColumn<ProductBook, Double> tableValue;
     @FXML
     private TextField tfBarCode;
 
@@ -175,22 +176,33 @@ public class TelaPrincipalController implements Initializable{
     
 	@java.lang.Override
 	public void initialize(java.net.URL arg0, java.util.ResourceBundle arg1) {
-	    tableBarcode.setCellValueFactory(new PropertyValueFactory<Book, String>("barcode"));
-	    tableName.setCellValueFactory(new PropertyValueFactory<Book, String>("name"));
-		tableValue.setCellValueFactory(new PropertyValueFactory<Book, Double>("price"));
-		tableDesc.setCellValueFactory(new PropertyValueFactory<Book, String>("description"));
+	    tableBarcode.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("barcode"));
+	    tableName.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("name"));
+		tableValue.setCellValueFactory(new PropertyValueFactory<ProductBook, Double>("price"));
+		tableDesc.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("description"));
 	}
 
     @FXML
     void ConfirmarVenda(ActionEvent event) throws DataException, BusinessException {
     	transaction = new Transaction();
+    	ArrayList<Integer> productsId = new ArrayList<Integer>();
+    	for(Product product:listBooks) {
+    		productsId.add(product.getId());
+    	}
     	
-    	transaction.setBooks(listBooks);
+    	transaction.setProductsId(productsId);
     	if(client != null) {
         	transaction.setClient(client.getId());
     	}
-
+    	
     	transaction.setValue(valorTotal);
+    	
+    	Alert confirmationAlert = new Alert(AlertType.CONFIRMATION, "Valor: "+ transaction.getValue()+"\n Chave pix: 1234567891012", ButtonType.YES, ButtonType.CANCEL);
+    	Optional<ButtonType> result = confirmationAlert.showAndWait();
+    	if(result.isPresent() && result.get() == ButtonType.CANCEL) {
+    		CancelarVenda(null);
+    		return;
+    	}
     	try {
     		new TransactionService().addTransaction(transaction);
     		
@@ -204,7 +216,6 @@ public class TelaPrincipalController implements Initializable{
         	alert.showAndWait();
         	return;
 		}
-    	
     	Alert alert = new Alert(AlertType.CONFIRMATION, "Venda realizada com sucesso!", ButtonType.OK);
     	alert.showAndWait();
     	resetObservableList();
@@ -419,11 +430,11 @@ public class TelaPrincipalController implements Initializable{
 
     @FXML
     void searchBook(ActionEvent event) throws IOException {
-    	IBookService bookService = new BookService();
+    	ProductBookService bookService = new ProductBookService();
     	
     	
     	try {
-    		book = bookService.retrieveBookByBarcode(tfBarCode.getText());
+    		book = bookService.retrieveProductByBarcode(tfBarCode.getText());
 		}
     	catch (BusinessException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
@@ -460,7 +471,7 @@ public class TelaPrincipalController implements Initializable{
     
     void totalValueRefresh() {
     	valorTotal=0;
-    	for (Book book : listBooks) {
+    	for (ProductBook book : listBooks) {
 			valorTotal+=book.getPrice();
 		}
     	lbTotalValue.setText("R$" + String.format("%.2f", valorTotal));
@@ -475,7 +486,7 @@ public class TelaPrincipalController implements Initializable{
     }
     
     void resetObservableList() {
-    	listBooks = new ArrayList<Book>();
+    	listBooks = new ArrayList<ProductBook>();
     	observableBookList = FXCollections.observableArrayList();
 		tableCartList.setItems(observableBookList);
     }

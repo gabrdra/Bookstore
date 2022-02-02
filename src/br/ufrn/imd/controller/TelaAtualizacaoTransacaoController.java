@@ -9,13 +9,10 @@ import javafx.scene.control.Alert.AlertType;
 
 import java.util.ArrayList;
 
-import br.ufrn.imd.business.BookService;
-import br.ufrn.imd.business.IBookService;
 import br.ufrn.imd.business.TransactionService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.exceptions.GUIException;
-import br.ufrn.imd.model.Book;
 import br.ufrn.imd.model.Transaction;
 import javafx.event.ActionEvent;
 
@@ -64,7 +61,7 @@ public class TelaAtualizacaoTransacaoController {
 			tfIdClient.setText(String.valueOf(transaction.getClient()));
 			tfPrice.setText(String.valueOf(transaction.getValue()));
 			String booksString = "[";
-			ArrayList<Integer> booksId = transaction.getBooksId();
+			ArrayList<Integer> booksId = transaction.getProductsId();//transaction.getBooksId();
 			for(int i = 0; i < booksId.size(); i++) {
 				if(i != booksId.size()-1) {
 					booksString += String.valueOf(booksId.get(i))+", ";
@@ -90,15 +87,16 @@ public class TelaAtualizacaoTransacaoController {
 		transaction.setId(Integer.parseInt(tfId.getText()));
 		transaction.setClient(Integer.parseInt(tfIdClient.getText()));
 		transaction.setValue(Double.parseDouble(tfPrice.getText()));
-		ArrayList<Book> books  = new ArrayList<Book>();
-		IBookService bookService = new BookService();
+		//ArrayList<ProductBook> books  = new ArrayList<ProductBook>();
+		//IBookService bookService = new BookService();
+		ArrayList<Integer> productsId = new ArrayList<Integer>();
 		for (String t : tfBooks.getText().split("\\D+")) { // the \\D+ is a regular expression that leaves only the numbers behind
 			if (t.isEmpty()) {
 		        continue;
 		    }
-		    books.add(bookService.retrieveBookById(Integer.parseInt(t)));
+		    productsId.add(Integer.parseInt(t));
 		}
-		transaction.setBooks(books);
+		transaction.setProductsId(productsId);
 		new TransactionService().updateTransaction(transaction);
 		}
 		catch(NumberFormatException | BusinessException | DataException e) {

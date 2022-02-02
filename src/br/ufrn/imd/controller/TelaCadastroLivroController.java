@@ -2,11 +2,11 @@ package br.ufrn.imd.controller;
 
 import java.util.ArrayList;
 
-import br.ufrn.imd.business.BookService;
+import br.ufrn.imd.business.ProductBookService;
 import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 
 public class TelaCadastroLivroController implements Initializable{
 	
-	private Book book;
+	private ProductBook book;
 
 	private Stage myStage;
     @FXML
@@ -109,6 +109,10 @@ public class TelaCadastroLivroController implements Initializable{
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;
+		} catch (BusinessException e) {
+			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        	alert.showAndWait();
+        	return;
 		}
 		observableTagToAddList.removeAll(listToAddTags);
 		observableTagToAddList.addAll(listToAddTags);
@@ -118,7 +122,7 @@ public class TelaCadastroLivroController implements Initializable{
 
     @FXML
     void addBook(ActionEvent event) throws BusinessException, DataException {
-    	book = new Book();
+    	book = new ProductBook();
     	book.setBarcode(tfCodigo.getText());
     	book.setName(tfNome.getText());
     	book.setPrice((tfPreco.getText() == "") ? 0 : Double.parseDouble(tfPreco.getText()));
@@ -126,7 +130,7 @@ public class TelaCadastroLivroController implements Initializable{
     	book.setDescription(taDescricao.getText());
     	book.setTags(listTags);
     	try {
-        	new BookService().addBook(book);
+        	new ProductBookService().addProduct(book);
     	}catch (BusinessException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();

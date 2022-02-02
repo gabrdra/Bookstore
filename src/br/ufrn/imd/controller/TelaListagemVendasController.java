@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import br.ufrn.imd.business.TransactionService;
+import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Transaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +34,7 @@ public class TelaListagemVendasController implements Initializable {
     private Button btList;
 
     @FXML
-    private TableColumn<Transaction, ArrayList<Book>> tableBooks;
+    private TableColumn<Transaction, ArrayList<ProductBook>> tableBooks;
 
     @FXML
     private TableColumn<Transaction, Integer> tableClient;
@@ -56,7 +57,7 @@ public class TelaListagemVendasController implements Initializable {
 		tableId.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("id"));
 		tableClient.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("client"));
 		tableValue.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("value"));
-		tableBooks.setCellValueFactory(new PropertyValueFactory<Transaction, ArrayList<Book>>("books"));
+		tableBooks.setCellValueFactory(new PropertyValueFactory<Transaction, ArrayList<ProductBook>>("books"));
 		
 	}
 
@@ -75,6 +76,10 @@ public class TelaListagemVendasController implements Initializable {
     		transactionList =  (ArrayList<Transaction>) new TransactionService().listTransactions();
 		} catch (DataException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        	alert.showAndWait();
+        	return;
+		} catch (BusinessException e) {
+			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;
 		}

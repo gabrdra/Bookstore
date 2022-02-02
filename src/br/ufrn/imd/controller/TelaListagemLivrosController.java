@@ -4,9 +4,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import br.ufrn.imd.business.BookService;
+import br.ufrn.imd.business.ProductBookService;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,41 +32,41 @@ public class TelaListagemLivrosController implements Initializable{
     private Button btList;
 
     @FXML
-    private TableColumn<Book, String> tableAuthor;
+    private TableColumn<ProductBook, String> tableAuthor;
 
     @FXML
-    private TableColumn<Book, String> tableBarcode;
+    private TableColumn<ProductBook, String> tableBarcode;
 
     @FXML
-    private TableView<Book> tableBooksList;
+    private TableView<ProductBook> tableBooksList;
 
     @FXML
-    private TableColumn<Book, String> tableDesc;
+    private TableColumn<ProductBook, String> tableDesc;
 
     @FXML
-    private TableColumn<Book, String> tableName;
+    private TableColumn<ProductBook, String> tableName;
 
     @FXML
-    private TableColumn<Book, Double> tableValue;
+    private TableColumn<ProductBook, Double> tableValue;
     
-	ArrayList<Book> bookList = new ArrayList<Book>();
+	ArrayList<ProductBook> bookList = new ArrayList<ProductBook>();
 	
-	ObservableList<Book> observablebookList = FXCollections.observableArrayList();
+	ObservableList<ProductBook> observablebookList = FXCollections.observableArrayList();
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		tableBarcode.setCellValueFactory(new PropertyValueFactory<Book, String>("barcode"));
-		tableName.setCellValueFactory(new PropertyValueFactory<Book, String>("name"));
-		tableAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
-		tableValue.setCellValueFactory(new PropertyValueFactory<Book, Double>("price"));
-		tableDesc.setCellValueFactory(new PropertyValueFactory<Book, String>("description"));
+		tableBarcode.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("barcode"));
+		tableName.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("name"));
+		tableAuthor.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("author"));
+		tableValue.setCellValueFactory(new PropertyValueFactory<ProductBook, Double>("price"));
+		tableDesc.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("description"));
 		
 	}
 
     @FXML
     void listBooks(ActionEvent event) {
     	try {
-    		bookList =  new BookService().listBooks();
+    		bookList =  (ArrayList<ProductBook>) new ProductBookService().listProducts();
 		} catch (DataException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();

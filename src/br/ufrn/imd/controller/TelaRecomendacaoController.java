@@ -13,12 +13,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
-import br.ufrn.imd.business.recommendation.Recommendation;
+import br.ufrn.imd.business.recommendation.RecommendationBook;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,39 +33,40 @@ public class TelaRecomendacaoController implements Initializable {
 	private Button btSearch;
 	
     @FXML
-    private TableColumn<Book, String> tableBarcode;
+    private TableColumn<ProductBook, String> tableBarcode;
 
     @FXML
-    private TableColumn<Book, String> tableDesc;
+    private TableColumn<ProductBook, String> tableDesc;
 
     @FXML
-    private TableColumn<Book, String> tableName;
+    private TableColumn<ProductBook, String> tableName;
 
     @FXML
-    private TableView<Book> tableRecomList;
+    private TableView<ProductBook> tableRecomList;
 
     @FXML
-    private TableColumn<Book, Double> tableValue;
+    private TableColumn<ProductBook, Double> tableValue;
     
-	ArrayList<Book> listBooks = new ArrayList<Book>();
+	List<ProductBook> listBooks = new ArrayList<ProductBook>();
 	
-	ObservableList<Book> observableBookList = FXCollections.observableArrayList();
+	ObservableList<ProductBook> observableBookList = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-	    tableBarcode.setCellValueFactory(new PropertyValueFactory<Book, String>("barcode"));
-	    tableName.setCellValueFactory(new PropertyValueFactory<Book, String>("name"));
-		tableValue.setCellValueFactory(new PropertyValueFactory<Book, Double>("price"));
-		tableDesc.setCellValueFactory(new PropertyValueFactory<Book, String>("description"));
+	    tableBarcode.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("barcode"));
+	    tableName.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("name"));
+		tableValue.setCellValueFactory(new PropertyValueFactory<ProductBook, Double>("price"));
+		tableDesc.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("description"));
 		
 	}
 
 	// Event Listener on Button[#btSearch].onAction
 	@FXML
 	public void onSearchButtonPressed(ActionEvent event) {
-		Recommendation recommendation = new Recommendation();
+		RecommendationBook recommendation;
 		try {
-			listBooks = recommendation.getRecommendationsForClient(Integer.parseInt(fxId.getText()), Integer.parseInt(fxNumber.getText()));
+			recommendation = new RecommendationBook();
+			listBooks = recommendation.retrieveRecommendationsForClient(Integer.parseInt(fxId.getText()), Integer.parseInt(fxNumber.getText()), null);
 		} catch (NumberFormatException | DataException | BusinessException e) {
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();

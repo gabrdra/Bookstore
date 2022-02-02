@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import br.ufrn.imd.business.TagService;
+import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Tag;
 import javafx.collections.FXCollections;
@@ -67,6 +68,10 @@ public class TelaListagemTagsController implements Initializable {
         	tagList = (ArrayList<Tag>) new TagService().listTags();
 		} catch (DataException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        	alert.showAndWait();
+        	return;
+		} catch (BusinessException e) {
+			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;
 		}

@@ -3,13 +3,12 @@ package br.ufrn.imd.view;
 
 import java.util.ArrayList;
 
-import br.ufrn.imd.business.BookService;
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.business.TransactionService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Book;
+import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Client;
 import br.ufrn.imd.model.Tag;
 import br.ufrn.imd.model.Transaction;
