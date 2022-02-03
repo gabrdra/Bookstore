@@ -3,8 +3,9 @@ package br.ufrn.imd.controller;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
-import br.ufrn.imd.business.ProductBookService;
+import br.ufrn.imd.business.ProductService;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.ProductBook;
 import javafx.collections.FXCollections;
@@ -63,10 +64,11 @@ public class TelaListagemLivrosController implements Initializable{
 		
 	}
 
-    @FXML
+	@FXML
     void listBooks(ActionEvent event) {
     	try {
-    		bookList =  (ArrayList<ProductBook>) new ProductBookService().listProducts();
+    		//The following line should map the ArrayList<Product> to an ArrayList<ProductBook>. Fingers crossed.
+    		bookList = (ArrayList<ProductBook>) new ProductService().listProducts();
 		} catch (DataException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();

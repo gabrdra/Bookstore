@@ -16,12 +16,12 @@ import br.ufrn.imd.model.Transaction;
 public class TagService implements ITagService {
 
 	
-	private IProductService<?> productService;
+	private IProductService productService;
 	
 	public TagService() throws BusinessException {
 		switch(InstanceController.currentInstanceType) {
 	    case BOOK:
-	      productService = new ProductBookService();
+	      productService = new ProductService();
 	      break;
 	    case GAME:
 	      

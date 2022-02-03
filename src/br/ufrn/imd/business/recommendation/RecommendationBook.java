@@ -9,11 +9,12 @@ import java.util.PriorityQueue;
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.business.IProductService;
 import br.ufrn.imd.business.ITransactionService;
-import br.ufrn.imd.business.ProductBookService;
+import br.ufrn.imd.business.ProductService;
 import br.ufrn.imd.business.TransactionService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.instanceController.InstanceController;
+import br.ufrn.imd.model.Product;
 import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 import br.ufrn.imd.model.Transaction;
@@ -22,12 +23,12 @@ import br.ufrn.imd.model.recommendation.WeightTag;
 
 public class RecommendationBook implements IRecommendation<ProductBook, Integer>{
 	
-	private IProductService<?> productService;
+	private IProductService productService;
 	
 	public RecommendationBook() throws BusinessException {
 		switch(InstanceController.currentInstanceType) {
 	    case BOOK:
-	      productService = new ProductBookService();
+	      productService = new ProductService();
 	      break;
 	    case GAME:
 	      
@@ -88,11 +89,11 @@ public class RecommendationBook implements IRecommendation<ProductBook, Integer>
 			}
 		}
 
-		ArrayList<ProductBook> books = (ArrayList<ProductBook>)productService.listProducts(); //new BookService().listBooks(); //Get all books
+		ArrayList<Product> books = (ArrayList<Product>)productService.listProducts(); //new BookService().listBooks(); //Get all books
 		//Creates a priority queue that has the head as the one with the biggest priority
 		PriorityQueue<WeightBook> weightBooks = new PriorityQueue<WeightBook>(Collections.reverseOrder()); 
 		//Populate the weightBooks
-		for(ProductBook book:books) {
+		for(Product book:books) {
 			if(!(previouslyBoughtBooks.contains(book))) { //If the client already bought a book it won't recommend that book
 				int weight = 0;
 				for(Tag bookTag:book.getTags()) {
@@ -102,7 +103,7 @@ public class RecommendationBook implements IRecommendation<ProductBook, Integer>
 						}
 					}
 				}
-				weightBooks.add(new WeightBook(weight, book));
+				weightBooks.add(new WeightBook(weight, (ProductBook)book));
 				/*if(weightBooks.size()>recommendationAmount) {
 					weightBooks.poll();
 				}*/

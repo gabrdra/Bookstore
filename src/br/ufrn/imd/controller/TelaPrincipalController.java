@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.business.IClientService;
-import br.ufrn.imd.business.ProductBookService;
+import br.ufrn.imd.business.ProductService;
 import br.ufrn.imd.business.TransactionService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
@@ -430,11 +430,11 @@ public class TelaPrincipalController implements Initializable{
 
     @FXML
     void searchBook(ActionEvent event) throws IOException {
-    	ProductBookService bookService = new ProductBookService();
+    	ProductService bookService = new ProductService();
     	
     	
     	try {
-    		book = bookService.retrieveProductByBarcode(tfBarCode.getText());
+    		book = (ProductBook) bookService.retrieveProductByBarcode(tfBarCode.getText());
 		}
     	catch (BusinessException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
