@@ -23,25 +23,7 @@ import br.ufrn.imd.model.recommendation.WeightTag;
 
 public class RecommendationBook implements IRecommendation<ProductBook, Integer>{
 	
-	private IProductService productService;
-	
-	public RecommendationBook() throws BusinessException {
-		switch(InstanceController.currentInstanceType) {
-	    case BOOK:
-	      productService = new ProductService();
-	      break;
-	    case GAME:
-	      
-	      break;
-	      
-	    case VINYL:
-	      
-	      break;
-	    
-	    default:
-	      throw new BusinessException("Erro na definição da instância do programa \n");
-	    }
-	}
+	private IProductService productService = new ProductService();
 	
 	public List<ProductBook> retrieveRecommendationsForClient(int client, int recommendationAmount, HashMap<String,Integer> options) throws DataException, BusinessException{
 		ITransactionService transactions = new TransactionService();
