@@ -70,10 +70,6 @@ public class TelaListagemTagsController implements Initializable {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;
-		} catch (BusinessException e) {
-			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
-        	alert.showAndWait();
-        	return;
 		}
     	
     	observableTagList = FXCollections.observableArrayList();

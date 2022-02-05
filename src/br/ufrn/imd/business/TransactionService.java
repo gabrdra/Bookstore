@@ -12,25 +12,7 @@ import br.ufrn.imd.model.Transaction;
 public class TransactionService implements ITransactionService {
 
 	
-	private IProductService productService;
-	
-	public TransactionService() throws BusinessException{
-		switch(InstanceController.currentInstanceType) {
-	    case BOOK:
-	      productService = new ProductService();
-	      break;
-	    case GAME:
-	      
-	      break;
-	      
-	    case VINYL:
-	      
-	      break;
-	    
-	    default:
-	      throw new BusinessException("Erro na definição da instância do programa \n");
-	    }
-	}
+	private IProductService productService = new ProductService();
 	
 	@Override
 	public void addTransaction(Transaction transaction) throws DataException, BusinessException {

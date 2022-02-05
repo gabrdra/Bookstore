@@ -6,6 +6,7 @@ import br.ufrn.imd.data.ProductBookDAOJDBC;
 import br.ufrn.imd.data.ProductDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
+import br.ufrn.imd.factory.Distributor;
 import br.ufrn.imd.model.Product;
 import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
@@ -16,7 +17,7 @@ public class ProductService implements IProductService {
 	ProductDAOJDBC productDAO;
 	
 	public ProductService(){
-		productDAO = new ProductBookDAOJDBC();
+		productDAO = Distributor.getInstance().createProductDAO();
 	}
 	
 	@Override

@@ -109,10 +109,6 @@ public class TelaCadastroLivroController implements Initializable{
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;
-		} catch (BusinessException e) {
-			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
-        	alert.showAndWait();
-        	return;
 		}
 		observableTagToAddList.removeAll(listToAddTags);
 		observableTagToAddList.addAll(listToAddTags);
