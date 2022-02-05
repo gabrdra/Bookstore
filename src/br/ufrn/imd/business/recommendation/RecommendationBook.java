@@ -18,7 +18,7 @@ import br.ufrn.imd.model.Product;
 import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 import br.ufrn.imd.model.Transaction;
-import br.ufrn.imd.model.recommendation.WeightBook;
+import br.ufrn.imd.model.recommendation.WeightProduct;
 import br.ufrn.imd.model.recommendation.WeightTag;
 
 public class RecommendationBook implements IRecommendation<ProductBook, Integer>{
@@ -73,7 +73,7 @@ public class RecommendationBook implements IRecommendation<ProductBook, Integer>
 
 		ArrayList<Product> books = (ArrayList<Product>)productService.listProducts(); //new BookService().listBooks(); //Get all books
 		//Creates a priority queue that has the head as the one with the biggest priority
-		PriorityQueue<WeightBook> weightBooks = new PriorityQueue<WeightBook>(Collections.reverseOrder()); 
+		PriorityQueue<WeightProduct> weightBooks = new PriorityQueue<WeightProduct>(Collections.reverseOrder()); 
 		//Populate the weightBooks
 		for(Product book:books) {
 			if(!(previouslyBoughtBooks.contains(book))) { //If the client already bought a book it won't recommend that book
@@ -85,7 +85,7 @@ public class RecommendationBook implements IRecommendation<ProductBook, Integer>
 						}
 					}
 				}
-				weightBooks.add(new WeightBook(weight, (ProductBook)book));
+				weightBooks.add(new WeightProduct(weight, (ProductBook)book));
 				/*if(weightBooks.size()>recommendationAmount) {
 					weightBooks.poll();
 				}*/
@@ -95,7 +95,7 @@ public class RecommendationBook implements IRecommendation<ProductBook, Integer>
 		ArrayList<ProductBook> recommendedBooks = new ArrayList<ProductBook>();
 		for(int i = 0; i < recommendationAmount; i++) {
 			//Book currentBook = weightBooks.poll().getBook();
-			recommendedBooks.add(weightBooks.poll().getBook());
+			recommendedBooks.add((ProductBook) weightBooks.poll().getProduct());
 			if(weightBooks.size()==0) {
 				break;
 			}
