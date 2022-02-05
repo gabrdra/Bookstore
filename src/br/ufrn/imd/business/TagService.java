@@ -7,6 +7,7 @@ import br.ufrn.imd.data.ProductBookDAOJDBC;
 import br.ufrn.imd.data.TagDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
+import br.ufrn.imd.factory.Distributor;
 import br.ufrn.imd.instanceController.InstanceController;
 import br.ufrn.imd.model.Product;
 import br.ufrn.imd.model.ProductBook;
@@ -16,25 +17,9 @@ import br.ufrn.imd.model.Transaction;
 public class TagService implements ITagService {
 
 	
-	private IProductService<?> productService;
+	private IProductService productService = new ProductService();
 	
-	public TagService() throws BusinessException {
-		switch(InstanceController.currentInstanceType) {
-	    case BOOK:
-	      productService = new ProductBookService();
-	      break;
-	    case GAME:
-	      
-	      break;
-	      
-	    case VINYL:
-	      
-	      break;
-	    
-	    default:
-	      throw new BusinessException("Erro na definição da instância do programa \n");
-	    }
-	}
+	
 	
 	@Override
 	public void addTag(Tag tag) throws BusinessException, DataException {

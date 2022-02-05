@@ -2,7 +2,7 @@ package br.ufrn.imd.controller;
 
 import java.util.ArrayList;
 
-import br.ufrn.imd.business.ProductBookService;
+import br.ufrn.imd.business.ProductService;
 import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
@@ -109,10 +109,6 @@ public class TelaCadastroLivroController implements Initializable{
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;
-		} catch (BusinessException e) {
-			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
-        	alert.showAndWait();
-        	return;
 		}
 		observableTagToAddList.removeAll(listToAddTags);
 		observableTagToAddList.addAll(listToAddTags);
@@ -130,7 +126,7 @@ public class TelaCadastroLivroController implements Initializable{
     	book.setDescription(taDescricao.getText());
     	book.setTags(listTags);
     	try {
-        	new ProductBookService().addProduct(book);
+        	new ProductService().addProduct(book);
     	}catch (BusinessException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();

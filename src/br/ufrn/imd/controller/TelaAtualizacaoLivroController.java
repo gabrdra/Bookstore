@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import br.ufrn.imd.business.IProductService;
 import br.ufrn.imd.business.ITagService;
-import br.ufrn.imd.business.ProductBookService;
+import br.ufrn.imd.business.ProductService;
 import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
@@ -63,7 +63,7 @@ public class TelaAtualizacaoLivroController {
 	@FXML
 	public void onSearchId(ActionEvent event) {
 		try {
-			populateInterface(new ProductBookService().retrieveProductById(Integer.parseInt(tfId.getText())));
+			populateInterface((ProductBook)new ProductService().retrieveProductById(Integer.parseInt(tfId.getText())));
 		} catch (NumberFormatException | DataException | BusinessException e) {
 			// TODO Auto-generated catch block
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
@@ -105,7 +105,7 @@ public class TelaAtualizacaoLivroController {
 	@FXML
 	public void onSearchBarcode(ActionEvent event) {
 		try {
-			populateInterface(new ProductBookService().retrieveProductByBarcode(tfBarcode.getText()));
+			populateInterface((ProductBook)new ProductService().retrieveProductByBarcode(tfBarcode.getText()));
 		} catch (NumberFormatException | DataException | BusinessException e) {
 			// TODO Auto-generated catch block
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
@@ -133,7 +133,7 @@ public class TelaAtualizacaoLivroController {
 			    tags.add(tagService.retrieveTagById(Integer.parseInt(t)));
 			}
 			book.setTags(tags);
-			new ProductBookService().updateProduct(book);
+			new ProductService().updateProduct(book);
 			}
 			catch(NumberFormatException | BusinessException | DataException e) {
 				Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);

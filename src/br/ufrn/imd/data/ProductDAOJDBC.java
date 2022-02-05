@@ -7,17 +7,17 @@ import br.ufrn.imd.data.connection.ConnectionJDBC;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Product;
 
-public abstract class ProductDAOJDBC<T extends Product> {
+public abstract class ProductDAOJDBC {
 
 	protected Connection connection;
 	
 	public ProductDAOJDBC(){
 		this.connection = ConnectionJDBC.getInstance().getCon();
 	}
-	abstract public void addProduct(T product)throws DataException;
-	abstract public void removeProduct(T product)throws DataException;
-	abstract public void updateProduct(T product)throws DataException;
-	abstract public List<T> listProducts()throws DataException;
-	abstract public T retrieveProductById(int id)throws DataException;
-	abstract public T retrieveProductByBarcode(String barcode)throws DataException;
+	abstract public void addProduct(Product product)throws DataException;
+	abstract public void removeProduct(Product product)throws DataException;
+	abstract public void updateProduct(Product product)throws DataException;
+	abstract public List<? extends Product> listProducts()throws DataException;
+	abstract public Product retrieveProductById(int id)throws DataException;
+	abstract public Product retrieveProductByBarcode(String barcode)throws DataException;
 }

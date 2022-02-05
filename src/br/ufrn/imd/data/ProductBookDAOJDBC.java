@@ -9,10 +9,11 @@ import java.util.List;
 
 import br.ufrn.imd.data.connection.ConnectionJDBC;
 import br.ufrn.imd.exceptions.DataException;
+import br.ufrn.imd.model.Product;
 import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 
-public class ProductBookDAOJDBC extends ProductDAOJDBC<ProductBook>{
+public class ProductBookDAOJDBC extends ProductDAOJDBC{
 	
 	private Connection connection;
 
@@ -21,18 +22,19 @@ public class ProductBookDAOJDBC extends ProductDAOJDBC<ProductBook>{
 	}
 	
 	@Override
-	public void addProduct(ProductBook product) throws DataException {
+	public void addProduct(Product product) throws DataException {
+		ProductBook productBook = (ProductBook) product; 
 		String sql="INSERT INTO public.book (description, price, author, name, tags, barcode) VALUES (?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
 			//stmt.setInt(1, bo.getId());
-			stmt.setString(1, product.getDescription());
-			stmt.setDouble(2, product.getPrice());
-			stmt.setString(3, product.getAuthor());
-			stmt.setString(4, product.getName());
-			Array tempArray = connection.createArrayOf("INTEGER", product.getTagsId().toArray());
+			stmt.setString(1, productBook.getDescription());
+			stmt.setDouble(2, productBook.getPrice());
+			stmt.setString(3, productBook.getAuthor());
+			stmt.setString(4, productBook.getName());
+			Array tempArray = connection.createArrayOf("INTEGER", productBook.getTagsId().toArray());
 			stmt.setArray(5, tempArray);
-			stmt.setString(6, product.getBarcode());
+			stmt.setString(6, productBook.getBarcode());
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
@@ -43,7 +45,7 @@ public class ProductBookDAOJDBC extends ProductDAOJDBC<ProductBook>{
 	}
 	
 	@Override
-	public void removeProduct(ProductBook product) throws DataException{
+	public void removeProduct(Product product) throws DataException{
 		String sql = "DELETE FROM public.book WHERE id="+product.getId();
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
@@ -56,18 +58,19 @@ public class ProductBookDAOJDBC extends ProductDAOJDBC<ProductBook>{
 	}
 	
 	@Override
-	public void updateProduct(ProductBook product) throws DataException{
-		String sql="UPDATE public.book SET description = (?), price = (?), author = (?), name = (?), tags = (?), barcode = (?) WHERE id="+product.getId();
+	public void updateProduct(Product product) throws DataException{
+		ProductBook productBook = (ProductBook) product;
+		String sql="UPDATE public.book SET description = (?), price = (?), author = (?), name = (?), tags = (?), barcode = (?) WHERE id="+productBook.getId();
 		try {
 			PreparedStatement stmt=connection.prepareStatement(sql);
 			//stmt.setInt(1, bo.getId());
-			stmt.setString(1, product.getDescription());
-			stmt.setDouble(2, product.getPrice());
-			stmt.setString(3, product.getAuthor());
-			stmt.setString(4, product.getName());
-			Array tempArray = connection.createArrayOf("INTEGER", product.getTagsId().toArray());
+			stmt.setString(1, productBook.getDescription()); 
+			stmt.setDouble(2, productBook.getPrice());
+			stmt.setString(3, productBook.getAuthor());
+			stmt.setString(4, productBook.getName());
+			Array tempArray = connection.createArrayOf("INTEGER", productBook.getTagsId().toArray());
 			stmt.setArray(5, tempArray);
-			stmt.setString(6, product.getBarcode());
+			stmt.setString(6, productBook.getBarcode());
 			stmt.execute();
 			stmt.close();
 		} catch (Exception e) {
@@ -77,8 +80,8 @@ public class ProductBookDAOJDBC extends ProductDAOJDBC<ProductBook>{
 	}
 	
 	@Override
-	public List<ProductBook> listProducts() throws DataException{
-		ArrayList<ProductBook> listBooks = new ArrayList<ProductBook>();
+	public List<? extends Product> listProducts() throws DataException{
+		ArrayList<Product> listBooks = new ArrayList<Product>();
 		
 		try {
 			TagDAOJDBC tagDAOJDBC = new TagDAOJDBC();
@@ -115,11 +118,11 @@ public class ProductBookDAOJDBC extends ProductDAOJDBC<ProductBook>{
 			throw new DataException("Erro ao tentar listar os livros armazenados no banco de dados \n");
 		}
 		
-		return listBooks;
+		return (List<Product>)listBooks;
 	}
 	
 	@Override
-	public ProductBook retrieveProductById(int id) throws DataException{
+	public Product retrieveProductById(int id) throws DataException{
 		try {
 			TagDAOJDBC tagDAOJDBC = new TagDAOJDBC();
 			String bookSql = "SELECT * FROM public.book WHERE id="+id;
@@ -154,7 +157,7 @@ public class ProductBookDAOJDBC extends ProductDAOJDBC<ProductBook>{
 	}
 
 	@Override
-	public ProductBook retrieveProductByBarcode(String barcode) throws DataException{
+	public Product retrieveProductByBarcode(String barcode) throws DataException{
 		try {
 			TagDAOJDBC tagDAOJDBC = new TagDAOJDBC();
 			String bookSql = "SELECT * FROM public.book WHERE barcode='"+barcode+"'";

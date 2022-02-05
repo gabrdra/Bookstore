@@ -6,20 +6,22 @@ import br.ufrn.imd.data.ProductBookDAOJDBC;
 import br.ufrn.imd.data.ProductDAOJDBC;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
+import br.ufrn.imd.factory.Distributor;
+import br.ufrn.imd.model.Product;
 import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 import br.ufrn.imd.model.Transaction;
 
-public class ProductBookService implements IProductService<ProductBook> {
+public class ProductService implements IProductService {
 
-	ProductDAOJDBC<ProductBook> productDAO;
+	ProductDAOJDBC productDAO;
 	
-	public ProductBookService(){
-		productDAO = new ProductBookDAOJDBC();
+	public ProductService(){
+		productDAO = Distributor.getInstance().createProductDAO();
 	}
 	
 	@Override
-	public void addProduct(ProductBook product) throws BusinessException, DataException {
+	public void addProduct(Product product) throws BusinessException, DataException {
 		if((retrieveProductByBarcode(product.getBarcode())).getBarcode() != null) {
 			throw new BusinessException("Código de barras já foi cadastrado em outro produto \n");
 		}
@@ -29,7 +31,7 @@ public class ProductBookService implements IProductService<ProductBook> {
 	}
 
 	@Override
-	public void removeProduct(ProductBook product) throws DataException, BusinessException {
+	public void removeProduct(Product product) throws DataException, BusinessException {
 		String exceptions = "";
 		List<Transaction> transactions = new TransactionService().listTransactions();
 		for(Transaction transaction: transactions) {
@@ -53,16 +55,16 @@ public class ProductBookService implements IProductService<ProductBook> {
 	}
 
 	@Override
-	public void updateProduct(ProductBook product) throws DataException, BusinessException {
+	public void updateProduct(Product product) throws DataException, BusinessException {
 		String exceptions = "";
-		ProductBook bookDb = retrieveProductByBarcode(product.getBarcode());
+		Product bookDb = retrieveProductByBarcode(product.getBarcode());
 		if(product.getId() != bookDb.getId() && bookDb.getBarcode()!= null) {
 			System.out.println(retrieveProductById(product.getId()).getId());
 			if(retrieveProductById(product.getId()).getId()==0) {
 				exceptions += "Livro inexistente \n";
 			}
 			else {
-				exceptions += "Código de barras já foi cadastrado em outro livro \n";
+				exceptions += "Código de barras já foi cadastrado em outro produto \n";
 			}
 		}
 		product.validate();
@@ -80,12 +82,12 @@ public class ProductBookService implements IProductService<ProductBook> {
 	}
 
 	@Override
-	public List<ProductBook> listProducts() throws DataException {
+	public List<? extends Product> listProducts() throws DataException {
 		return productDAO.listProducts();
 	}
 
 	@Override
-	public ProductBook retrieveProductById(int id) throws BusinessException, DataException {
+	public Product retrieveProductById(int id) throws BusinessException, DataException {
 		if(id < 1) {
 			throw new BusinessException("id deve ser um número maior do que 0 \n");
 		}
@@ -93,7 +95,7 @@ public class ProductBookService implements IProductService<ProductBook> {
 	}
 
 	@Override
-	public ProductBook retrieveProductByBarcode(String barcode) throws BusinessException, DataException {
+	public Product retrieveProductByBarcode(String barcode) throws BusinessException, DataException {
 		String exceptions = "";
 		if(barcode == null) {
 			throw new BusinessException("O código de barras não pode ser nulo \n");
