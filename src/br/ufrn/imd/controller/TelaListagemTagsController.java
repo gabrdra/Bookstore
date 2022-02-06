@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import br.ufrn.imd.business.TagService;
-import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.model.Tag;
 import javafx.collections.FXCollections;

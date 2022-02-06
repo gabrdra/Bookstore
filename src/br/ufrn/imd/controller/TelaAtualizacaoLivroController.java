@@ -9,14 +9,12 @@ import javafx.scene.control.Alert.AlertType;
 
 import java.util.ArrayList;
 
-import br.ufrn.imd.business.IProductService;
 import br.ufrn.imd.business.ITagService;
 import br.ufrn.imd.business.ProductService;
 import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.exceptions.GUIException;
-import br.ufrn.imd.instanceController.InstanceController;
 import br.ufrn.imd.model.ProductBook;
 import br.ufrn.imd.model.Tag;
 import javafx.event.ActionEvent;
