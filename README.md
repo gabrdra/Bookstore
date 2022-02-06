@@ -1,2 +1,2 @@
-# Bookstore
-Bookstore system with recommendations feature.
+# PDS - framework de venda
+Repositório contendo o framework de vendas para a matéria de PDS.
