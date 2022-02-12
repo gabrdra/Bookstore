@@ -1,6 +1,9 @@
 package br.ufrn.imd.data.connection;
 
 import java.sql.Statement;
+
+import br.ufrn.imd.factory.Distributor;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,9 +16,10 @@ public class ConnectionJDBC {
 	private static ConnectionJDBC instance;
 	
 	private ConnectionJDBC(){
-		url="jdbc:postgresql://localhost:5432/Bookstore";
-		user = "postgres";
-		password= "root";
+		ConnectionStrings cs = Distributor.getInstance().createConnectionStrings();
+		url=cs.getUrl();
+		user = cs.getUser();
+		password=cs.getPassword();
 		
 		try {
 			

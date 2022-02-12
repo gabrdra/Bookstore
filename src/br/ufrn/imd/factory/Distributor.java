@@ -1,6 +1,7 @@
 package br.ufrn.imd.factory;
 
 import br.ufrn.imd.data.ProductDAOJDBC;
+import br.ufrn.imd.data.connection.ConnectionStrings;
 import br.ufrn.imd.instanceController.InstanceController;
 
 public class Distributor implements AbstractFactory{
@@ -35,6 +36,11 @@ public class Distributor implements AbstractFactory{
 	@Override
 	public ProductDAOJDBC createProductDAO() {
 		return factory.createProductDAO();
+	}
+
+	@Override
+	public ConnectionStrings createConnectionStrings() {
+		return factory.createConnectionStrings();
 	}
 
 	
