@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.remove;
 
 import br.ufrn.imd.business.ProductService;
 import br.ufrn.imd.exceptions.BusinessException;
@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-public class TelaRemoverLivroController {
+public class TelaRemoverLivroController extends TelaRemoverProdutoController{
 	
 	private Stage myStage;
 	private ProductBook book;

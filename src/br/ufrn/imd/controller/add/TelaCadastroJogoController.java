@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.add;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import br.ufrn.imd.business.ProductService;
 import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.ProductBook;
+import br.ufrn.imd.model.ProductGame;
 import br.ufrn.imd.model.Tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,9 +26,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class TelaCadastroLivroController implements Initializable{
+public class TelaCadastroJogoController extends TelaCadastroProdutoController implements Initializable{
 	
-	private ProductBook book;
+	private ProductGame game;
 
 	private Stage myStage;
     @FXML
@@ -38,7 +38,7 @@ public class TelaCadastroLivroController implements Initializable{
     private Button btCancel;
 
     @FXML
-    private Label lbAutor;
+    private Label lbPublisher;
 
     @FXML
     private Label lbCodigo;
@@ -59,7 +59,7 @@ public class TelaCadastroLivroController implements Initializable{
     private TextArea taDescricao;
 
     @FXML
-    private TextField tfAutor;
+    private TextField tfPublisher;
 
     @FXML
     private TextField tfCodigo;
@@ -72,6 +72,12 @@ public class TelaCadastroLivroController implements Initializable{
 
     @FXML
     private TextField tfTags;
+    
+    @FXML
+    private TextField tfPlatform;
+    
+    @FXML
+    private Label lbPlatform;
     
     @FXML
     private TableColumn<Tag, Integer> tableId;
@@ -117,16 +123,17 @@ public class TelaCadastroLivroController implements Initializable{
 	}
 
     @FXML
-    void addBook(ActionEvent event) throws BusinessException, DataException {
-    	book = new ProductBook();
-    	book.setBarcode(tfCodigo.getText());
-    	book.setName(tfNome.getText());
-    	book.setPrice((tfPreco.getText() == "") ? 0 : Double.parseDouble(tfPreco.getText()));
-    	book.setAuthor(tfAutor.getText());
-    	book.setDescription(taDescricao.getText());
-    	book.setTags(listTags);
+    void addGame(ActionEvent event) throws BusinessException, DataException {
+    	game = new ProductGame();
+    	game.setBarcode(tfCodigo.getText());
+    	game.setName(tfNome.getText());
+    	game.setPrice((tfPreco.getText() == "") ? 0 : Double.parseDouble(tfPreco.getText()));
+    	game.setPublisher(tfPublisher.getText());
+    	game.setPlatform(tfPlatform.getText());
+    	game.setDescription(taDescricao.getText());
+    	game.setTags(listTags);
     	try {
-        	new ProductService().addProduct(book);
+        	new ProductService().addProduct(game);
     	}catch (BusinessException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
@@ -142,13 +149,13 @@ public class TelaCadastroLivroController implements Initializable{
         	alert.showAndWait();
         	return;
     	}
-    	Alert alert = new Alert(AlertType.CONFIRMATION, "Livro adicionado com sucesso", ButtonType.OK);
+    	Alert alert = new Alert(AlertType.CONFIRMATION, "Jogo adicionado com sucesso", ButtonType.OK);
     	alert.showAndWait();
     	myStage.close();
     }
 
     @FXML
-    void addTagToBook(ActionEvent event) {
+    void addTagToGame(ActionEvent event) {
     	listTags.add(cbTags.getValue());
     	observableTagList.removeAll(listTags);
     	observableTagList.addAll(listTags);
@@ -156,7 +163,7 @@ public class TelaCadastroLivroController implements Initializable{
     }
     
     @FXML
-    void cancelBook(ActionEvent event) {
+    void cancelGame(ActionEvent event) {
     	myStage.close();
     }
     

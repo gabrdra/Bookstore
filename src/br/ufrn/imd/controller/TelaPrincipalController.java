@@ -8,9 +8,22 @@ import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.business.IClientService;
 import br.ufrn.imd.business.ProductService;
 import br.ufrn.imd.business.TransactionService;
+import br.ufrn.imd.controller.add.TelaCadastroClienteController;
+import br.ufrn.imd.controller.add.TelaCadastroProdutoController;
+import br.ufrn.imd.controller.add.TelaCadastroTagController;
+import br.ufrn.imd.controller.list.TelaListagemClientesController;
+import br.ufrn.imd.controller.list.TelaListagemProdutosController;
+import br.ufrn.imd.controller.list.TelaListagemTagsController;
+import br.ufrn.imd.controller.list.TelaListagemVendasController;
+import br.ufrn.imd.controller.remove.TelaRemoverClienteController;
+import br.ufrn.imd.controller.remove.TelaRemoverProdutoController;
+import br.ufrn.imd.controller.remove.TelaRemoverTagController;
+import br.ufrn.imd.controller.update.TelaAtualizacaoClienteController;
+import br.ufrn.imd.controller.update.TelaAtualizacaoTagController;
+import br.ufrn.imd.controller.update.TelaAtualizacaoTransacaoController;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.ProductBook;
+import br.ufrn.imd.factory.Distributor;
 import br.ufrn.imd.model.Client;
 import br.ufrn.imd.model.Product;
 import br.ufrn.imd.model.Transaction;
@@ -38,13 +51,13 @@ import javafx.stage.Stage;
 public class TelaPrincipalController implements Initializable{
 	
 	private Client client;
-	private ProductBook book;
+	private Product product;
 	private double valorTotal;
 	private Transaction transaction;
 	
-	ArrayList<ProductBook> listBooks = new ArrayList<ProductBook>();
+	ArrayList<Product> listProducts = new ArrayList<Product>();
 	
-	ObservableList<ProductBook> observableBookList = FXCollections.observableArrayList();
+	ObservableList<Product> observableProductList = FXCollections.observableArrayList();
 	
 	@FXML
     private Button btAddCleintToCart;
@@ -61,7 +74,7 @@ public class TelaPrincipalController implements Initializable{
     private MenuItem mnRecommendation;
 
     @FXML
-    private MenuItem mnRemBook;
+    private MenuItem mnRemProduct;
 
     @FXML
     private MenuItem mnRemClient;
@@ -70,7 +83,7 @@ public class TelaPrincipalController implements Initializable{
     private MenuItem mnRemTag;
 
     @FXML
-    private MenuItem mnUpdateBook;
+    private MenuItem mnUpdateProduct;
 
     @FXML
     private MenuItem mnUpdateClient;
@@ -85,10 +98,10 @@ public class TelaPrincipalController implements Initializable{
     private TextField tfClientName;
    
     @FXML
-    private Button btAddBookToCart;
+    private Button btAddProductToCart;
 
     @FXML
-    private Button btSearchBook;
+    private Button btSearchProduct;
 
     @FXML
     private Button btConfirmarVenda;
@@ -118,7 +131,7 @@ public class TelaPrincipalController implements Initializable{
     private Label lbTotalValue;
 
     @FXML
-    private MenuItem mnAddBook;
+    private MenuItem mnAddProduct;
 
     @FXML
     private MenuItem mnAddClient;
@@ -127,7 +140,7 @@ public class TelaPrincipalController implements Initializable{
     private MenuItem mnAddTag;
 
     @FXML
-    private MenuItem mnListBooks;
+    private MenuItem mnListProducts;
 
     @FXML
     private MenuItem mnListClients;
@@ -145,48 +158,48 @@ public class TelaPrincipalController implements Initializable{
     private MenuItem mnItemSobre;
 
     @FXML
-    private TableColumn<ProductBook, String> tableBarcode;
+    private TableColumn<Product, String> tableBarcode;
 
     @FXML
-    private TableView<ProductBook> tableCartList;
+    private TableView<Product> tableCartList;
 
     @FXML
-    private TableColumn<ProductBook, String> tableDesc;
+    private TableColumn<Product, String> tableDesc;
 
     @FXML
-    private TableColumn<ProductBook, String> tableName;
+    private TableColumn<Product, String> tableName;
 
     @FXML
-    private TableColumn<ProductBook, Double> tableValue;
+    private TableColumn<Product, Double> tableValue;
     @FXML
     private TextField tfBarCode;
 
     @FXML
-    private TextField tfBookName;
+    private TextField tfProductName;
 
     @FXML
     private TextField tfValue;
  
     @FXML
-    private Label lbAutor;
+    private Label lbDescricao;
     
     @FXML
-    private TextField tfBookAuthor;
+    private TextField tfProductDescricao;
     
     
 	@java.lang.Override
 	public void initialize(java.net.URL arg0, java.util.ResourceBundle arg1) {
-	    tableBarcode.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("barcode"));
-	    tableName.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("name"));
-		tableValue.setCellValueFactory(new PropertyValueFactory<ProductBook, Double>("price"));
-		tableDesc.setCellValueFactory(new PropertyValueFactory<ProductBook, String>("description"));
+	    tableBarcode.setCellValueFactory(new PropertyValueFactory<Product, String>("barcode"));
+	    tableName.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+		tableValue.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
+		tableDesc.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));
 	}
 
     @FXML
     void ConfirmarVenda(ActionEvent event) throws DataException, BusinessException {
     	transaction = new Transaction();
     	ArrayList<Integer> productsId = new ArrayList<Integer>();
-    	for(Product product:listBooks) {
+    	for(Product product:listProducts) {
     		productsId.add(product.getId());
     	}
     	
@@ -235,21 +248,20 @@ public class TelaPrincipalController implements Initializable{
     }
 
     @FXML
-    void openAddBookScreen(ActionEvent event) throws IOException {
+    void openAddProductScreen(ActionEvent event) throws IOException {
     	 try {
-			FXMLLoader fxmlLoader = new FXMLLoader();
-		    fxmlLoader.setLocation(TelaCadastroLivroController.class.getResource("/br/ufrn/imd/view/TelaCadastroLivro.fxml"));
-		    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			FXMLLoader fxmlLoader = Distributor.getInstance().addProductFXMLLoader();
+			AnchorPane page = (AnchorPane) fxmlLoader.load();
 		    
-		    Stage stageBook = new Stage();
-		    stageBook.setTitle("Cadastrar Livro");
+		    Stage stage = new Stage();
+		    stage.setTitle("Cadastrar Produto");
 		    Scene scene = new Scene(page);
-		    stageBook.setResizable(false);
-		    stageBook.setScene(scene);
+		    stage.setResizable(false);
+		    stage.setScene(scene);
 		    
-	        TelaCadastroLivroController controller = fxmlLoader.getController();
-	    	controller.setMyStage(stageBook);
-	    	stageBook.showAndWait();
+	        TelaCadastroProdutoController controller = fxmlLoader.getController();
+	    	controller.setMyStage(stage);
+	    	stage.showAndWait();
 	        
     	 }catch (IOException e) {
 			e.printStackTrace();
@@ -372,21 +384,20 @@ public class TelaPrincipalController implements Initializable{
     }
 
     @FXML
-    void openListBooks(ActionEvent event) {
+    void openListProducts(ActionEvent event) {
      	 try {
-			FXMLLoader fxmlLoader = new FXMLLoader();
-		    fxmlLoader.setLocation(TelaListagemLivrosController.class.getResource("/br/ufrn/imd/view/TelaListagemLivros.fxml"));
-		    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			FXMLLoader fxmlLoader = Distributor.getInstance().listProductFXMLLoader();
+			AnchorPane page = (AnchorPane) fxmlLoader.load();
 		    
-		    Stage stageBook = new Stage();
-		    stageBook.setTitle("Lista Livros");
+		    Stage stage = new Stage();
+		    stage.setTitle("Lista Produtos");
 		    Scene scene = new Scene(page);
-		    stageBook.setResizable(false);
-		    stageBook.setScene(scene);
+		    stage.setResizable(false);
+		    stage.setScene(scene);
 		    
-		    TelaListagemLivrosController controller = fxmlLoader.getController();
-	    	controller.setMyStage(stageBook);
-	    	stageBook.showAndWait();
+		    TelaListagemProdutosController controller = fxmlLoader.getController();
+	    	controller.setMyStage(stage);
+	    	stage.showAndWait();
 	        
    	 }catch (IOException e) {
 			e.printStackTrace();
@@ -429,12 +440,12 @@ public class TelaPrincipalController implements Initializable{
     }
 
     @FXML
-    void searchBook(ActionEvent event) throws IOException {
-    	ProductService bookService = new ProductService();
+    void searchProduct(ActionEvent event) throws IOException {
+    	ProductService productService = new ProductService();
     	
     	
     	try {
-    		book = (ProductBook) bookService.retrieveProductByBarcode(tfBarCode.getText());
+    		product =  productService.retrieveProductByBarcode(tfBarCode.getText());
 		}
     	catch (BusinessException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
@@ -448,31 +459,31 @@ public class TelaPrincipalController implements Initializable{
 		}
     	
 		
-		tfValue.setText(Double.toString(book.getPrice()));
-		tfBookName.setText(book.getName());
-		tfBookAuthor.setText(book.getAuthor());
+		tfValue.setText(Double.toString(product.getPrice()));
+		tfProductName.setText(product.getName());
+		tfProductDescricao.setText(product.getDescription());
 		
     }
     
     @FXML
-    void addBookToCart(ActionEvent event) throws IOException {
-    	searchBook(event);
-    	if(book!=null) {
-    		listBooks.add(book);
-    		observableBookList.removeAll(listBooks);
-    		observableBookList.addAll(listBooks);
-    		tableCartList.setItems(observableBookList);
+    void addProductToCart(ActionEvent event) throws IOException {
+    	searchProduct(event);
+    	if(product!=null) {
+    		listProducts.add(product);
+    		observableProductList.removeAll(listProducts);
+    		observableProductList.addAll(listProducts);
+    		tableCartList.setItems(observableProductList);
     	}
     	
-    	book = null;
+    	product = null;
     	totalValueRefresh();
     	tableReset();
     }
     
     void totalValueRefresh() {
     	valorTotal=0;
-    	for (ProductBook book : listBooks) {
-			valorTotal+=book.getPrice();
+    	for (Product product : listProducts) {
+			valorTotal+=product.getPrice();
 		}
     	lbTotalValue.setText("R$" + String.format("%.2f", valorTotal));
     }
@@ -481,22 +492,21 @@ public class TelaPrincipalController implements Initializable{
 
     	tfBarCode.setText(null);
 		tfValue.setText(null);
-		tfBookName.setText(null);
-		tfBookAuthor.setText(null);
+		tfProductName.setText(null);
+		tfProductDescricao.setText(null);
     }
     
     void resetObservableList() {
-    	listBooks = new ArrayList<ProductBook>();
-    	observableBookList = FXCollections.observableArrayList();
-		tableCartList.setItems(observableBookList);
+    	listProducts = new ArrayList<Product>();
+    	observableProductList = FXCollections.observableArrayList();
+		tableCartList.setItems(observableProductList);
     }
     
     @FXML
     void openRecomScreen(ActionEvent event) {
 	   	 try {
-				FXMLLoader fxmlLoader = new FXMLLoader();
-			    fxmlLoader.setLocation(TelaRecomendacaoController.class.getResource("/br/ufrn/imd/view/TelaRecomendacao.fxml"));
-			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+				FXMLLoader fxmlLoader = Distributor.getInstance().recomProductFXMLLoader();
+				AnchorPane page = (AnchorPane) fxmlLoader.load();
 			    
 			    Stage stage = new Stage();
 			    stage.setTitle("Gerar Recomedanção");
@@ -504,7 +514,7 @@ public class TelaPrincipalController implements Initializable{
 			    stage.setResizable(false);
 			    stage.setScene(scene);
 			    
-//			    TelaRecomendacaoController controller = fxmlLoader.getController();
+//			    TelaRecomendacaoLivroController controller = fxmlLoader.getController();
 //		    	controller.setMyStage(stage);
 		    	stage.showAndWait();
 		        
@@ -514,19 +524,18 @@ public class TelaPrincipalController implements Initializable{
 	  }
 
     @FXML
-    void openRemBookScreen(ActionEvent event) {
+    void openRemProductScreen(ActionEvent event) {
 	   	 try {
-				FXMLLoader fxmlLoader = new FXMLLoader();
-			    fxmlLoader.setLocation(TelaRemoverLivroController.class.getResource("/br/ufrn/imd/view/TelaRemoverLivro.fxml"));
-			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+				FXMLLoader fxmlLoader = Distributor.getInstance().removeProductFXMLLoader();
+				AnchorPane page = (AnchorPane) fxmlLoader.load();
 			    
 			    Stage stage = new Stage();
-			    stage.setTitle("Remover Livro");
+			    stage.setTitle("Remover Produto");
 			    Scene scene = new Scene(page);
 			    stage.setResizable(false);
 			    stage.setScene(scene);
 			    
-			    TelaRemoverLivroController controller = fxmlLoader.getController();
+			    TelaRemoverProdutoController controller = fxmlLoader.getController();
 		    	controller.setMyStage(stage);
 		    	stage.showAndWait();
 		        
@@ -540,7 +549,8 @@ public class TelaPrincipalController implements Initializable{
 	   	 try {
 				FXMLLoader fxmlLoader = new FXMLLoader();
 			    fxmlLoader.setLocation(TelaRemoverClienteController.class.getResource("/br/ufrn/imd/view/TelaRemoverCliente.fxml"));
-			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+			    
+				AnchorPane page = (AnchorPane) fxmlLoader.load();
 			    
 			    Stage stage = new Stage();
 			    stage.setTitle("Remover Cliente");
@@ -580,21 +590,20 @@ public class TelaPrincipalController implements Initializable{
 	  }
 
     @FXML
-    void openUpdateBookScreen(ActionEvent event) {
+    void openUpdateProductScreen(ActionEvent event) {
 	   	 try {
-				FXMLLoader fxmlLoader = new FXMLLoader();
-			    fxmlLoader.setLocation(TelaAtualizacaoLivroController.class.getResource("/br/ufrn/imd/view/TelaAtualizacaoLivro.fxml"));
-			    AnchorPane page = (AnchorPane) fxmlLoader.load();
+				FXMLLoader fxmlLoader = Distributor.getInstance().updateProductFXMLLoader();
+				AnchorPane page = (AnchorPane) fxmlLoader.load();
 			    
-			    Stage stageBook = new Stage();
-			    stageBook.setTitle("Atualizar Livro");
+			    Stage stage = new Stage();
+			    stage.setTitle("Atualizar Produto");
 			    Scene scene = new Scene(page);
-			    stageBook.setResizable(false);
-			    stageBook.setScene(scene);
+			    stage.setResizable(false);
+			    stage.setScene(scene);
 			    
-//			    TelaAtualizacaoLivroController controller = fxmlLoader.getController();
-//		    	controller.setMyStage(stageBook);
-		    	stageBook.showAndWait();
+//			    TelaAtualizacaoProdutoController controller = fxmlLoader.getController();
+//		    	controller.setMyStage(stageProduct);
+		    	stage.showAndWait();
 		        
 	   	 }catch (IOException e) {
 				e.printStackTrace();

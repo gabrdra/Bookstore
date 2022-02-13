@@ -15,17 +15,17 @@ import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.instanceController.InstanceController;
 import br.ufrn.imd.model.Product;
-import br.ufrn.imd.model.ProductBook;
+import br.ufrn.imd.model.ProductVinyl;
 import br.ufrn.imd.model.Tag;
 import br.ufrn.imd.model.Transaction;
 import br.ufrn.imd.model.recommendation.WeightProduct;
 import br.ufrn.imd.model.recommendation.WeightTag;
 
-public class RecommendationBook implements IRecommendation<ProductBook, Integer>{
+public class RecommendationVinyl implements IRecommendation<ProductVinyl, Integer>{
 	
 	private IProductService productService = new ProductService();
 	
-	public List<ProductBook> retrieveRecommendationsForClient(int client, int recommendationAmount, HashMap<String,Integer> options) throws DataException, BusinessException{
+	public List<ProductVinyl> retrieveRecommendationsForClient(int client, int recommendationAmount, HashMap<String,Integer> options) throws DataException, BusinessException{
 		ITransactionService transactions = new TransactionService();
 		String exceptions = "";
 		if(new ClientService().retrieveClientById(client).getId() == 0) {
@@ -38,16 +38,16 @@ public class RecommendationBook implements IRecommendation<ProductBook, Integer>
 			throw new BusinessException(exceptions);
 		}
 		ArrayList<Transaction> clientPreviousTransactions = transactions.retrieveTransactionsByClient(client);
-		ArrayList<ProductBook> previouslyBoughtBooks = new ArrayList<ProductBook>();
+		ArrayList<ProductVinyl> previouslyBoughtBooks = new ArrayList<ProductVinyl>();
 		//Get every instance of a book
 		for(Transaction transaction: clientPreviousTransactions) {
 			for(Integer productId:transaction.getProductsId()) {
-				previouslyBoughtBooks.add((ProductBook)productService.retrieveProductById(productId));
+				previouslyBoughtBooks.add((ProductVinyl)productService.retrieveProductById(productId));
 			}
 		}
 		ArrayList<Tag> tags = new ArrayList<Tag>();
 		//Get every instance of a tag in the client's previously bought books
-		for(ProductBook book:previouslyBoughtBooks) {
+		for(ProductVinyl book:previouslyBoughtBooks) {
 			for(Tag tag:book.getTags()) {
 				tags.add(tag);
 			}
@@ -85,17 +85,17 @@ public class RecommendationBook implements IRecommendation<ProductBook, Integer>
 						}
 					}
 				}
-				weightBooks.add(new WeightProduct(weight, (ProductBook)book));
+				weightBooks.add(new WeightProduct(weight, (ProductVinyl)book));
 				/*if(weightBooks.size()>recommendationAmount) {
 					weightBooks.poll();
 				}*/
 			}
 		}
 		System.out.println(weightBooks);
-		ArrayList<ProductBook> recommendedBooks = new ArrayList<ProductBook>();
+		ArrayList<ProductVinyl> recommendedBooks = new ArrayList<ProductVinyl>();
 		for(int i = 0; i < recommendationAmount; i++) {
 			//Book currentBook = weightBooks.poll().getBook();
-			recommendedBooks.add((ProductBook) weightBooks.poll().getProduct());
+			recommendedBooks.add((ProductVinyl) weightBooks.poll().getProduct());
 			if(weightBooks.size()==0) {
 				break;
 			}

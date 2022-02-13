@@ -1,13 +1,12 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.list;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import br.ufrn.imd.business.ClientService;
+import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Client;
-
+import br.ufrn.imd.model.Tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,10 +21,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class TelaListagemClientesController implements Initializable{
+public class TelaListagemTagsController implements Initializable {
 
-	
 	private Stage myStage;
+	
 	
     @FXML
     private Button btCancel;
@@ -34,25 +33,25 @@ public class TelaListagemClientesController implements Initializable{
     private Button btList;
 
     @FXML
-    private TableView<Client> tableClientsList;
+    private TableColumn<Tag, String> tableId;
 
     @FXML
-    private TableColumn<Client, String> tableCpf;
+    private TableColumn<Tag, String>tableName;
 
     @FXML
-    private TableColumn<Client, String> tableName;
+    private TableView<Tag> tableTagsList;
     
-	ArrayList<Client> clientList = new ArrayList<Client>();
+	ArrayList<Tag> tagList = new ArrayList<Tag>();
 	
-	ObservableList<Client> observableclientList = FXCollections.observableArrayList();
-	
+	ObservableList<Tag> observableTagList = FXCollections.observableArrayList();
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		tableCpf.setCellValueFactory(new PropertyValueFactory<Client, String>("cpf"));
-		tableName.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		tableId.setCellValueFactory(new PropertyValueFactory<Tag, String>("id"));
+		tableName.setCellValueFactory(new PropertyValueFactory<Tag, String>("name"));
 		
 	}
-
+    
     @FXML
     void cancel(ActionEvent event) {
     	myStage.close();
@@ -61,20 +60,22 @@ public class TelaListagemClientesController implements Initializable{
     public void setMyStage(Stage myStage) {
 		this.myStage = myStage;
 	}
+
     @FXML
-    void listClients(ActionEvent event) throws DataException {
+    void listTags(ActionEvent event) {
     	try {
-        	clientList = (ArrayList<Client>) new ClientService().listClients();
+        	tagList = (ArrayList<Tag>) new TagService().listTags();
 		} catch (DataException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;
 		}
     	
-    	observableclientList = FXCollections.observableArrayList();
-    	observableclientList.addAll(clientList);
-    	tableClientsList.setItems(observableclientList);
+    	observableTagList = FXCollections.observableArrayList();
+    	observableTagList.addAll(tagList);
     	
+    	tableTagsList.setItems(observableTagList);
+
     }
 
 

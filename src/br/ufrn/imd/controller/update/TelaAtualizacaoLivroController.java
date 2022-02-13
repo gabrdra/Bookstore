@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.update;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -21,7 +21,7 @@ import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
 
-public class TelaAtualizacaoLivroController {
+public class TelaAtualizacaoLivroController extends TelaAtualizacaoProdutoController{
 	@FXML
 	private Label lbId;
 	@FXML
@@ -138,5 +138,8 @@ public class TelaAtualizacaoLivroController {
 	        	alert.showAndWait();
 	        	return;
 			}
+		Alert alert = new Alert(AlertType.ERROR, "Atualizado com sucesso", ButtonType.OK);
+		alert.showAndWait();
+		return;
 	}
 }

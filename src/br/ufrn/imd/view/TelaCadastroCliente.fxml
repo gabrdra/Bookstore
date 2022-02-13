@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="187.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controller.TelaCadastroClienteController">
+<AnchorPane prefHeight="187.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controller.add.TelaCadastroClienteController">
    <children>
       <GridPane layoutX="24.0" layoutY="14.0" prefHeight="124.0" prefWidth="463.0">
         <columnConstraints>

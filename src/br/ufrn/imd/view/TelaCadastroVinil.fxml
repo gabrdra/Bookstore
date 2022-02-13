@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="501.0" prefWidth="572.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controller.add.TelaCadastroLivroController">
+<AnchorPane prefHeight="501.0" prefWidth="572.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controller.add.TelaCadastroVinilController">
    <children>
       <GridPane layoutX="24.0" layoutY="13.0" prefHeight="387.0" prefWidth="507.0">
         <columnConstraints>
@@ -26,6 +26,7 @@
           <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="72.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="151.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="167.0" minHeight="10.0" prefHeight="152.0" vgrow="SOMETIMES" />
@@ -46,17 +47,17 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="lbAutor" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="167.0" text="Autor.:" GridPane.rowIndex="3">
+            <Label fx:id="lbBand" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="167.0" text="Banda.:" GridPane.rowIndex="3">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="lbDescricao" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="118.0" prefWidth="163.0" text="Descrição" GridPane.rowIndex="4">
+            <Label fx:id="lbDescricao" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="118.0" prefWidth="163.0" text="Descrição" GridPane.rowIndex="5">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="lbTags" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="167.0" text="Tags.:" GridPane.rowIndex="5">
+            <Label fx:id="lbTags" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="167.0" text="Tags.:" GridPane.rowIndex="6">
                <font>
                   <Font size="16.0" />
                </font>
@@ -64,9 +65,9 @@
             <TextField fx:id="tfCodigo" promptText="Digite o codigo..." GridPane.columnIndex="1" />
             <TextField fx:id="tfPreco" promptText="Digite o preço..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="tfNome" promptText="Digite o nome..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="tfAutor" promptText="Digite o nome do autor..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextArea fx:id="taDescricao" prefHeight="130.0" prefWidth="300.0" promptText="Digite a descrição..." GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="tfBand" promptText="Digite o nome da banda..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextArea fx:id="taDescricao" prefHeight="130.0" prefWidth="300.0" promptText="Digite a descrição..." GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
                   <GridPane prefHeight="50.0" prefWidth="341.0">
                     <columnConstraints>
@@ -78,7 +79,7 @@
                     </rowConstraints>
                      <children>
                         <ComboBox fx:id="cbTags" prefHeight="24.0" prefWidth="170.0" promptText="Selecionar" />
-                        <Button fx:id="btAdd" mnemonicParsing="false" onAction="#addTagToBook" text="Adicionar" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                        <Button fx:id="btAdd" mnemonicParsing="false" onAction="#addTagToVinyl" text="Adicionar" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
                      </children>
                   </GridPane>
                   <TableView fx:id="tableTagList" prefHeight="116.0" prefWidth="341.0">
@@ -92,10 +93,16 @@
                   </TableView>
                </children>
             </VBox>
+            <Label fx:id="lbYear" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="167.0" text="Ano.:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfYear" promptText="Digite o ano de lançamento..." GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <Button fx:id="btAdicionar" layoutX="104.0" layoutY="423.0" mnemonicParsing="false" onAction="#addBook" prefHeight="38.0" prefWidth="100.0" text="Adicionar" />
-      <Button fx:id="btCancel" layoutX="383.0" layoutY="423.0" mnemonicParsing="false" onAction="#cancelBook" prefHeight="38.0" prefWidth="100.0" text="Cancelar" />
+      <Button fx:id="btAdicionar" layoutX="104.0" layoutY="423.0" mnemonicParsing="false" onAction="#addVinyl" prefHeight="38.0" prefWidth="100.0" text="Adicionar" />
+      <Button fx:id="btCancel" layoutX="383.0" layoutY="423.0" mnemonicParsing="false" onAction="#cancelVinyl" prefHeight="38.0" prefWidth="100.0" text="Cancelar" />
       <HBox layoutX="-294.0" layoutY="77.0" prefHeight="100.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

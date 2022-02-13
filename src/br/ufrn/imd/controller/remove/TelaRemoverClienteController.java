@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.remove;
 
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.exceptions.BusinessException;
@@ -14,16 +14,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-public class TelaCadastroClienteController {
+public class TelaRemoverClienteController {
+	
+	private Client client;
 	
 	private Stage myStage;
-	private Client myClient;
-	
+
     @FXML
-    private Button btAdicionar;
+    private Button btBuscar;
 
     @FXML
     private Button btCancel;
+
+    @FXML
+    private Button btRemover;
 
     @FXML
     private Label lbCpf;
@@ -38,36 +42,39 @@ public class TelaCadastroClienteController {
     private TextField tfNome;
 
     @FXML
-    void addClient(ActionEvent event) {
-    	myClient = new Client();
-    	myClient.setCpf(tfCpf.getText());
-    	myClient.setName(tfNome.getText());
-    	
+    void buscarCliente(ActionEvent event) {
     	try {
-			new ClientService().addClient(myClient);
-    	}catch (BusinessException e) {
+			client = new ClientService().retrieveClientByCpf(tfCpf.getText());
+		} catch (BusinessException | DataException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;
 		}
-    	catch (DataException e) {
-        	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
-        	alert.showAndWait();
-        	return;
-		}
-    	
-    	Alert alert = new Alert(AlertType.CONFIRMATION, "Cliente adicionado com sucesso", ButtonType.OK);
-    	alert.showAndWait();
-    	myStage.close();
+    	tfNome.setText(client.getName());
     }
 
     @FXML
-    void cancelClient(ActionEvent event) {
+    void cancel(ActionEvent event) {
     	myStage.close();
     }
     
     public void setMyStage(Stage myStage) {
 		this.myStage = myStage;
 	}
+
+    @FXML
+    void remClient(ActionEvent event) {
+    	try {
+			new ClientService().removeClient(client);
+		} catch (BusinessException | DataException e) {
+        	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
+        	alert.showAndWait();
+        	return;
+		}
+    	
+    	Alert alert = new Alert(AlertType.CONFIRMATION, "Removido com sucesso!", ButtonType.OK);
+    	alert.showAndWait();
+    	myStage.close();
+    }
 
 }

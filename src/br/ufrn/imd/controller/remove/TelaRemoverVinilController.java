@@ -1,26 +1,24 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.remove;
 
-
-import br.ufrn.imd.business.TagService;
+import br.ufrn.imd.business.ProductService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.model.Tag;
+import br.ufrn.imd.model.ProductVinyl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-public class TelaRemoverTagController {
-
-	
+public class TelaRemoverVinilController extends TelaRemoverProdutoController{
 	private Stage myStage;
-	private Tag tag;
-	
+	private ProductVinyl vinyl;
+
     @FXML
     private Button btBuscar;
 
@@ -31,27 +29,41 @@ public class TelaRemoverTagController {
     private Button btRemover;
 
     @FXML
-    private Label lbId;
+    private Label lbBand;
+
+    @FXML
+    private Label lbCodigo;
+
+    @FXML
+    private Label lbDescricao;
 
     @FXML
     private Label lbNome;
 
     @FXML
-    private TextField tfId;
+    private TextArea taDescricao;
+
+    @FXML
+    private TextField tfBand;
+
+    @FXML
+    private TextField tfCodigo;
 
     @FXML
     private TextField tfNome;
 
     @FXML
-    void buscarTag(ActionEvent event) {
+    void buscarVinil(ActionEvent event) {
     	try {
-			tag = new TagService().retrieveTagById(Integer.parseInt(tfId.getText()));
+    		vinyl = (ProductVinyl) new ProductService().retrieveProductByBarcode(tfCodigo.getText());
 		} catch (BusinessException | DataException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;
 		}
-    	tfNome.setText(tag.getName());
+    	tfNome.setText(vinyl.getName());
+    	tfBand.setText(vinyl.getBand());
+    	taDescricao.setText(vinyl.getDescription());
     }
 
     @FXML
@@ -63,11 +75,10 @@ public class TelaRemoverTagController {
 		this.myStage = myStage;
 	}
 
-
     @FXML
-    void remTag(ActionEvent event) {
+    void remVinyl(ActionEvent event) {
     	try {
-			new TagService().removeTag(tag);
+			new ProductService().removeProduct(vinyl);
 		} catch (BusinessException | DataException e) {
         	Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
@@ -78,5 +89,4 @@ public class TelaRemoverTagController {
     	alert.showAndWait();
     	myStage.close();
     }
-
 }

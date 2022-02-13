@@ -3,6 +3,7 @@ package br.ufrn.imd.factory;
 import br.ufrn.imd.data.ProductDAOJDBC;
 import br.ufrn.imd.data.connection.ConnectionStrings;
 import br.ufrn.imd.instanceController.InstanceController;
+import javafx.fxml.FXMLLoader;
 
 public class Distributor implements AbstractFactory{
 	
@@ -21,11 +22,11 @@ public class Distributor implements AbstractFactory{
 	      factory = new BookFactory();
 	      break;
 	    case GAME:
-	      
+	      factory = new GameFactory();
 	      break;
 	      
 	    case VINYL:
-	      
+	      factory = new VinylFactory();
 	      break;
 	    
 	    default:
@@ -41,6 +42,31 @@ public class Distributor implements AbstractFactory{
 	@Override
 	public ConnectionStrings createConnectionStrings() {
 		return factory.createConnectionStrings();
+	}
+
+	@Override
+	public FXMLLoader addProductFXMLLoader() {
+		return factory.addProductFXMLLoader();
+	}
+
+	@Override
+	public FXMLLoader removeProductFXMLLoader() {
+		return factory.removeProductFXMLLoader();
+	}
+
+	@Override
+	public FXMLLoader listProductFXMLLoader() {
+		return factory.listProductFXMLLoader();
+	}
+
+	@Override
+	public FXMLLoader updateProductFXMLLoader() {
+		return factory.updateProductFXMLLoader();
+	}
+
+	@Override
+	public FXMLLoader recomProductFXMLLoader() {
+		return factory.recomProductFXMLLoader();
 	}
 
 	

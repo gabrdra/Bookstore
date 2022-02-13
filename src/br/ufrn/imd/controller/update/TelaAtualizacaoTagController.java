@@ -1,37 +1,33 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.update;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import br.ufrn.imd.business.ClientService;
+import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
 import br.ufrn.imd.exceptions.GUIException;
-import br.ufrn.imd.model.Client;
+import br.ufrn.imd.model.Tag;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
 
-public class TelaAtualizacaoClienteController {
+public class TelaAtualizacaoTagController {
 	@FXML
 	private Label lbId;
 	@FXML
-	private TextField tfName;
+	private TextField tfId;
 	@FXML
 	private Label lbName;
 	@FXML
-	private TextField tfId;
+	private TextField tfName;
 	@FXML
 	private Button btSearchId;
 	@FXML
-	private Button btSearchCpf;
-	@FXML
-	private Label lbCpf;
-	@FXML
-	private TextField tfCpf;
+	private Button btSearchName;
 	@FXML
 	private Button btUpdate;
 
@@ -39,8 +35,7 @@ public class TelaAtualizacaoClienteController {
 	@FXML
 	public void onSearchId(ActionEvent event) {
 		try {
-			//System.out.println(tfName.getText());
-			populateInterface(new ClientService().retrieveClientById(Integer.parseInt(tfId.getText())));
+			populateInterface(new TagService().retrieveTagById(Integer.parseInt(tfId.getText())));
 		} catch (NumberFormatException | DataException | BusinessException e) {
 			// TODO Auto-generated catch block
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
@@ -48,12 +43,12 @@ public class TelaAtualizacaoClienteController {
         	return;
 		}
 	}
-	// Event Listener on Button[#btSearchCpf].onAction
+	// Event Listener on Button[#btSearchName].onAction
 	@FXML
-	public void onSearchCpf(ActionEvent event) {
+	public void onSearchName(ActionEvent event) {
 		try {
 			System.out.println(tfName.getText());
-			populateInterface(new ClientService().retrieveClientByCpf(tfCpf.getText()));
+			populateInterface(new TagService().retrieveTagByName(tfName.getText()));
 		} catch (DataException | BusinessException e) {
 			// TODO Auto-generated catch block
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
@@ -61,14 +56,15 @@ public class TelaAtualizacaoClienteController {
         	return;
 		}
 	}
-	private void populateInterface(Client client) {
+	private void populateInterface(Tag tag) {
 		try {
-		if(client.getId() == 0) {
-			throw new GUIException("Cliente inexistente \n");
+			if(tag.getId() == 0) {
+				throw new GUIException("Tag inexistente \n");
+			}
+			tfId.setText(String.valueOf(tag.getId()));
+			tfName.setText(tag.getName());
 		}
-		tfId.setText(String.valueOf(client.getId()));
-		tfName.setText(client.getName());
-		tfCpf.setText(client.getCpf());}
+		
 		catch(GUIException e) {
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
@@ -77,18 +73,16 @@ public class TelaAtualizacaoClienteController {
 	}
 	// Event Listener on Button[#btUpdate].onAction
 	@FXML
-	public void updateClient(ActionEvent event) {
+	public void updateTag(ActionEvent event) {
 		try {
-		Client client = new Client();
-		client.setId(Integer.parseInt(tfId.getText()));
-		client.setName(tfName.getText());
-		client.setCpf(tfCpf.getText());
-		new ClientService().updateClient(client);
-		}catch (NumberFormatException | DataException | BusinessException e) {
+			Tag tag = new Tag();
+			tag.setId(Integer.parseInt(tfId.getText()));
+			tag.setName(tfName.getText());
+			new TagService().updateTag(tag);
+		} catch (NumberFormatException | DataException | BusinessException e) {
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();
         	return;
 		}
-		
 	}
 }
