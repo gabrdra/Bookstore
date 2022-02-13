@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -85,7 +86,10 @@ public class TelaRecomendacaoVinilController extends TelaRecomendacaoProdutoCont
 		RecommendationVinyl recommendation;
 		try {
 			recommendation = new RecommendationVinyl();
-			listVinyls = recommendation.retrieveRecommendationsForClient(Integer.parseInt(fxId.getText()), Integer.parseInt(fxNumber.getText()), null);
+			HashMap<String, Integer> options = new HashMap<String, Integer>();
+			options.put("bound1", Integer.parseInt(fxBegin.getText()));
+			options.put("bound2", Integer.parseInt(fxEnd.getText()));
+			listVinyls = recommendation.retrieveRecommendationsForClient(Integer.parseInt(fxId.getText()), Integer.parseInt(fxNumber.getText()), options);
 		} catch (NumberFormatException | DataException | BusinessException e) {
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();

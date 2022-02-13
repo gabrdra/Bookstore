@@ -4,5 +4,5 @@ public class InstanceController {
 	public enum StoreTypes{
 		BOOK, GAME, VINYL
 	}
-	public static StoreTypes currentInstanceType = StoreTypes.GAME;
+	public static StoreTypes currentInstanceType = StoreTypes.VINYL;
 }

@@ -13,7 +13,6 @@ import br.ufrn.imd.business.ProductService;
 import br.ufrn.imd.business.TransactionService;
 import br.ufrn.imd.exceptions.BusinessException;
 import br.ufrn.imd.exceptions.DataException;
-import br.ufrn.imd.instanceController.InstanceController;
 import br.ufrn.imd.model.Product;
 import br.ufrn.imd.model.ProductVinyl;
 import br.ufrn.imd.model.Tag;
@@ -26,7 +25,13 @@ public class RecommendationVinyl implements IRecommendation<ProductVinyl, Intege
 	private IProductService productService = new ProductService();
 	
 	public List<ProductVinyl> retrieveRecommendationsForClient(int client, int recommendationAmount, HashMap<String,Integer> options) throws DataException, BusinessException{
-		
+		int lowerBound = options.get("bound1");
+		int upperBound = options.get("bound2");
+		if(lowerBound > upperBound) {
+			int tmp = lowerBound;
+			lowerBound = upperBound;
+			upperBound = tmp;
+		}
 		ITransactionService transactions = new TransactionService();
 		String exceptions = "";
 		if(new ClientService().retrieveClientById(client).getId() == 0) {
@@ -76,36 +81,18 @@ public class RecommendationVinyl implements IRecommendation<ProductVinyl, Intege
 		//Creates a priority queue that has the head as the one with the biggest priority
 		PriorityQueue<WeightProduct> weightProducts = new PriorityQueue<WeightProduct>(Collections.reverseOrder()); 
 		//Populate the weightProducts
-		if(true) {
-			for(Product product:products) {
-				System.out.println(product.getName()+ " " +!(previouslyBoughtProducts.contains(product)));
-				if(!(previouslyBoughtProducts.contains(product))) { //If the client already bought a product it won't recommend that product
-					int weight = 0;
-					for(Tag productTag:product.getTags()) {
-						for(WeightTag wTag:weightTags) {
-							if(wTag.getTag().getId() == productTag.getId()) {
-								weight+=wTag.getWeight();
-							}
+		for(Product product:products) {
+			ProductVinyl productVinyl = (ProductVinyl)product;
+			if((!(previouslyBoughtProducts.contains(product))) && (productVinyl.getYear() >= lowerBound && productVinyl.getYear() <= upperBound)) { //If the client already bought a product it won't recommend that product
+				int weight = 0;
+				for(Tag productTag:product.getTags()) {
+					for(WeightTag wTag:weightTags) {
+						if(wTag.getTag().getId() == productTag.getId()) {
+							weight+=wTag.getWeight();
 						}
 					}
-					weightProducts.add(new WeightProduct(weight, (ProductVinyl)product));
 				}
-			}
-		}
-		else {
-			for(Product product:products) {
-				ProductVinyl productVinyl = (ProductVinyl)product;
-				if((!(previouslyBoughtProducts.contains(product)))){// && platform.toLowerCase().equals(productVinyl.getPlatform().toLowerCase())) { //If the client already bought a product it won't recommend that product
-					int weight = 0;
-					for(Tag productTag:product.getTags()) {
-						for(WeightTag wTag:weightTags) {
-							if(wTag.getTag().getId() == productTag.getId()) {
-								weight+=wTag.getWeight();
-							}
-						}
-					}
-					weightProducts.add(new WeightProduct(weight, (ProductVinyl)product));
-				}
+				weightProducts.add(new WeightProduct(weight, (ProductVinyl)product));
 			}
 		}
 		System.out.println(weightProducts);
