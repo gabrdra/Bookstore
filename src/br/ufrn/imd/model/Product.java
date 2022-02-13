@@ -74,4 +74,11 @@ public abstract class Product {
 		this.barcode = barcode;
 	}
 	
+	public boolean equals(Object obj) {
+		if(obj instanceof Product) {
+			return this.getId() == ((Product)obj).getId();
+		}
+		return super.equals(obj);
+	}
+	
 }

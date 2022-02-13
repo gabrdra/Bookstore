@@ -18,13 +18,7 @@ public class ProductBook extends Product{
 		this.author = author;
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof ProductBook) {
-			return this.getId() == ((ProductBook)obj).getId();
-		}
-		return super.equals(obj);
-	}
+	
 	@Override
 	public String toString() {
 		return getName();//"id: "+id+" name: "+name + " barcode: "+barcode;//+" description: "+description+" tags: "+tags+" price: "+price+" author: "+author;

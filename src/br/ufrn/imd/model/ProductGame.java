@@ -42,14 +42,6 @@ public class ProductGame extends Product{
 	public String toString() {
 		return getName();//"id: "+id+" name: "+name + " barcode: "+barcode;//+" description: "+description+" tags: "+tags+" price: "+price+" author: "+author;
 	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof ProductGame) {
-			return this.getId() == ((ProductGame)obj).getId();
-		}
-		return super.equals(obj);
-	}
 
 
 	@Override

@@ -38,13 +38,6 @@ public class ProductVinyl extends Product{
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof ProductVinyl) {
-			return this.getId() == ((ProductVinyl)obj).getId();
-		}
-		return super.equals(obj);
-	}
-	@Override
 	public String toString() {
 		return getName();//"id: "+id+" name: "+name + " barcode: "+barcode;//+" description: "+description+" tags: "+tags+" price: "+price+" author: "+author;
 	}

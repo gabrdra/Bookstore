@@ -120,7 +120,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 				transaction.setId(resultSet.getInt("id"));
 				transaction.setClient(resultSet.getInt("client"));
 				transaction.setValue(resultSet.getDouble("value"));
-				Integer[] tempArray = (Integer[])resultSet.getArray("books").getArray();
+				Integer[] tempArray = (Integer[])resultSet.getArray("products").getArray();
 				ArrayList<Integer> localProductsId = new ArrayList<Integer>();
 				for (Integer i: tempArray) {
 					localProductsId.add(i);
@@ -156,7 +156,7 @@ public class TransactionDAOJDBC implements TransactionDAO{
 				transaction.setId(resultSet.getInt("id"));
 				transaction.setClient(resultSet.getInt("client"));
 				transaction.setValue(resultSet.getDouble("value"));
-				Integer[] tempArray = (Integer[])resultSet.getArray("books").getArray();
+				Integer[] tempArray = (Integer[])resultSet.getArray("products").getArray();
 				/*ArrayList<ProductBook> books = new ArrayList<ProductBook>();
 				for(Integer i:tempArray) {
 					ProductBook book = bookDAOJDBC.retrieveBookById(i);

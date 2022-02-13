@@ -6,12 +6,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/eduardo/Downloads/postgresql-42.3.1.jar">
+	<classpathentry exported="true" kind="lib" path="E:/UFRN/P6/PDS/Bookstore/database/postgresql-42.3.1.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX SDK17 Linux">
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFXSDK17">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

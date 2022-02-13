@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -78,7 +79,9 @@ public class TelaRecomendacaoJogoController extends TelaRecomendacaoProdutoContr
 		RecommendationGame recommendation;
 		try {
 			recommendation = new RecommendationGame();
-			listGames = recommendation.retrieveRecommendationsForClient(Integer.parseInt(fxId.getText()), Integer.parseInt(fxNumber.getText()), null);
+			HashMap<String, String> options = new HashMap<String, String>();
+			options.put("platform", fxPlatform.getText());
+			listGames = recommendation.retrieveRecommendationsForClient(Integer.parseInt(fxId.getText()), Integer.parseInt(fxNumber.getText()), options);
 		} catch (NumberFormatException | DataException | BusinessException e) {
 			Alert alert = new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK);
         	alert.showAndWait();

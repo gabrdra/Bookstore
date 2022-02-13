@@ -122,7 +122,7 @@ public class ProductGameDAOJDBC extends ProductDAOJDBC{
 			//e.printStackTrace();
 			throw new DataException("Erro ao tentar listar os jogos armazenados no banco de dados \n");
 		}
-		
+		//System.out.println("games: "+listGames);
 		return (List<Product>)listGames;
 	}
 
