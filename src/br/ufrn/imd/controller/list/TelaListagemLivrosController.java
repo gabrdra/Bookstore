@@ -1,9 +1,8 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.list;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import br.ufrn.imd.business.ProductService;
 import br.ufrn.imd.exceptions.DataException;
@@ -22,7 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class TelaListagemLivrosController implements Initializable{
+public class TelaListagemLivrosController extends TelaListagemProdutosController implements Initializable{
 
 	private Stage myStage;
 	

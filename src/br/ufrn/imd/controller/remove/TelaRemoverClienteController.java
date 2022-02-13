@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.remove;
 
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.exceptions.BusinessException;

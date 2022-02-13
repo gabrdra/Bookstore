@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.add;
 
 import br.ufrn.imd.business.TagService;
 import br.ufrn.imd.exceptions.BusinessException;

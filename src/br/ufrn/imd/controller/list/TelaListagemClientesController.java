@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.list;
 
 import java.net.URL;
 import java.util.ArrayList;

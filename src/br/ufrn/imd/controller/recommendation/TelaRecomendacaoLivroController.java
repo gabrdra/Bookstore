@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.recommendation;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,7 +24,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
-public class TelaRecomendacaoController implements Initializable {
+public class TelaRecomendacaoLivroController extends TelaRecomendacaoProdutoController implements Initializable {
 	@FXML
 	private TextField fxNumber;
 	@FXML

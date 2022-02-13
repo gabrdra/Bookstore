@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.add;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class TelaCadastroLivroController implements Initializable{
+public class TelaCadastroLivroController extends TelaCadastroProdutoController implements Initializable{
 	
 	private ProductBook book;
 

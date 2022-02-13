@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="556.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controller.TelaListagemTagsController">
+<AnchorPane prefHeight="556.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controller.list.TelaListagemTagsController">
    <children>
       <Button fx:id="btList" layoutX="149.0" layoutY="486.0" mnemonicParsing="false" onAction="#listTags" prefHeight="38.0" prefWidth="100.0" text="Listar" />
       <Button fx:id="btCancel" layoutX="559.0" layoutY="486.0" mnemonicParsing="false" onAction="#cancel" prefHeight="38.0" prefWidth="100.0" text="Cancelar" />

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="501.0" prefWidth="572.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controller.TelaCadastroLivroController">
+<AnchorPane prefHeight="501.0" prefWidth="572.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controller.add.TelaCadastroLivroController">
    <children>
       <GridPane layoutX="24.0" layoutY="13.0" prefHeight="387.0" prefWidth="507.0">
         <columnConstraints>

@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.update;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -55,7 +55,7 @@ public class TelaAtualizacaoTransacaoController {
 	private void populateInterface(Transaction transaction) {
 		try {
 			if(transaction.getId() == 0) {
-				throw new GUIException("Transação inexistente \n");
+				throw new GUIException("Transaï¿½ï¿½o inexistente \n");
 			}
 			tfId.setText(String.valueOf(transaction.getId()));
 			tfIdClient.setText(String.valueOf(transaction.getClient()));

@@ -24,21 +24,21 @@
         <menus>
           <Menu mnemonicParsing="false" text="Cadastros">
             <items>
-                  <MenuItem fx:id="mnAddBook" mnemonicParsing="false" onAction="#openAddBookScreen" text="Livro" />
+                  <MenuItem fx:id="mnAddProduct" mnemonicParsing="false" onAction="#openAddProductScreen" text="Produto" />
                   <MenuItem fx:id="mnAddClient" mnemonicParsing="false" onAction="#openAddClientScreen" text="Cliente" />
                   <MenuItem fx:id="mnAddTag" mnemonicParsing="false" onAction="#openAddTagScreen" text="Categoria" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Remoções">
                <items>
-                  <MenuItem fx:id="mnRemBook" mnemonicParsing="false" onAction="#openRemBookScreen" text="Livro" />
+                  <MenuItem fx:id="mnRemProduct" mnemonicParsing="false" onAction="#openRemProductScreen" text="Produto" />
                   <MenuItem fx:id="mnRemClient" mnemonicParsing="false" onAction="#openRemClientScreen" text="Cliente" />
                   <MenuItem fx:id="mnRemTag" mnemonicParsing="false" onAction="#openRemTagScreen" text="Categoria" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Atualizações">
                <items>
-                  <MenuItem fx:id="mnUpdateBook" mnemonicParsing="false" onAction="#openUpdateBookScreen" text="Livro" />
+                  <MenuItem fx:id="mnUpdateProduct" mnemonicParsing="false" onAction="#openUpdateProductScreen" text="Produto" />
                   <MenuItem fx:id="mnUpdateClient" mnemonicParsing="false" onAction="#openUpdateClientScreen" text="Cliente" />
                   <MenuItem fx:id="mnUpdateTag" mnemonicParsing="false" onAction="#openUpdateTagScreen" text="Categoria" />
                   <MenuItem fx:id="mnUpdateSales" mnemonicParsing="false" onAction="#openUpdateSalesScreen" text="Venda" />
@@ -46,7 +46,7 @@
             </Menu>
           <Menu mnemonicParsing="false" text="Consultas">
             <items>
-              <MenuItem fx:id="mnListBooks" mnemonicParsing="false" onAction="#openListBooks" text="Listar Livros" />
+              <MenuItem fx:id="mnListProducts" mnemonicParsing="false" onAction="#openListProducts" text="Listar Produtos" />
                   <MenuItem fx:id="mnListClients" mnemonicParsing="false" onAction="#openListClients" text="Listar Clientes" />
                   <MenuItem fx:id="mnListTags" mnemonicParsing="false" onAction="#openListTags" text="Listar Categorias" />
                   <MenuItem fx:id="mnListSales" mnemonicParsing="false" onAction="#openListSales" text="Listar Vendas" />
@@ -114,16 +114,16 @@
                                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <Button fx:id="btAddBookToCart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addBookToCart" prefHeight="42.0" prefWidth="176.0" text="Adicionar Produto" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                              <Button fx:id="btAddProductToCart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addProductToCart" prefHeight="42.0" prefWidth="176.0" text="Adicionar Produto" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Button fx:id="btSearchBook" mnemonicParsing="false" onAction="#searchBook" text="Buscar" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                              <Button fx:id="btSearchProduct" mnemonicParsing="false" onAction="#searchProduct" text="Buscar" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
                               <Label fx:id="lbNome" prefHeight="0.0" prefWidth="47.0" text="Nome.:" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                              <TextField fx:id="tfBookName" editable="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="28.0" prefWidth="333.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                              <Label fx:id="lbAutor" alignment="CENTER" prefHeight="16.0" prefWidth="259.0" text="Autor.:" GridPane.rowIndex="3" />
-                              <TextField fx:id="tfBookAuthor" editable="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="28.0" prefWidth="333.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="tfProductName" editable="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="28.0" prefWidth="333.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <Label fx:id="lbDescricao" alignment="CENTER" prefHeight="16.0" prefWidth="259.0" text="Descrição.:" GridPane.rowIndex="3" />
+                              <TextField fx:id="tfProductDescricao" editable="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="337.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
                      </content>

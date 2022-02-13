@@ -1,4 +1,4 @@
-package br.ufrn.imd.controller;
+package br.ufrn.imd.controller.update;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

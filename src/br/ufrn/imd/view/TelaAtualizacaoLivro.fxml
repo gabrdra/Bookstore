@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="500.0" prefWidth="523.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="br.ufrn.imd.controller.TelaAtualizacaoLivroController">
+<AnchorPane prefHeight="500.0" prefWidth="523.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="br.ufrn.imd.controller.update.TelaAtualizacaoLivroController">
    <children>
       <GridPane layoutX="35.0" layoutY="34.0" prefHeight="385.0" prefWidth="453.0">
          <columnConstraints>

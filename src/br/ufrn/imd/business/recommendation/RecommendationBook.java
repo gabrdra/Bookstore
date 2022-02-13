@@ -29,10 +29,10 @@ public class RecommendationBook implements IRecommendation<ProductBook, Integer>
 		ITransactionService transactions = new TransactionService();
 		String exceptions = "";
 		if(new ClientService().retrieveClientById(client).getId() == 0) {
-			exceptions += "Cliente não existente \n";
+			exceptions += "Cliente nï¿½o existente \n";
 		}
 		if(recommendationAmount < 1) {
-			exceptions += "Deve ser pedida ao menos uma recomendação \n";
+			exceptions += "Deve ser pedida ao menos uma recomendaï¿½ï¿½o \n";
 		}
 		if(!exceptions.equals("")) {
 			throw new BusinessException(exceptions);
