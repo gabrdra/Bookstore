@@ -2,7 +2,6 @@ package br.ufrn.imd.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
 
 import br.ufrn.imd.business.ClientService;
 import br.ufrn.imd.business.IClientService;
@@ -210,12 +209,18 @@ public class TelaPrincipalController implements Initializable{
     	
     	transaction.setValue(valorTotal);
     	
-    	Alert confirmationAlert = new Alert(AlertType.CONFIRMATION, "Valor: "+ transaction.getValue()+"\n Chave pix: 1234567891012", ButtonType.YES, ButtonType.CANCEL);
-    	Optional<ButtonType> result = confirmationAlert.showAndWait();
-    	if(result.isPresent() && result.get() == ButtonType.CANCEL) {
-    		CancelarVenda(null);
+//    	Alert confirmationAlert = new Alert(AlertType.CONFIRMATION, "Valor: "+ transaction.getValue()+"\n Chave pix: 1234567891012", ButtonType.YES, ButtonType.CANCEL);
+//    	Optional<ButtonType> result = confirmationAlert.showAndWait();
+//    	if(result.isPresent() && result.get() == ButtonType.CANCEL) {
+//    		CancelarVenda(null);
+//    		return;
+//    	}
+    
+    	if(!openPayment(valorTotal)) {
     		return;
     	}
+    	
+    	
     	try {
     		new TransactionService().addTransaction(transaction);
     		
@@ -229,13 +234,16 @@ public class TelaPrincipalController implements Initializable{
         	alert.showAndWait();
         	return;
 		}
-    	Alert alert = new Alert(AlertType.CONFIRMATION, "Venda realizada com sucesso!", ButtonType.OK);
-    	alert.showAndWait();
+
     	resetObservableList();
     	tableReset();
     	remCleintToCart(event);
     	valorTotal = 0;
     	lbTotalValue.setText("R$0,00");
+    	
+
+    	
+
     }
     
     @FXML
@@ -676,6 +684,30 @@ public class TelaPrincipalController implements Initializable{
 				e.printStackTrace();
 			}
 	  }
+    
+    boolean openPayment(double value) {
+     	 try {
+			FXMLLoader fxmlLoader = Distributor.getInstance().paymentFXMLLoader();
+					
+			AnchorPane page = (AnchorPane) fxmlLoader.load();
+		    
+		    Stage stage = new Stage();
+		    stage.setTitle("Pagamento");
+		    Scene scene = new Scene(page);
+		    stage.setResizable(false);
+		    stage.setScene(scene);
+		    
+		    TelaPagamentoController controller = fxmlLoader.getController();
+	    	controller.setMyStage(stage);
+	    	controller.setValue(value);
+	    	stage.showAndWait();
+	    	return controller.isConclusion();
+	        
+		 }catch (IOException e) {
+				e.printStackTrace();
+		 }
+     	 return false;
+    }
 
     
 }

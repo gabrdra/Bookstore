@@ -69,6 +69,11 @@ public class Distributor implements AbstractFactory{
 		return factory.recomProductFXMLLoader();
 	}
 
+	@Override
+	public FXMLLoader paymentFXMLLoader() {
+		return factory.paymentFXMLLoader();
+	}
+
 	
 	
 }

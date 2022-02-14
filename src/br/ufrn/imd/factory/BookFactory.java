@@ -1,5 +1,6 @@
 package br.ufrn.imd.factory;
 
+import br.ufrn.imd.controller.TelaPagamentoPixController;
 import br.ufrn.imd.controller.add.TelaCadastroLivroController;
 import br.ufrn.imd.controller.list.TelaListagemLivrosController;
 import br.ufrn.imd.controller.recommendation.TelaRecomendacaoLivroController;
@@ -53,8 +54,15 @@ public class BookFactory implements AbstractFactory {
 	@Override
 	public FXMLLoader recomProductFXMLLoader() {
 		FXMLLoader fxmlLoader = new FXMLLoader();
-	    fxmlLoader.setLocation(TelaRecomendacaoLivroController.class.getResource("/br/ufrn/imd/view/TelaRecomendacao.fxml"));
+	    fxmlLoader.setLocation(TelaRecomendacaoLivroController.class.getResource("/br/ufrn/imd/view/TelaRecomendacaoLivro.fxml"));
 	    return fxmlLoader;
+	}
+
+	@Override
+	public FXMLLoader paymentFXMLLoader() {
+		FXMLLoader fxmlLoader = new FXMLLoader();
+	    fxmlLoader.setLocation(TelaPagamentoPixController.class.getResource("/br/ufrn/imd/view/TelaPagamentoPix.fxml"));
+		return fxmlLoader;
 	}
 
 }

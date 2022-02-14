@@ -14,6 +14,7 @@ public interface AbstractFactory {
 	FXMLLoader listProductFXMLLoader();
 	FXMLLoader updateProductFXMLLoader();
 	FXMLLoader recomProductFXMLLoader();
+	FXMLLoader paymentFXMLLoader();
 	
 	//Recommendation won't need one because it's already based on the Window being called.
 }

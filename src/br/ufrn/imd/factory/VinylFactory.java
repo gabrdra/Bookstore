@@ -1,5 +1,7 @@
 package br.ufrn.imd.factory;
 
+import br.ufrn.imd.controller.TelaPagamentoCartaoController;
+import br.ufrn.imd.controller.TelaPagamentoDinheiroController;
 import br.ufrn.imd.controller.add.TelaCadastroVinilController;
 import br.ufrn.imd.controller.list.TelaListagemVinisController;
 import br.ufrn.imd.controller.recommendation.TelaRecomendacaoVinilController;
@@ -55,6 +57,13 @@ public class VinylFactory implements AbstractFactory{
 		FXMLLoader fxmlLoader = new FXMLLoader();
 	    fxmlLoader.setLocation(TelaRecomendacaoVinilController.class.getResource("/br/ufrn/imd/view/TelaRecomendacaoVinil.fxml"));
 	    return fxmlLoader;
+	}
+	
+	@Override
+	public FXMLLoader paymentFXMLLoader() {
+		FXMLLoader fxmlLoader = new FXMLLoader();
+	    fxmlLoader.setLocation(TelaPagamentoDinheiroController.class.getResource("/br/ufrn/imd/view/TelaPagamentoDinheiro.fxml"));
+		return fxmlLoader;
 	}
 
 }

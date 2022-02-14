@@ -15,7 +15,7 @@ public class Main extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("../view/TelaPrincipal.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("BookStore");
+			primaryStage.setTitle("Store");
 			primaryStage.setResizable(true);
 			primaryStage.setMinHeight(600);
 			primaryStage.setMinWidth(1000);

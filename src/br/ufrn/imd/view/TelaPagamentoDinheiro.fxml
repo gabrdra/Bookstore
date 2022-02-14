@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="241.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controller.TelaPagamentoDinheiroController">
+   <children>
+      <Button fx:id="btFinish" layoutX="21.0" layoutY="177.0" mnemonicParsing="false" onAction="#finish" prefHeight="38.0" prefWidth="100.0" text="Concluir" />
+      <Button fx:id="btCancel" layoutX="232.0" layoutY="177.0" mnemonicParsing="false" onAction="#cancel" prefHeight="38.0" prefWidth="100.0" text="Cancelar" />
+      <Text fx:id="tValue" layoutX="38.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor: ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="tValue2" layoutX="93.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R$0,00">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="tValueReceived" layoutX="38.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor recebido: ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="tchange" layoutX="38.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Troco: ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="tchange2" layoutX="93.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R$0,00">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="etValue" layoutX="183.0" layoutY="98.0" prefHeight="24.0" prefWidth="111.0" promptText="digite o valor..." />
+      <Button fx:id="btChange" layoutX="301.0" layoutY="98.0" mnemonicParsing="false" onAction="#changeChange" text="Trocar" />
+   </children>
+</AnchorPane>

@@ -1,5 +1,7 @@
 package br.ufrn.imd.factory;
 
+import br.ufrn.imd.controller.TelaPagamentoCartaoController;
+import br.ufrn.imd.controller.TelaPagamentoPixController;
 import br.ufrn.imd.controller.add.TelaCadastroJogoController;
 import br.ufrn.imd.controller.list.TelaListagemJogosController;
 import br.ufrn.imd.controller.recommendation.TelaRecomendacaoJogoController;
@@ -55,6 +57,13 @@ public class GameFactory implements AbstractFactory{
 		FXMLLoader fxmlLoader = new FXMLLoader();
 	    fxmlLoader.setLocation(TelaRecomendacaoJogoController.class.getResource("/br/ufrn/imd/view/TelaRecomendacaoJogo.fxml"));
 	    return fxmlLoader;
+	}
+	
+	@Override
+	public FXMLLoader paymentFXMLLoader() {
+		FXMLLoader fxmlLoader = new FXMLLoader();
+	    fxmlLoader.setLocation(TelaPagamentoCartaoController.class.getResource("/br/ufrn/imd/view/TelaPagamentoCartao.fxml"));
+		return fxmlLoader;
 	}
 
 }
